@@ -1,5 +1,6 @@
 package com.stack.stackoverflow.answer.controller;
 
+import com.stack.stackoverflow.answer.dto.AnswerDto;
 import com.stack.stackoverflow.answer.dto.AnswerPatchDto;
 import com.stack.stackoverflow.answer.dto.AnswerPostDto;
 import com.stack.stackoverflow.answer.dto.AnswerResponseDto;
@@ -32,27 +33,27 @@ public class AnswerController {
     }
 
     @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) {
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
         Answer answer =
-                answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
+                answerService.createAnswer(mapper.answerPostDtoToAnswer(requestBody));
         return new ResponseEntity<>(
                 (mapper.answerToAnswerResponseDto(answer)),
                 HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity patchAnswer(@PathVariable("id") long answerId, @Valid @RequestBody AnswerPatchDto answerPatchDto) {
-        answerPatchDto.setAnswerId(answerId);
+    public ResponseEntity patchAnswer(@PathVariable("id") long answerId, @Valid @RequestBody AnswerDto.Patch requestBody) {
+        requestBody.setAnswerId(answerId);
 
         Answer answer =
-                answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
-        System.out.println("answer 생성시간 : " + answer.getCreatedAt());
+                answerService.updateAnswer(mapper.answerPatchDtoToAnswer(requestBody));
+//        System.out.println("answer 생성시간 : " + answer.getCreatedAt());
 
-        AnswerResponseDto answerResponseDto = mapper.answerToAnswerResponseDto(answer);
-        System.out.println("answer response 생성시간 : " + answerResponseDto.getCreatedAt());
+        AnswerDto.response response = mapper.answerToAnswerResponseDto(answer);
+//        System.out.println("answer response 생성시간 : " + response.getCreatedAt());
 
         return new ResponseEntity<>(
-                answerResponseDto,
+                response,
                 HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
