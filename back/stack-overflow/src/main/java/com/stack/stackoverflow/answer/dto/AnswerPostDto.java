@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class AnswerPostDto {
 
-    private String questionId;
+    private Long questionId;
     @NotBlank
     private String content;
 }
