@@ -1,11 +1,10 @@
 package com.stack.stackoverflow.answer.entity;
 
 import com.stack.stackoverflow.audit.Auditable;
-import lombok.Builder;
+import com.stack.stackoverflow.comment.entity.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
