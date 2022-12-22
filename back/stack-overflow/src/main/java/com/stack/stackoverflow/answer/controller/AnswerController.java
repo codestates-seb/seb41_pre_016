@@ -42,7 +42,7 @@ public class AnswerController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity patchAnswer(@PathVariable("id") long answerId, @Valid @RequestBody AnswerDto.Patch requestBody) {
+    public ResponseEntity patchAnswer(@PathVariable("id") @Positive long answerId, @Valid @RequestBody AnswerDto.Patch requestBody) {
         requestBody.setAnswerId(answerId);
 
         Answer answer =
