@@ -132,7 +132,7 @@ public class AnswerControllerRestDocsTest {
         // when
         ResultActions actions =
                 mockMvc.perform(
-                        patch("/answer/{id}", answerId)
+                        patch("/answer/{answer-id}", answerId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -147,7 +147,7 @@ public class AnswerControllerRestDocsTest {
                         getRequestPreProcessor(),
                         getResponsePreProcessor(),
                         pathParameters(
-                                parameterWithName("id").description("답변 식별자")
+                                parameterWithName("answer-id").description("답변 식별자")
                         ),
                         requestFields(
                                 List.of(
