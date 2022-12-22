@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @Getter
 public class AnswerPatchDto {
-    private long answerId;
+    private Long questionId;
     @NotSpace
     private String content;
 
-    public void setAnswerId(long answerId) {
-        this.answerId = answerId;
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
     }
 }

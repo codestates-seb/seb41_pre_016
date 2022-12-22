@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class AnswerResponseDto {
-    private long answerId;
-    private long questionId;
+    private Long answerId;
+    private Long questionId;
     @NotNull
     private String content;
     @Column(nullable = false)
