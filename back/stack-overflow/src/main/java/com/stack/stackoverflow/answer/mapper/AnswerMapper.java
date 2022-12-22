@@ -1,5 +1,6 @@
 package com.stack.stackoverflow.answer.mapper;
 
+import com.stack.stackoverflow.answer.dto.AnswerDto;
 import com.stack.stackoverflow.answer.dto.AnswerPatchDto;
 import com.stack.stackoverflow.answer.dto.AnswerPostDto;
 import com.stack.stackoverflow.answer.dto.AnswerResponseDto;
@@ -8,8 +9,8 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
-    Answer answerPostDtoToAnswer(AnswerPostDto answerPostDto);
-    Answer answerPatchDtoToAnswer(AnswerPatchDto answerPatchDto);
-    AnswerResponseDto answerToAnswerResponseDto(Answer answer);
+    Answer answerPostDtoToAnswer(AnswerDto.Post requestBody);
+    Answer answerPatchDtoToAnswer(AnswerDto.Patch requestBody);
+    AnswerDto.response answerToAnswerResponseDto(Answer answer);
 
 }
