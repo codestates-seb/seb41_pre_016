@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
+import Questions from "./Questions/Questions";
+import { Reset } from "styled-reset";
 
 const App = () => {
-  const URL = '/test';
+  const URL = "/test";
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -25,7 +27,12 @@ const App = () => {
     fetchData();
   }, []);
 
-  return <div>Hello</div>;
+  return (
+    <div>
+      <Reset />
+      <Questions />
+    </div>
+  );
 };
 
 export default App;
