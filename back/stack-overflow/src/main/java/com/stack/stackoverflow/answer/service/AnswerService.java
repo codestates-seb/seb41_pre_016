@@ -45,7 +45,7 @@ public class AnswerService {
                 answerRepository.findById(answerId);
         Answer findAnswer =
                 optionalAnswer.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+                        new BusinessLogicException(ExceptionCode.NOT_FOUND));
         return findAnswer;
     }
 }
