@@ -24,7 +24,7 @@ const Asked = styled.span`
   font-weight: bold;
 `;
 
-const Time = styled.a`
+const Time = styled.span`
   color: var(--black-500);
 `;
 
