@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import BlueButton from "./Buttons/BlueButton";
 import List from "./List";
+import Sidebar from "./Sidebar";
 
 const Container = styled.div`
   max-width: 1100px;
@@ -43,6 +44,7 @@ const Questions = () => {
         </Headbar>
         <List />
       </MainSection>
+      <Sidebar />
     </Container>
   );
 };
