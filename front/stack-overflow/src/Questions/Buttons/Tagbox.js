@@ -16,11 +16,15 @@ const Tag = styled.button`
   &:hover {
     background-color: var(--powder-200);
   }
+  padding: 0.3em 0.5em;
+  line-height: 1;
 `;
 
 const InlineText = styled.a`
   color: #2c5877;
   font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
+    "Segoe UI", "Liberation Sans", sans-serif;
 `;
 
 const Tagbox = ({ taglist }) => {
