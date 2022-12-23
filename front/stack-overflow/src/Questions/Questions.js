@@ -25,6 +25,7 @@ const Headbar = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 15px;
   & > h1 {
     font-size: 27px;
     font-weight: 400;
