@@ -26,6 +26,11 @@ public class User extends Auditable {
     @Column(length = 50, nullable = false)
     private String password;
 
+    @Column
+    private int questionCount;
+
+    @Column
+    private int answerCount;
 
     public User(String name){
         this.name = name;

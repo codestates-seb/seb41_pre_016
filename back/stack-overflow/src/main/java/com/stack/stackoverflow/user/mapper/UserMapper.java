@@ -1,5 +1,6 @@
 package com.stack.stackoverflow.user.mapper;
 
+import com.stack.stackoverflow.user.dto.UserDto;
 import com.stack.stackoverflow.user.dto.UserPatchDto;
 import com.stack.stackoverflow.user.dto.UserPostDto;
 import com.stack.stackoverflow.user.dto.UserResponseDto;
@@ -11,11 +12,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    User userPostDtoToUser(UserPostDto userPostDto);
+    User userPostToUser(UserDto.Post requestBody);
 
-    User userPatchDtoToUser(UserPatchDto userPatchDto);
+    User userPatchToUser(UserDto.Patch requestBody);
 
-    UserResponseDto userToUserResponseDto(User user);
+    UserDto.Response userToUserResponseDto(User user);
 
-    List<UserResponseDto> usersToUserResponseDto(List<User> users);
+    List<UserDto.Response> usersToUserResponseDto(List<User> users);
 }

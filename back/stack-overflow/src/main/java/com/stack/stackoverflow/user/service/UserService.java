@@ -4,6 +4,9 @@ import com.stack.stackoverflow.exception.BusinessLogicException;
 import com.stack.stackoverflow.exception.ExceptionCode;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -41,6 +44,11 @@ public class UserService {
         return findVerifiedUser(userId);
     }
 
+    public Page<User> findUsers(int page, int size){
+        return userRepository.findAll(PageRequest.of(page, size,
+                Sort.by("userId").descending()));
+    }
+
     public void deleteUser(Long userId){
         User findUser = findVerifiedUser(userId);
 
@@ -64,6 +72,10 @@ public class UserService {
 
         if(user.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+
+    }
+
+    public void countQuestion(int countQuestion){
 
     }
 }
