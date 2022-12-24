@@ -30,8 +30,8 @@ public class UserPage extends Auditable {
     @OneToMany(mappedBy = "userPage", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userPage", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Answer> answers = new ArrayList<>();
+//    @OneToMany(mappedBy = "userPage", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    private List<Answer> answers = new ArrayList<>();
 
     public void setQuestions(Question question) {
         if(!this.questions.contains(question)) this.questions.add(question);
@@ -40,12 +40,12 @@ public class UserPage extends Auditable {
         }
     }
 
-    public void setAnswers(Answer answer) {
-        if(!this.answers.contains(answer)) this.answers.add(answer);
-        if (answer.getUserPage() != this) {
-            answer.setUserPage(this);
-        }
-    }
+//    public void setAnswers(Answer answer) {
+//        if(!this.answers.contains(answer)) this.answers.add(answer);
+//        if (answer.getUserPage() != this) {
+//            answer.setUserPage(this);
+//        }
+//    }
 
     public void setUser(User user) {
         this.user = user;
