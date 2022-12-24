@@ -27,7 +27,6 @@ public class Answer extends Auditable {
     private String content;
 
     @Column
-<<<<<<< HEAD
     private Integer votes;
 
     @Column
@@ -47,7 +46,7 @@ public class Answer extends Auditable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "answer")
     private List<Comment> comments = new ArrayList<>();
-<<<<<<< HEAD
+
 
     public String getContent() {
         return content;
