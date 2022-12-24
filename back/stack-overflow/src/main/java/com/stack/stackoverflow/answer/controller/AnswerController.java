@@ -1,13 +1,10 @@
 package com.stack.stackoverflow.answer.controller;
 
-import com.stack.stackoverflow.answer.dto.AnswerDto;
-import com.stack.stackoverflow.answer.dto.AnswerPatchDto;
-import com.stack.stackoverflow.answer.dto.AnswerPostDto;
-import com.stack.stackoverflow.answer.dto.AnswerResponseDto;
+import com.stack.stackoverflow.answer.dto.*;
 import com.stack.stackoverflow.answer.entity.Answer;
 import com.stack.stackoverflow.answer.mapper.AnswerMapper;
+import com.stack.stackoverflow.answer.repository.AnswerRepository;
 import com.stack.stackoverflow.answer.service.AnswerService;
-import com.stack.stackoverflow.response.SingleResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +20,22 @@ import javax.validation.constraints.Positive;
 @Validated
 @Slf4j
 public class AnswerController {
+    private final AnswerRepository answerRepository;
 
     private final AnswerService answerService;
     private final AnswerMapper mapper;
 
-    public AnswerController(AnswerService answerService, AnswerMapper mapper) {
+    public AnswerController(AnswerService answerService, AnswerMapper mapper,
+                            AnswerRepository answerRepository) {
         this.answerService = answerService;
         this.mapper = mapper;
+        this.answerRepository = answerRepository;
     }
 
-    @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
+    @PostMapping("/{user-id}")
+    public ResponseEntity postAnswer(@PathVariable("user-id") @Positive long userPageId, @Valid @RequestBody AnswerDto.Post requestBody) {
+        requestBody.setUserPageId(userPageId);
+
         Answer answer =
                 answerService.createAnswer(mapper.answerPostDtoToAnswer(requestBody));
         return new ResponseEntity<>(
@@ -44,7 +46,6 @@ public class AnswerController {
     @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId, @Valid @RequestBody AnswerDto.Patch requestBody) {
         requestBody.setAnswerId(answerId);
-
         Answer answer =
                 answerService.updateAnswer(mapper.answerPatchDtoToAnswer(requestBody));
 //        System.out.println("answer 생성시간 : " + answer.getCreatedAt());
@@ -62,4 +63,20 @@ public class AnswerController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/{answer-id}/upvote")
+    public ResponseEntity postUpvote(@PathVariable("answer-id") @Positive long answerId, @Valid @RequestBody AnswerDto.Votes requestBody) {
+       requestBody.setAnswerId(answerId);
+       Answer answer =
+               answerService.answerUpvote(mapper.answerVotePostDto(requestBody));
+
+       return new ResponseEntity<>((mapper.answerVoteResponseDto(answer)),HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{answer-id}/downvote")
+    public ResponseEntity patchDownvote(@PathVariable("answer-id") @Positive long answerId) {
+        answerService.answerDownvote(answerId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    };
 }

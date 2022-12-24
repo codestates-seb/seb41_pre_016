@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 public class AnswerPostDto {
 
     private Long questionId;
+    private Long userPageId;
     @NotBlank
     private String content;
 }

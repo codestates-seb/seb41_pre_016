@@ -1,12 +1,16 @@
 package com.stack.stackoverflow.answer.service;
 
+import com.stack.stackoverflow.answer.dto.AnswerDto;
 import com.stack.stackoverflow.answer.entity.Answer;
 import com.stack.stackoverflow.answer.repository.AnswerRepository;
 import com.stack.stackoverflow.exception.BusinessLogicException;
 import com.stack.stackoverflow.exception.ExceptionCode;
+import org.hibernate.boot.jaxb.SourceType;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,9 +47,43 @@ public class AnswerService {
     public Answer findVerifiedAnswer(long answerId) {
         Optional<Answer> optionalAnswer =
                 answerRepository.findById(answerId);
+
         Answer findAnswer =
                 optionalAnswer.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.NOT_FOUND));
         return findAnswer;
     }
+
+    public void findAnswerHighestVotes(Integer votes) {
+        List<Answer> answer = answerRepository.findAnswersHighestVotes(votes);
+        answer.stream()
+                .sorted(Comparator.comparing(Answer::getVotes, Comparator.reverseOrder()))
+                .map(Answer::getContent).forEach(System.out::println);
+    }
+
+    public Answer answerUpvote(Answer answer) {
+        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+        int i = Integer.valueOf(answer.getVotes().intValue());
+        i = i + 1;
+
+        return answerRepository.save(findAnswer);
+
+    }
+
+//    public Answer answerDownvote(Answer answer) {
+//        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+//        int i = Integer.valueOf(answer.getVotes().intValue());
+//        i = i - 1;
+//
+//        return answerRepository.save(findAnswer);
+//    }
+    public void answerDownvote(long answerId) {
+        Answer findAnswer = findVerifiedAnswer(answerId);
+        Answer answer = new Answer();
+        int i = Integer.valueOf(answer.getVotes().intValue());
+        i = i - 1;
+
+        answerRepository.delete(answer);
+    }
+
 }

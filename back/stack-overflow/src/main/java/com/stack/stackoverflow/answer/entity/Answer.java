@@ -1,5 +1,6 @@
 package com.stack.stackoverflow.answer.entity;
 
+import com.stack.stackoverflow.UserPage.entity.UserPage;
 import com.stack.stackoverflow.audit.Auditable;
 import com.stack.stackoverflow.comment.entity.Comment;
 import lombok.Getter;
@@ -26,7 +27,10 @@ public class Answer extends Auditable {
     private String content;
 
     @Column
-    private Integer vote;
+    private Integer votes;
+
+    @Column
+    private Long answerCount;
 
     @Column(name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
@@ -41,4 +45,12 @@ public class Answer extends Auditable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "answer")
     private List<Comment> comments = new ArrayList<>();
+
+    public String getContent() {
+        return content;
+    }
+
+    public Integer getVotes() {
+        return votes;
+    }
 }

@@ -2,8 +2,8 @@ package com.stack.stackoverflow.UserPage.service;
 
 import com.stack.stackoverflow.UserPage.entity.UserPage;
 import com.stack.stackoverflow.UserPage.repository.UserPageRepository;
-import com.stack.stackoverflow.user.entity.User;
-import com.stack.stackoverflow.user.service.UserService;
+import com.stack.stackoverflow.User.entity.User;
+import com.stack.stackoverflow.User.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
