@@ -22,9 +22,11 @@ import javax.validation.constraints.Positive;
 public class AnswerController {
     private final AnswerRepository answerRepository;
 
+
     private final AnswerService answerService;
     private final AnswerMapper mapper;
 
+<<<<<<< HEAD
     public AnswerController(AnswerService answerService, AnswerMapper mapper,
                             AnswerRepository answerRepository) {
         this.answerService = answerService;
@@ -46,6 +48,7 @@ public class AnswerController {
     @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId, @Valid @RequestBody AnswerDto.Patch requestBody) {
         requestBody.setAnswerId(answerId);
+
         Answer answer =
                 answerService.updateAnswer(mapper.answerPatchDtoToAnswer(requestBody));
 //        System.out.println("answer 생성시간 : " + answer.getCreatedAt());

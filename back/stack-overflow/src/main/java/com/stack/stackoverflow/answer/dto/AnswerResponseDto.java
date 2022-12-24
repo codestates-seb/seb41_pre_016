@@ -1,12 +1,10 @@
 package com.stack.stackoverflow.answer.dto;
 
-
 import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-
 
 @Getter
 public class AnswerResponseDto {

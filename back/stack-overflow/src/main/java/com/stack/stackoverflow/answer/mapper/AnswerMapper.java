@@ -12,4 +12,5 @@ public interface AnswerMapper {
     AnswerDto.response answerToAnswerResponseDto(Answer answer);
     AnswerDto.Votes answerVoteResponseDto(Answer answer);
 
+
 }

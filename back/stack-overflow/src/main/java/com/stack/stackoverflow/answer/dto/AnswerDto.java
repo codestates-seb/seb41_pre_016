@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ public class AnswerDto {
         private Long questionId;
 
         private Long userPageId;
+
         @NotBlank
         private String content;
     }
@@ -39,6 +41,7 @@ public class AnswerDto {
     public static class response {
         private Long answerId;
         private Long userId;
+
         @NotNull
         private String content;
         @Column(nullable = false)
