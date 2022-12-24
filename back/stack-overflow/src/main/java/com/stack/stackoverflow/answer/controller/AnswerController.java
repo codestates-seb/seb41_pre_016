@@ -20,18 +20,13 @@ import javax.validation.constraints.Positive;
 @Validated
 @Slf4j
 public class AnswerController {
-    private final AnswerRepository answerRepository;
-
 
     private final AnswerService answerService;
     private final AnswerMapper mapper;
 
-<<<<<<< HEAD
-    public AnswerController(AnswerService answerService, AnswerMapper mapper,
-                            AnswerRepository answerRepository) {
+    public AnswerController(AnswerService answerService, AnswerMapper mapper) {
         this.answerService = answerService;
         this.mapper = mapper;
-        this.answerRepository = answerRepository;
     }
 
     @PostMapping("/{user-id}")
