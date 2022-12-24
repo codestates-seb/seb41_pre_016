@@ -71,10 +71,13 @@ public class AnswerController {
        return new ResponseEntity<>((mapper.answerVoteResponseDto(answer)),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{answer-id}/downvote")
-    public ResponseEntity patchDownvote(@PathVariable("answer-id") @Positive long answerId) {
-        answerService.answerDownvote(answerId);
+    @PostMapping("/{answer-id}/downvote")
+    public ResponseEntity patchDownvote(@PathVariable("answer-id") @Positive long answerId, @Valid @RequestBody AnswerDto.Votes requestBody) {
+        requestBody.setAnswerId(answerId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        Answer answer =
+                answerService.answerDownvote(mapper.answerVotePostDto(requestBody));
+
+        return new ResponseEntity<>((mapper.answerVoteResponseDto(answer)),HttpStatus.CREATED);
     };
 }

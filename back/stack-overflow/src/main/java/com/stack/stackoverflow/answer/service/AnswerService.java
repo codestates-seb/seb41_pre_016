@@ -77,13 +77,12 @@ public class AnswerService {
 //
 //        return answerRepository.save(findAnswer);
 //    }
-    public void answerDownvote(long answerId) {
-        Answer findAnswer = findVerifiedAnswer(answerId);
-        Answer answer = new Answer();
+    public Answer answerDownvote(Answer answer) {
+        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+
         int i = Integer.valueOf(answer.getVotes().intValue());
         i = i - 1;
 
-        answerRepository.delete(answer);
+        return answerRepository.save(answer);
     }
-
 }
