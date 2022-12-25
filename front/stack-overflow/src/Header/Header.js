@@ -123,7 +123,7 @@ const Header = () => {
     <Header>
       {dropdown ? <HeaderDropDown /> : <></>}
       <ContainerDiv>
-        <LogoA>
+        <LogoA href="/">
           <Logo />
         </LogoA>
         <NavOl>

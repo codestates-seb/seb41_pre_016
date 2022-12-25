@@ -3,13 +3,28 @@ import { ReactComponent as StackoverflowSvg } from "./images/stackoverflowIcon.s
 import { ReactComponent as GoogleSvg } from "./images/googleIcon.svg";
 import { ReactComponent as AlertCircleIcon } from "./images/alertCircleIcon.svg";
 import { ReactComponent as TextBottomIcon } from "./images/textBottomIcon.svg";
+import { useState } from "react";
 
 const Login = () => {
-  const emailErr = true;
-  const passwordErr = true;
-  const userErr = false;
+  let email = "";
+  let password = "";
+  const [emailErr, setEmailErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
+  const [userErr, setUserErr] = useState(false);
+  const checkUser = () => {
+    if (!email) {
+      setEmailErr(true);
+    } else {
+      setEmailErr(false);
+    }
+    if (!password) {
+      setPasswordErr(true);
+    } else {
+      setPasswordErr(false);
+    }
+  };
   const ContainerDiv = styled.div`
-    height: 1000px;
+    padding: 24px;
     max-width: 100%;
     justify-content: center;
     width: 100%;
@@ -37,7 +52,6 @@ const Login = () => {
   const ContentDiv = styled.div`
     max-width: 1264px;
     background-color: transparent;
-    padding: 24px;
     display: flex;
     justify-content: center;
   `;
@@ -146,6 +160,24 @@ const Login = () => {
         : "outline: 1px solid var(--blue-400); box-shadow: 0 0 5px var(--blue-400)"}
     }
   `;
+  const PasswordInput = styled.input`
+    margin: 0;
+    padding: 0.6em 0.7em;
+    border: 1px solid var(--bc-darker);
+    border-radius: 3px;
+    ${passwordErr
+      ? "border: 1px solid var(--red-400);"
+      : "border: 1px solid var(--bc-darker);"}
+    background-color: var(--white);
+    color: var(--fc-dark);
+    font-size: var(--fs-body1);
+    font-family: inherit;
+    :focus {
+      ${passwordErr
+        ? "outline: 1px solid var(--red-400); box-shadow: 0 0 5px var(--red-400);"
+        : "outline: 1px solid var(--blue-400); box-shadow: 0 0 5px var(--blue-400)"}
+    }
+  `;
   const PasswordRelativeDiv = styled.div`
     margin: 2px 0;
     position: relative;
@@ -189,6 +221,9 @@ const Login = () => {
     text-align: center;
     text-decoration: none;
     user-select: none;
+    :hover {
+      background-color: rgb(0, 116, 204);
+    }
   `;
   const ScriptDiv = styled.div`
     font-size: 13px !important;
@@ -215,7 +250,7 @@ const Login = () => {
           {/*stackoverflow 아이콘 부분*/}
           <StackoverflowIconDiv>
             <a href="/">
-              <StackoverflowSvg></StackoverflowSvg>
+              <StackoverflowSvg />
             </a>
           </StackoverflowIconDiv>
           {/*stackoverflow oAuth로그인*/}
@@ -229,8 +264,8 @@ const Login = () => {
           </OauthLoginButtonDiv>
           {/*로그인 박스*/}
           <FormContainerDiv>
-            {/*Email*/}
-            <form id="login-form">
+            <div id="login-form">
+              {/*Email*/}
               <MarginDiv>
                 <LoginLabel>Email</LoginLabel>
                 <LoginRelativeDiv>
@@ -241,6 +276,9 @@ const Login = () => {
                     size="30"
                     maxLength="100"
                     name="email"
+                    onChange={(e) => {
+                      email = e.target.value;
+                    }}
                   />
                   <AlertCircleEmailDiv>
                     <AlertCircleIcon />
@@ -259,13 +297,16 @@ const Login = () => {
                     <a>Forgot password?</a>
                   </PasswordRelativeDiv>
                   <LoginRelativeDiv>
-                    <EmailInput
+                    <PasswordInput
                       className="s-input"
                       id="password"
                       type="password"
                       name="password"
                       autoComplete="off"
                       size="30"
+                      onChange={(e) => {
+                        password = e.target.value;
+                      }}
                     />
                     <AlertCirclePasswordDiv>
                       <AlertCircleIcon />
@@ -278,10 +319,11 @@ const Login = () => {
               </div>
               {/* login Button */}
               <LoginButtonDiv>
-                <LoginButton>Log in</LoginButton>
+                <LoginButton onClick={checkUser}>Log in</LoginButton>
               </LoginButtonDiv>
-            </form>
+            </div>
           </FormContainerDiv>
+          {/* Script Area*/}
           <ScriptDiv>
             <ContentsDiv>
               <p>Don’t have an account? </p>

@@ -1,10 +1,13 @@
 import React from "react";
 import "./App.css";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LeftSideBar from "./LeftSideBar/LeftSideBar";
 import Header from "./Header/Header";
 import styled from "styled-components";
 import HeaderDropDown from "./Header/HeaderDropDown";
 import Login from "./Login/Login";
+import MainPage from "./Page/MainPage";
 const RootDiv = styled.div`
   z-index: -100;
   display: flex;
@@ -23,10 +26,17 @@ const MainDiv = styled.div`
 `;
 const App = () => {
   return (
-    <RootDiv>
-      <Header />
-      <Login />
-    </RootDiv>
+    <BrowserRouter>
+      <RootDiv>
+        <Header />
+      </RootDiv>
+      <MainDiv>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </MainDiv>
+    </BrowserRouter>
   );
 };
 
