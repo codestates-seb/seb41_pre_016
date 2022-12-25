@@ -35,7 +35,7 @@ public class UserService {
         Optional.ofNullable(user.getPassword())
                 .ifPresent(password -> findUser.setPassword(password));
 
-        findUser.setModifiedAt(LocalDateTime.now());
+//        findUser.setModifiedAt(LocalDateTime.now());
 
         return userRepository.save(findUser);
     }
@@ -68,5 +68,21 @@ public class UserService {
         if(user.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
 
+    }
+
+    // 로그인
+    public User login(User user) {
+        // 이메일 검증
+        Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
+        User findUser =
+                optionalUser.orElseThrow(() -> {
+                    return new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
+                });
+
+        // 비밀번호 검증
+        if(!user.getPassword().equals(findUser.getPassword()))
+            throw new BusinessLogicException(ExceptionCode.LOGIN_FAIL);
+
+        return findUser;
     }
 }
