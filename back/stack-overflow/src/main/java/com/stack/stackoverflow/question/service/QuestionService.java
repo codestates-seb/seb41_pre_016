@@ -83,9 +83,6 @@ public class QuestionService {
             if (afterTags.contains(tag)) { // 공통된 태그
                 afterTags.remove(tag);
 
-                System.out.println("current tag : " + tag);
-                System.out.println("remove afterTags : " + afterTags);
-
             } else { // 사라진 태그
                 for (QuestionTag questionTag : findQuestion.getQuestionTags()) {
                     if (questionTag.getTag() == tagService.verifyExistsTag(tag).get()) {
@@ -110,9 +107,6 @@ public class QuestionService {
     // Question 삭제
     public void deleteQuestion(long questionId) {
         Question question = findQuestion(questionId);
-        System.out.println("questionId" + question.getQuestionId());
-        System.out.println("Title" + question.getTitle());
-        System.out.println("Content" + question.getContent());
 
         downQuestionCount(question);
         questionRepository.delete(question);
