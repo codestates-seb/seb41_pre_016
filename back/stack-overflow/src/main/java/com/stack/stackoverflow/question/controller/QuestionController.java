@@ -39,7 +39,7 @@ public class QuestionController {
                 questionMapper.qusetionPostDtoToQuestion(postDto),
                 postDto.getTags(),
                 userId);
-        System.out.println("question : " + question.getCreatedAt());
+
         return new ResponseEntity<>(
                 questionMapper.questionToQuestionNoAnswerDto(question),
                 HttpStatus.CREATED);
@@ -48,8 +48,6 @@ public class QuestionController {
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId) {
         Question question = questionService.findQuestionView(questionId);
-
-
 
         return new ResponseEntity<>(
                 questionMapper.questionToQuestionYesAnswerDto(question),
