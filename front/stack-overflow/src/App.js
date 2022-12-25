@@ -1,31 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
+import TagsPage from './pages/TagsPage/index';
+import Users from './pages/Users/index';
 
 const App = () => {
-  const URL = '/test';
+  // const URL = '/test';
 
-  const [data, setData] = useState();
-  const [loading, setLoading] = useState(false);
+  // const [data, setData] = useState();
+  // const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
 
-      try {
-        const response = await axios.get(URL);
-        console.log(response);
-        setData(response);
-      } catch (e) {
-        console.log(e);
-      }
-      setLoading(false);
-    };
+  //     try {
+  //       const response = await axios.get(URL);
+  //       console.log(response);
+  //       setData(response);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //     setLoading(false);
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  return <div>Hello</div>;
+  return (
+    <div>
+      <Users />
+    </div>
+  );
 };
 
 export default App;
