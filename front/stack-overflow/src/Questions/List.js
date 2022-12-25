@@ -3,6 +3,7 @@ import useStore from "./Store/SummaryStates";
 import TabButton from "./Buttons/TabButton";
 import { useEffect } from "react";
 import styled from "styled-components";
+import Pagination from "./Contents/Pagination";
 
 const Container = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ const List = () => {
             );
           })
         : null}
+      <Pagination />
     </>
   );
 };
