@@ -58,13 +58,7 @@ const useStore = create((set, get) => ({
       votes: 10,
       views: 3,
       answerCount: 4,
-      tags: [
-        "iosasdadasdsadsaiosasdadasdsadsaiosasdadasdsadsa",
-        "iosasdadasdsadsa",
-        "ASDFASFASCDSADCASDCSADCSAD",
-        "asDCASCASCDASDCSADCVFASDF",
-        "cADSCSADCDSACDSACDSACDSA",
-      ],
+      tags: ["asdasdsacas", "asdasdasczxc"],
       createdAt: "2022-12-19 10:33:41",
       modifiedAt: "2022-12-21 10:33:41",
     },
@@ -81,6 +75,12 @@ const useStore = create((set, get) => ({
       modifiedAt: "2022-12-21 10:33:41",
     },
   ],
+  pageInfo: {
+    page: 1,
+    size: 10,
+    totalElements: 2,
+    totalPages: 1,
+  },
 }));
 
 export default useStore;
