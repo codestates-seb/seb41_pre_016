@@ -1,5 +1,6 @@
 package com.stack.stackoverflow.user.mapper;
 
+import com.stack.stackoverflow.user.dto.LoginDto;
 import com.stack.stackoverflow.user.dto.UserPatchDto;
 import com.stack.stackoverflow.user.dto.UserPostDto;
 import com.stack.stackoverflow.user.dto.UserResponseDto;
@@ -14,6 +15,8 @@ public interface UserMapper {
     User userPostDtoToUser(UserPostDto userPostDto);
 
     User userPatchDtoToUser(UserPatchDto userPatchDto);
+
+    User loginDtoToUser(LoginDto loginDto);
 
     UserResponseDto userToUserResponseDto(User user);
 
