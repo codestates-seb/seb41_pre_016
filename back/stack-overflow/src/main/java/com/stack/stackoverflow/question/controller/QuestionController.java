@@ -3,9 +3,7 @@ package com.stack.stackoverflow.question.controller;
 import com.stack.stackoverflow.question.dto.QuestionRequestDto;
 import com.stack.stackoverflow.question.dto.page.QuestionPageResponseDto;
 import com.stack.stackoverflow.question.entity.Question;
-import com.stack.stackoverflow.question.entity.QuestionTag;
 import com.stack.stackoverflow.question.mapper.QuestionMapper;
-import com.stack.stackoverflow.question.repository.QuestionTagRepository;
 import com.stack.stackoverflow.question.service.QuestionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -98,7 +96,7 @@ public class QuestionController {
     @PatchMapping("/{question-id}/upvote")
     public ResponseEntity patchQuestionUpVote(
             @PathVariable("question-id") @Positive long questionId) {
-        Question question = questionService.upVote(questionId);
+        Question question = questionService.upQuestionVote(questionId);
 
         return new ResponseEntity<>(
                 questionMapper.questionToQuestionPatchDto(question),
@@ -109,7 +107,7 @@ public class QuestionController {
     @PatchMapping("/{question-id}/downvote")
     public ResponseEntity patchQuestiondownVote(
             @PathVariable("question-id") @Positive long questionId) {
-        Question question = questionService.downVote(questionId);
+        Question question = questionService.downQuestionVote(questionId);
 
         return new ResponseEntity<>(
                 questionMapper.questionToQuestionPatchDto(question),
