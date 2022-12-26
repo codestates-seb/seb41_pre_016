@@ -40,7 +40,7 @@ public class CommentService {
                 commentRepository.findById(commentId);
         Comment findComment =
                 optionalComment.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.NOT_FOUND));
+                        new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
         return findComment;
     }
 }

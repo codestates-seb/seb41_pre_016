@@ -2,22 +2,17 @@ package com.stack.stackoverflow.answer.entity;
 
 import com.stack.stackoverflow.UserPage.entity.UserPage;
 import com.stack.stackoverflow.audit.Auditable;
-import com.stack.stackoverflow.comment.entity.Comment;
+import com.stack.stackoverflow.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +22,7 @@ public class Answer extends Auditable {
     private String content;
 
     @Column
-    private Integer votes;
-
-    @Column
-    private Long answerCount;
-
-
-    @Column(name = "LAST_MODIFIED_AT")
-    private LocalDateTime modifiedAt = LocalDateTime.now();
+    private int vote;
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
@@ -44,15 +32,18 @@ public class Answer extends Auditable {
     @JoinColumn(name = "USERPAGE_ID")
     private UserPage userPage;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "answer")
-    private List<Comment> comments = new ArrayList<>();
 
-
-    public String getContent() {
-        return content;
+    public void setQuestion(Question question) {
+        this.question = question;
+        if(!this.question.getAnswers().contains(this)) {
+            this.question.setAnswers(this);
+        }
     }
 
-    public Integer getVotes() {
-        return votes;
+    public void setUserPage(UserPage userPage) {
+        this.userPage = userPage;
+        if(!this.userPage.getAnswers().contains(this)) {
+            this.userPage.setAnswers(this);
+        }
     }
 }
