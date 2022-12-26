@@ -1,85 +1,47 @@
 import create from "zustand";
+import axios from "axios";
+import produce from "immer";
 
 const useStore = create((set, get) => ({
-  questions: [
-    {
-      questionId: 1,
-      title: "Suggestion for Automatically Match Data in MysQL",
-      content:
-        "I have limited access to the MySQL database, I just can see a view called customer contains customer_id, name, and their location id_customer name location 1 Andy Detro.it 2",
-      votes: 10,
-      views: 3,
-      answerCount: 4,
-      tags: ["java", "ios"],
-      createdAt: "2022-12-19 10:33:41",
-      modifiedAt: "2022-12-21 10:33:41",
-    },
-    {
-      questionId: 1,
-      title: "Suggestion for Automatically Match Data in MysQL",
-      content:
-        "I have limited access to the MySQL database, I just can see a view called customer contains customer_id, name, and their location id_customer name location 1 Andy Detro.it 2",
-      votes: 10,
-      views: 3,
-      answerCount: 4,
-      tags: ["java", "ios"],
-      createdAt: "2022-12-19 10:33:41",
-      modifiedAt: "2022-12-21 10:33:41",
-    },
-    {
-      questionId: 1,
-      title: "Suggestion for Automatically Match Data in MysQL",
-      content:
-        "I have limited access to the MySQL database, I just can see a view called customer contains customer_id, name, and their location id_customer name location 1 Andy Detro.it 2",
-      votes: 10,
-      views: 3,
-      answerCount: 4,
-      tags: ["java", "ios"],
-      createdAt: "2022-12-19 10:33:41",
-      modifiedAt: "2022-12-21 10:33:41",
-    },
-    {
-      questionId: 1,
-      title: "Suggestion for Automatically Match Data in MysQL",
-      content:
-        "I have limited access to the MySQL database, I just can see a view called customer contains customer_id, name, and their location id_customer name location 1 Andy Detro.it 2",
-      votes: 10,
-      views: 3,
-      answerCount: 4,
-      tags: ["java", "ios"],
-      createdAt: "2022-12-19 10:33:41",
-      modifiedAt: "2022-12-21 10:33:41",
-    },
-    {
-      questionId: 1,
-      title: "Suggestion for Automatically Match Data in MysQL",
-      content:
-        "I have limited access to the MySQL database, I just can see a view called customer contains customer_id, name, and their location id_customer name location 1 Andy Detro.it 2",
-      votes: 10,
-      views: 3,
-      answerCount: 4,
-      tags: ["asdasdsacas", "asdasdasczxc"],
-      createdAt: "2022-12-19 10:33:41",
-      modifiedAt: "2022-12-21 10:33:41",
-    },
-    {
-      questionId: 1,
-      title: "Suggestion for Automatically Match Data in MysQL",
-      content:
-        "I have limited access to the MySQL database, I just can see a view called customer contains customer_id, name, and their location id_customer name location 1 Andy Detro.it 2",
-      votes: 10,
-      views: 3,
-      answerCount: 4,
-      tags: ["java", "ios"],
-      createdAt: "2022-12-19 10:33:41",
-      modifiedAt: "2022-12-21 10:33:41",
-    },
-  ],
+  questions: null,
   pageInfo: {
     page: 1,
     size: 10,
     totalElements: 2,
     totalPages: 1,
+  },
+  getQuestionsWithDefault: async (page, size) => {
+    return axios
+      .get("/question/date/", {
+        params: {
+          page: page,
+          size: size,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        set((state) => ({
+          questions: res.data.questions,
+          pageInfo: res.data.pageInfo,
+        }));
+      })
+      .catch((err) => console.log(err));
+  },
+  getQuestionsWithNoAnswer: async (page, size) => {
+    return axios
+      .get("/question/date/", {
+        params: {
+          page: page,
+          size: size,
+        },
+      })
+      .then((res) => {
+        set((state) => ({
+          questions: res.data.questions,
+          pageInfo: res.data.pageInfo,
+        }));
+      })
+      .catch((err) => console.log(err));
   },
 }));
 
