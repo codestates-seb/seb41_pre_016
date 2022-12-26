@@ -1,6 +1,6 @@
 package com.stack.stackoverflow.question.dto;
 
-import com.stack.stackoverflow.answer.entity.Answer;
+import com.stack.stackoverflow.answer.dto.AnswerDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,7 +47,7 @@ public class QuestionResponseDto{
         private String name;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private List<Answer> answers;
+        private List<AnswerDto.response> answers;
     }
 
     @Setter
