@@ -33,8 +33,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity postUser(@Valid @RequestBody UserPostDto userPostDto) {
-        User user =
-                userService.createUser(mapper.userPostDtoToUser(userPostDto));
+        User user = userService.createUser(mapper.userPostDtoToUser(userPostDto));
 
         UserResponseDto userResponseDto = mapper.userToUserResponseDto(user);
 
