@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity(name = "USERS")
-
 public class User extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +28,9 @@ public class User extends Auditable {
 
     @Column
     private int questionCount;
+
+    @Column
+    private int answerCount;
 
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private UserPage userPage;
