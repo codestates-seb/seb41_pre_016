@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+function Tag({ name }) {
+  const handleSearchTag = () => {};
+
+  return <Button onClick={handleSearchTag}>{name}</Button>;
+}
+
 const Button = styled.button`
   display: flex;
   justify-content: center;
@@ -18,11 +24,5 @@ const Button = styled.button`
     background-color: var(--powder-200);
   }
 `;
-
-function Tag({ name }) {
-  const handleSearchTag = () => {};
-
-  return <Button onClick={handleSearchTag}>{name}</Button>;
-}
 
 export default Tag;

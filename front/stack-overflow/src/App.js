@@ -5,7 +5,7 @@ import TagsPage from './pages/TagsPage/index';
 import Users from './pages/Users/index';
 
 const App = () => {
-  // const URL = '/test';
+  // const URL = process.env.REACT_APP_API_URL;
 
   // const [data, setData] = useState();
   // const [loading, setLoading] = useState(false);
@@ -27,11 +27,7 @@ const App = () => {
   //   fetchData();
   // }, []);
 
-  return (
-    <div>
-      <Users />
-    </div>
-  );
+  return <TagsPage />;
 };
 
 export default App;
