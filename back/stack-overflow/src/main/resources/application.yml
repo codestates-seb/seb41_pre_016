@@ -4,6 +4,8 @@ spring:
     console:
       enabled: true
       path: /h2
+      settings:
+        web-allow-others: true # AWS에서 H2 콘솔 연결
   datasource:
     url: jdbc:h2:mem:test
   jpa:
