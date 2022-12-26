@@ -1,11 +1,15 @@
 package com.stack.stackoverflow.question.mapper;
 
+import com.stack.stackoverflow.answer.entity.Answer;
+import com.stack.stackoverflow.answer.mapper.AnswerMapper;
+import com.stack.stackoverflow.answer.mapper.AnswerMapperImpl;
 import com.stack.stackoverflow.question.dto.QuestionRequestDto;
 import com.stack.stackoverflow.question.dto.QuestionResponseDto;
 import com.stack.stackoverflow.question.entity.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +42,8 @@ public interface QuestionMapper {
     }
 
     default QuestionResponseDto.YesAnswer questionToQuestionYesAnswerDto(Question question) {
+        AnswerMapper answerMapper = new AnswerMapperImpl();
+
         QuestionResponseDto.YesAnswer questionResponseDto = new QuestionResponseDto.YesAnswer(
                 question.getQuestionId(),
                 question.getTitle(),
@@ -52,7 +58,10 @@ public interface QuestionMapper {
                 question.getUserPage().getUser().getName(),
                 question.getCreatedAt(),
                 question.getModifiedAt(),
-                question.getAnswers()
+                question.getAnswers().stream()
+                        .sorted(Comparator.comparing(Answer::getVote).reversed())
+                        .map(answer -> answerMapper.answerToAnswerResponseDto(answer))
+                        .collect(Collectors.toList())
         );
 
         return questionResponseDto;
