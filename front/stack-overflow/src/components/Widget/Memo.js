@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { ReactComponent as Pencil } from "./Icons/pencil.svg";
-import { Logo, Tooltip } from "./Icons/Sprites";
+import { ReactComponent as Pencil } from "../../statics/Icons/pencil.svg";
+import { Logo, Tooltip } from "../../statics/Icons/Sprites";
 
 const Container = styled.div`
   background-color: var(--yellow-050);
