@@ -26,12 +26,15 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(QuestionController.class)
@@ -52,16 +55,15 @@ public class QuestionControllerRestDocsTest {
 
     @Test
     public void postQuestionTest() throws Exception {
-//        List<String> list = new ArrayList<>();
-        List<String> list = Arrays.asList("difficult", "java");
-//        list.add("difficult");
-//        list.add("java");
-
         // given
+        List<String> list = new ArrayList<>();
+        list.add("difficult");
+        list.add("java");
+        long userId = 1L;
+
         QuestionRequestDto.Post postDto = new QuestionRequestDto.Post(
                 "How to make project?",
                 "I don't know how to make project...",
-//                Arrays.asList("difficult", "java"));
                 list);
         String content = gson.toJson(postDto);
 
@@ -69,12 +71,11 @@ public class QuestionControllerRestDocsTest {
                 1L,
                 "How to make project?",
                 "I don't know how to make project...",
-//                Arrays.asList("difficult", "java"),
                 0,
                 0,
                 0,
                 list,
-                1L,
+                userId,
                 "Chris",
                 LocalDateTime.now(),
                 LocalDateTime.now()
@@ -82,16 +83,14 @@ public class QuestionControllerRestDocsTest {
 
         given(questionMapper.qusetionPostDtoToQuestion(Mockito.any(QuestionRequestDto.Post.class))).willReturn(new Question());
 
-        Question mockResultQuestion = new Question();
-        mockResultQuestion.setQuestionId(1L);
-        given(questionService.createQuestion(Mockito.any(Question.class), Mockito.anyList(), 1L)).willReturn(mockResultQuestion);
+        given(questionService.createQuestion(Mockito.any(Question.class), Mockito.anyList(), Mockito.anyLong())).willReturn(new Question());
 
         given(questionMapper.questionToQuestionNoAnswerDto(Mockito.any(Question.class))).willReturn(responseDto);
 
         // when
         ResultActions actions =
                 mockMvc.perform(
-                        post("/question")
+                        post("/question/{user-id}", userId)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
@@ -110,6 +109,9 @@ public class QuestionControllerRestDocsTest {
                         "post-question",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("user-id").description("사용자 식별자")
+                        ),
                         requestFields(
                                 List.of(
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("제목"),
@@ -122,7 +124,12 @@ public class QuestionControllerRestDocsTest {
                                         fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("질문 식별자"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("제목"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("내용"),
+                                        fieldWithPath("votes").type(JsonFieldType.NUMBER).description("투표수"),
+                                        fieldWithPath("views").type(JsonFieldType.NUMBER).description("조회수"),
+                                        fieldWithPath("answer_count").type(JsonFieldType.NUMBER).description("답변 개수"),
                                         fieldWithPath("tags").type(JsonFieldType.ARRAY).description("태그들"),
+                                        fieldWithPath("userId").type(JsonFieldType.NUMBER).description("사용자 식벽자"),
+                                        fieldWithPath("name").type(JsonFieldType.STRING).description("사용자"),
                                         fieldWithPath("createdAt").type(JsonFieldType.STRING).description("생성 시간"),
                                         fieldWithPath("modifiedAt").type(JsonFieldType.STRING).description("수정 시간")
                                 )
