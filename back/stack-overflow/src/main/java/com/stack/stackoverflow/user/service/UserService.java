@@ -16,41 +16,41 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User createUser(User user){
+    public User createUser(User user) {
         verifyExistsEmail(user.getEmail());
         user.setUserPage(new UserPage());
 
         return userRepository.save(user);
     }
 
-    public User updateUser(User user){
+    public User updateUser(User user) {
         User findUser = findVerifiedUser(user.getUserId());
 
         Optional.ofNullable(user.getName())
                 .ifPresent(name -> findUser.setName(name));
+        Optional.ofNullable(user.getEmail())
+                .ifPresent(email -> findUser.setEmail(email));
         Optional.ofNullable(user.getPassword())
                 .ifPresent(password -> findUser.setPassword(password));
-
-//        findUser.setModifiedAt(LocalDateTime.now());
 
         return userRepository.save(findUser);
     }
 
-    public User findUser(Long userId){
+    public User findUser(Long userId) {
         return findVerifiedUser(userId);
     }
 
-    public void deleteUser(Long userId){
+    public void deleteUser(Long userId) {
         User findUser = findVerifiedUser(userId);
 
         userRepository.delete(findUser);
     }
 
-    public User findVerifiedUser(Long userId){
+    public User findVerifiedUser(Long userId) {
         Optional<User> optionalUser =
                 userRepository.findById(userId);
 
@@ -65,7 +65,7 @@ public class UserService {
     private void verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
 
-        if(user.isPresent())
+        if (user.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
 
     }
@@ -80,7 +80,7 @@ public class UserService {
                 });
 
         // 비밀번호 검증
-        if(!user.getPassword().equals(findUser.getPassword()))
+        if (!user.getPassword().equals(findUser.getPassword()))
             throw new BusinessLogicException(ExceptionCode.LOGIN_FAIL);
 
         return findUser;
