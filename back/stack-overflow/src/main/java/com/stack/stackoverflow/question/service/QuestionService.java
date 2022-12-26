@@ -8,19 +8,13 @@ import com.stack.stackoverflow.question.entity.Question;
 import com.stack.stackoverflow.question.entity.QuestionTag;
 import com.stack.stackoverflow.question.repository.QuestionRepository;
 import com.stack.stackoverflow.question.repository.QuestionTagRepository;
-import com.stack.stackoverflow.tag.entity.Tag;
 import com.stack.stackoverflow.tag.service.TagService;
 import com.stack.stackoverflow.user.entity.User;
-import com.stack.stackoverflow.user.service.UserService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -155,14 +149,14 @@ public class QuestionService {
     }
 
     // Question의 vote 수 증가
-    public Question upVote(Long questionId) {
+    public Question upQuestionVote(Long questionId) {
         Question question = findQuestion(questionId);
         question.setVote(question.getVote() + 1);
         return questionRepository.save(question);
     }
 
     // Question의 vote 수 감소
-    public Question downVote(Long questionId) {
+    public Question downQuestionVote(Long questionId) {
         Question question = findQuestion(questionId);
         question.setVote(question.getVote() - 1);
         return questionRepository.save(question);
