@@ -1,6 +1,6 @@
-import Memo from "./Widgets/Memo";
-import Tagbox from "./Buttons/Tagbox";
-import Silver from "./Widgets/Silver";
+import Memo from "../../components/Widget/Memo";
+import Tagbox from "../../components/Buttons/Tagbox";
+import Silver from "../../components/Widget/Silver";
 import styled from "styled-components";
 
 const Container = styled.div`

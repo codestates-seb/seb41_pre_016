@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BlueButton from "./Buttons/BlueButton";
+import BlueButton from "../../components/Buttons/BlueButton";
 import List from "./List";
 import Sidebar from "./Sidebar";
 
