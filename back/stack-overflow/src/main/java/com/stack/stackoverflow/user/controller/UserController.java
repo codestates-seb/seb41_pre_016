@@ -49,17 +49,17 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity getLogin(@Valid @RequestBody LoginDto loginDto) {
-        User user = userService.login(mapper.loginDtoToUser(loginDto));
-
-        UserResponseDto userResponseDto = mapper.userToUserResponseDto(user);
-
-        return new ResponseEntity<>(
-                userResponseDto,
-                HttpStatus.OK
-        );
-    }
+//    @GetMapping("/login")
+//    public ResponseEntity getLogin(@Valid @RequestBody LoginDto loginDto) {
+//        User user = userService.login(mapper.loginDtoToUser(loginDto));
+//
+//        UserResponseDto userResponseDto = mapper.userToUserResponseDto(user);
+//
+//        return new ResponseEntity<>(
+//                userResponseDto,
+//                HttpStatus.OK
+//        );
+//    }
 
     @DeleteMapping("/{user-id}")
     public ResponseEntity deleteUser(@PathVariable("user-id") @Positive long userId){
