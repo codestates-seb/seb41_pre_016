@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ContentMessageTextarea from "./UtilComponents/ContentMessageTextarea";
 
 const AskQuestionBody = () => {
   const ContentBodyDiv = styled.div`
@@ -16,6 +17,21 @@ const AskQuestionBody = () => {
   const ContentBodyTextFlexDiv = styled.div`
     margin: 4px;
     flex-direction: column !important;
+    textarea {
+      width: 98%;
+      height: 13em;
+      resize: none;
+      margin: 0;
+      border: 1px solid var(--bc-darker);
+      border-radius: 3px;
+      background-color: var(--white);
+      color: var(--fc-dark);
+      font-size: var(--fs-body1);
+      font-family: inherit;
+      box-sizing: inherit;
+      display: block;
+      padding: 12px;
+    }
   `;
   const ContentBodyLabel = styled.div`
     font-size: 15px;
@@ -31,21 +47,6 @@ const AskQuestionBody = () => {
     color: var(--fc-medium);
     font-size: 12px;
   `;
-  const ContentMessageTextarea = styled.textarea`
-    width: 98%;
-    height: 13em;
-    resize: none;
-    margin: 0;
-    border: 1px solid var(--bc-darker);
-    border-radius: 3px;
-    background-color: var(--white);
-    color: var(--fc-dark);
-    font-size: var(--fs-body1);
-    font-family: inherit;
-    box-sizing: inherit;
-    display: block;
-    padding: 12px;
-  `;
 
   return (
     <ContentBodyDiv>
@@ -60,11 +61,7 @@ const AskQuestionBody = () => {
           </ContentBodyMessageDiv>
         </ContentBodyTextFlexDiv>
         <ContentBodyTextFlexDiv style={{ position: "relative" }}>
-          <ContentMessageTextarea
-            id="body"
-            name="body"
-            type="text"
-          ></ContentMessageTextarea>
+          <ContentMessageTextarea />
         </ContentBodyTextFlexDiv>
       </ContentBodyTextDiv>
     </ContentBodyDiv>

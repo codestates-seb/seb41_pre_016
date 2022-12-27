@@ -1,20 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import ContentsMessageInput from "./UtilComponents/ContentsMessageInput";
 
 const AskQuestionTitle = () => {
-  const ContentMessageInput = styled.input`
-    width: 100%;
-    margin: 0;
-    padding: 0.6em 0.7em;
-    border: 1px solid var(--bc-darker);
-    border-radius: 3px;
-    background-color: var(--white);
-    color: var(--fc-dark);
-    font-size: var(--fs-body1);
-    font-family: inherit;
-    box-sizing: inherit;
-    display: block;
-  `;
   const ContentTitleDiv = styled.div`
     width: 70% !important;
     display: flex !important;
@@ -29,6 +16,19 @@ const AskQuestionTitle = () => {
   const ContentTitleTextFlexDiv = styled.div`
     margin: 4px;
     flex-direction: column !important;
+    input {
+      width: 100%;
+      margin: 0;
+      padding: 0.6em 0.7em;
+      border: 1px solid var(--bc-darker);
+      border-radius: 3px;
+      background-color: var(--white);
+      color: var(--fc-dark);
+      font-size: var(--fs-body1);
+      font-family: inherit;
+      box-sizing: inherit;
+      display: block;
+    }
   `;
   const ContentTitleLabel = styled.div`
     font-size: 15px;
@@ -58,17 +58,7 @@ const AskQuestionTitle = () => {
           </ContentTitleMessageDiv>
         </ContentTitleTextFlexDiv>
         <ContentTitleTextFlexDiv style={{ position: "relative" }}>
-          <ContentMessageInput
-            id="title"
-            name="title"
-            type="text"
-            maxLength="300"
-            placeholder="e.g. Is there an R function for
-              finding the index of an element in a vector?"
-            className="s-input js-post-title-field ask-title-field"
-            data-min-length="15"
-            data-max-length="150"
-          ></ContentMessageInput>
+          <ContentsMessageInput />
         </ContentTitleTextFlexDiv>
       </ContentTitleTextDiv>
     </ContentTitleDiv>
