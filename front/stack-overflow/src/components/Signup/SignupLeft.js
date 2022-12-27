@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { ReactComponent as BadgeIcon } from "../../../../../../seb41_pre_016/front/stack-overflow/src/assets/badgeIcon.svg";
-import { ReactComponent as QuestionIcon } from "../../../../../../seb41_pre_016/front/stack-overflow/src/assets/questionIcon.svg";
-import { ReactComponent as TagsIcon } from "../../../../../../seb41_pre_016/front/stack-overflow/src/assets/tagsIcon.svg";
-import { ReactComponent as VoteIcon } from "../../../../../../seb41_pre_016/front/stack-overflow/src/assets/voteIcon.svg";
+import { ReactComponent as BadgeIcon } from "../../assets/badgeIcon.svg";
+import { ReactComponent as QuestionIcon } from ".../../assets/questionIcon.svg";
+import { ReactComponent as TagsIcon } from "../../assets/tagsIcon.svg";
+import { ReactComponent as VoteIcon } from "../../assets/voteIcon.svg";
 
 const SignupLeft = () => {
   const ContainDiv = styled.div`
