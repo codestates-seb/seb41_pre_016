@@ -2,28 +2,10 @@ import styled from "styled-components";
 import { ReactComponent as GoogleSvg } from "../../assets/googleIcon.svg";
 import { ReactComponent as AlertCircleIcon } from "../../assets/alertCircleIcon.svg";
 import { ReactComponent as TextBottomIcon } from "../../assets/textBottomIcon.svg";
-import { useState } from "react";
+import InputComponent from "./InputComponent";
+import UserButton from "./UserButton";
 
 const SignupRight = () => {
-  let name = "";
-  let email = "";
-  let password = "";
-  const [emailErr, setEmailErr] = useState(false);
-  const [passwordErr, setPasswordErr] = useState(false);
-  const [userErr, setUserErr] = useState(false);
-  let rule = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  const checkUser = () => {
-    if (!email) {
-      setEmailErr(true);
-    } else {
-      setEmailErr(false);
-    }
-    if (!password || !rule.test(password)) {
-      setPasswordErr(true);
-    } else {
-      setPasswordErr(false);
-    }
-  };
   const ContainDiv = styled.div`
     flex-shrink: 0 !important;
   `;
@@ -33,7 +15,6 @@ const SignupRight = () => {
     margin: -4px 0 16px 0;
     flex-direction: column !important;
   `;
-
   const GoogleButton = styled.div`
     margin: 4px 0;
     background-color: white;
@@ -81,60 +62,23 @@ const SignupRight = () => {
     margin: 4px 0;
     position: relative;
     display: flex;
-  `;
-  const DisplayNameInput = styled.input`
-    width: 100%;
-    margin: 0;
-    padding: 0.6em 0.7em;
-    border: 1px solid var(--bc-darker);
-    border-radius: 3px;
-    background-color: var(--white);
-    color: var(--fc-dark);
-    font-size: var(--fs-body1);
-    font-family: inherit;
-    :focus {
-      outline: 1px solid var(--blue-400);
-      box-shadow: 0 0 5px var(--blue-400);
+    input {
+      width: 100%;
+      margin: 0;
+      padding: 0.6em 0.7em;
+      border: 1px solid var(--bc-darker);
+      border-radius: 3px;
+      background-color: var(--white);
+      color: var(--fc-dark);
+      font-size: var(--fs-body1);
+      font-family: inherit;
+      :focus {
+        outline: 1px solid var(--blue-400);
+        box-shadow: 0 0 5px var(--blue-400);
+      }
     }
   `;
-  const EmailInput = styled.input`
-    width: 100%;
-    margin: 0;
-    padding: 0.6em 0.7em;
-    border: 1px solid var(--bc-darker);
-    border-radius: 3px;
-    ${emailErr | userErr
-      ? "border: 1px solid var(--red-400);"
-      : "border: 1px solid var(--bc-darker);"}
-    background-color: var(--white);
-    color: var(--fc-dark);
-    font-size: var(--fs-body1);
-    font-family: inherit;
-    :focus {
-      ${emailErr | userErr
-        ? "outline: 1px solid var(--red-400); box-shadow: 0 0 5px var(--red-400);"
-        : "outline: 1px solid var(--blue-400); box-shadow: 0 0 5px var(--blue-400)"}
-    }
-  `;
-  const PasswordInput = styled.input`
-    width: 100%;
-    margin: 0;
-    padding: 0.6em 0.7em;
-    border: 1px solid var(--bc-darker);
-    border-radius: 3px;
-    ${passwordErr
-      ? "border: 1px solid var(--red-400);"
-      : "border: 1px solid var(--bc-darker);"}
-    background-color: var(--white);
-    color: var(--fc-dark);
-    font-size: var(--fs-body1);
-    font-family: inherit;
-    :focus {
-      ${passwordErr
-        ? "outline: 1px solid var(--red-400); box-shadow: 0 0 5px var(--red-400);"
-        : "outline: 1px solid var(--blue-400); box-shadow: 0 0 5px var(--blue-400)"}
-    }
-  `;
+
   const PasswordRelativeDiv = styled.div`
     margin: 2px 0;
     position: relative;
@@ -145,6 +89,28 @@ const SignupRight = () => {
     margin: 6px 0;
     display: flex !important;
     flex-direction: column !important;
+    button {
+      background-color: hsl(206, 100%, 52%);
+      border: 1px solid transparent;
+      border-radius: 3px;
+      box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.4);
+      color: white;
+      font-size: 13px;
+      padding: 0.8em;
+      cursor: pointer;
+      display: inline-block;
+      font-family: inherit;
+      font-weight: normal;
+      line-height: var(--lh-sm);
+      position: relative;
+      outline: none;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      :hover {
+        background-color: rgb(0, 116, 204);
+      }
+    }
   `;
   const SignupButton = styled.button`
     background-color: hsl(206, 100%, 52%);
@@ -247,8 +213,7 @@ const SignupRight = () => {
     right: 0.7em;
     margin-top: -10px;
     pointer-events: none;
-    ${emailErr | userErr ? "visibility: visible;" : "visibility: hidden;"}
-  }
+    visibility: hidden;
   `;
   const AlertCirclePasswordDiv = styled.div`
     position: absolute;
@@ -256,8 +221,7 @@ const SignupRight = () => {
     right: 0.7em;
     margin-top: -18px;
     pointer-events: none;
-    ${passwordErr | userErr ? "visibility: visible;" : "visibility: hidden;"}
-  }
+    visibility: hidden;
   `;
   const AlertP = styled.p`
     color: var(--red-500);
@@ -281,35 +245,19 @@ const SignupRight = () => {
           <MarginDiv>
             <SignupLabel>Display Name</SignupLabel>
             <SignupRelativeDiv>
-              <DisplayNameInput
-                className="s-input"
-                id="display-name"
-                size="30"
-                type="text"
-                name="display-name"
-              />
+              <InputComponent CLASS="text" />
             </SignupRelativeDiv>
           </MarginDiv>
           {/*Email*/}
           <MarginDiv>
             <SignupLabel>Email</SignupLabel>
             <SignupRelativeDiv>
-              <EmailInput
-                className="s-input"
-                id="email"
-                type="email"
-                size="30"
-                maxLength="100"
-                name="email"
-              />
+              <InputComponent CLASS="email" />
               <AlertCircleEmailDiv>
                 <AlertCircleIcon />
               </AlertCircleEmailDiv>
             </SignupRelativeDiv>
-            <AlertP>
-              {emailErr ? "Email cannot be empty." : " "}
-              {userErr ? "The email is not a valid email address." : " "}
-            </AlertP>
+            <AlertP></AlertP>
           </MarginDiv>
           {/*Pass*/}
           <div className="d-flex-password">
@@ -318,23 +266,11 @@ const SignupRight = () => {
                 <SignupLabel>Password</SignupLabel>
               </PasswordRelativeDiv>
               <SignupRelativeDiv>
-                <PasswordInput
-                  className="s-input"
-                  id="password"
-                  type="password"
-                  name="password"
-                  autoComplete="off"
-                  size="30"
-                  onChange={(e) => {
-                    password = e.target.value;
-                  }}
-                />
+                <InputComponent CLASS="password" />
                 <AlertCirclePasswordDiv>
                   <AlertCircleIcon />
                 </AlertCirclePasswordDiv>
-                <AlertP>
-                  {passwordErr ? "Password cannot be empty." : " "}
-                </AlertP>
+                <AlertP></AlertP>
               </SignupRelativeDiv>
             </MarginDiv>
           </div>
@@ -372,7 +308,7 @@ const SignupRight = () => {
           </CheckAreaDiv>
           {/* login Button */}
           <SignupButtonDiv>
-            <SignupButton onClick={checkUser}>Sign up</SignupButton>
+            <UserButton />
           </SignupButtonDiv>
         </div>
       </FormContainerDiv>
