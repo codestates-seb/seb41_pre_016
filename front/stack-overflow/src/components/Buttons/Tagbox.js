@@ -31,9 +31,9 @@ const Tagbox = ({ taglist }) => {
   return (
     <Container>
       {taglist
-        ? taglist?.map((el) => {
+        ? taglist?.map((el, idx) => {
             return (
-              <Tag>
+              <Tag key={idx}>
                 <InlineText>{el}</InlineText>
               </Tag>
             );
