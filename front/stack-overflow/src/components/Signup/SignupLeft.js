@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ReactComponent as BadgeIcon } from "../../assets/badgeIcon.svg";
-import { ReactComponent as QuestionIcon } from ".../../assets/questionIcon.svg";
+import { ReactComponent as QuestionIcon } from "../../assets/questionIcon.svg";
 import { ReactComponent as TagsIcon } from "../../assets/tagsIcon.svg";
 import { ReactComponent as VoteIcon } from "../../assets/voteIcon.svg";
 
