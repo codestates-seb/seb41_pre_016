@@ -10,6 +10,7 @@ const Container = styled.div`
   color: var(--fc-medium);
   border: 1px solid var(--bc-medium);
   background-color: transparent;
+  cursor: pointer;
 `;
 
 const Selected = styled(Container)`
