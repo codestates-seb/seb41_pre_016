@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Tagbox from "../Buttons/Tagbox";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import UserInfo from "./UserInfo";
 
 const Container = styled.div`
   padding: 16px;
   position: relative;
   display: flex;
-  border-bottom: 1px solid hsl(210, 8%, 90%);
+  border-bottom: 1px solid var(--black-075);
 `;
 
 const DetailInfo = styled.div`
@@ -46,6 +46,12 @@ const DetailInfo = styled.div`
       background-color: rgb(0, 116, 204);
     } */
   }
+`;
+
+const NoAnswered = styled.div`
+  align-items: center;
+  border: 1px solid transparent !important;
+  color: var(--black-500) !important;
 `;
 
 const Title = styled.h3`
@@ -93,12 +99,25 @@ const Meta = styled.div`
   min-height: 40px;
 `;
 
-const Summary = ({ title, content, tags, vote, answer, views }) => {
+const Summary = ({
+  title,
+  content,
+  tags,
+  vote,
+  answer,
+  views,
+  name,
+  userId,
+}) => {
   return (
     <Container>
       <DetailInfo>
         <div>{vote} votes</div>
-        <div>{answer} answers</div>
+        {answer ? (
+          <div>{answer} answers</div>
+        ) : (
+          <NoAnswered>0 answers</NoAnswered>
+        )}
         <div>{views} views</div>
       </DetailInfo>
       <PostInfo>
@@ -108,7 +127,7 @@ const Summary = ({ title, content, tags, vote, answer, views }) => {
         <Excerpt>{content}</Excerpt>
         <Meta>
           <Tagbox taglist={tags} />
-          <UserInfo />
+          <UserInfo name={name} userId={userId} />
         </Meta>
       </PostInfo>
     </Container>
