@@ -19,10 +19,10 @@ const Container = styled.div`
 
 const Tabbox = styled.div`
   font-size: 13px;
-  margin-left: -1px;
   padding: 9.6px;
   color: var(--black-500);
   border: 1px solid var(--black-300);
+  cursor: pointer;
 
   &:hover {
     background-color: var(--black-025);
