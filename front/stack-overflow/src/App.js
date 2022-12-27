@@ -2,12 +2,10 @@ import React from "react";
 import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LeftSideBar from "./LeftSideBar/LeftSideBar";
-import Header from "./Header/Header";
+import Header from "./components/Header/Header";
 import styled from "styled-components";
-import HeaderDropDown from "./Header/HeaderDropDown";
-import Login from "./Login/Login";
-import MainPage from "./Page/MainPage";
+import Login from "./pages/LoginPage";
+import MainPage from "./pages/MainPage";
 const RootDiv = styled.div`
   z-index: -100;
   display: flex;
