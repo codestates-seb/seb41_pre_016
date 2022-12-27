@@ -9,6 +9,9 @@ import com.stack.stackoverflow.tag.entity.Tag;
 import com.stack.stackoverflow.tag.repository.TagRepository;
 import com.stack.stackoverflow.user.entity.User;
 import org.springframework.core.metrics.StartupStep;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,6 +53,12 @@ public class TagService {
     // 모든 tag들 찾기
     public List<Tag> findAll() {
         return tagRepository.findAll();
+    }
+
+    // 가장 최신순으로 Question 정렬
+    public Page<Tag> findPageTags(int page, int size) {
+        return tagRepository.findAll(PageRequest.of(page, size,
+                Sort.by("tagId").descending()));
     }
 
     // tag의 name을 바탕으로 List<Tag> 생성

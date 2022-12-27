@@ -10,6 +10,7 @@ import com.stack.stackoverflow.tag.mapper.TagMapper;
 import com.stack.stackoverflow.tag.repository.TagRepository;
 import com.stack.stackoverflow.tag.service.TagService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -36,10 +37,15 @@ public class TagController {
     }
 
     @GetMapping
-    public ResponseEntity getTags() {
-        List<Tag> tagList = tagService.findAll();
+    public ResponseEntity getTags(@Positive @RequestParam int page,
+                                  @Positive @RequestParam int size) {
+
+        Page<Tag> pageTags = tagService.findPageTags(page - 1, size);
+        List<Tag> tagList = pageTags.getContent();
+
         return new ResponseEntity<>(
-                new TagSingleResponseDto<>(tagMapper.tagToTagResponseDto(tagList)),
+                new TagSingleResponseDto<>(tagMapper.tagToTagResponseDto(tagList),
+                        pageTags),
                 HttpStatus.OK);
     }
 
