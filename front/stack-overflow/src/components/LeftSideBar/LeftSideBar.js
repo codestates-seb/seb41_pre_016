@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { ReactComponent as GlobalIconG } from "./images/globalIconG.svg";
-import { ReactComponent as GlobalIconB } from "./images/globalIconB.svg";
-import { ReactComponent as ExploreIcon } from "./images/exploreIcon.svg";
-import { ReactComponent as OfficeBagIcon } from "./images/officeBagIcon.svg";
+import { ReactComponent as GlobalIconG } from "../statics/globalIconG.svg";
+import { ReactComponent as GlobalIconB } from "../statics/globalIconB.svg";
+import { ReactComponent as ExploreIcon } from "../statics/exploreIcon.svg";
+import { ReactComponent as OfficeBagIcon } from "../statics/officeBagIcon.svg";
 
-const LeftSideBar = () => {
-  const page = "Collectives";
+const LeftSideBar = ({ page = "Home" }) => {
   const LeftSideBarDiv = styled.div`
     width: 164px;
     flex-shrink: 0;

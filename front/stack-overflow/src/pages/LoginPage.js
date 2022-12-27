@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { ReactComponent as StackoverflowSvg } from "./images/stackoverflowIcon.svg";
-import { ReactComponent as GoogleSvg } from "./images/googleIcon.svg";
-import { ReactComponent as AlertCircleIcon } from "./images/alertCircleIcon.svg";
-import { ReactComponent as TextBottomIcon } from "./images/textBottomIcon.svg";
+import { ReactComponent as StackoverflowSvg } from "../statics/stackoverflowIcon.svg";
+import { ReactComponent as GoogleSvg } from "../statics/googleIcon.svg";
+import { ReactComponent as AlertCircleIcon } from "../statics/alertCircleIcon.svg";
+import { ReactComponent as TextBottomIcon } from "../statics/textBottomIcon.svg";
 import { useState } from "react";
 
-const Login = () => {
+const LoginPage = () => {
   let email = "";
   let password = "";
   const [emailErr, setEmailErr] = useState(false);
@@ -32,7 +32,6 @@ const Login = () => {
     align-items: center;
     position: relative;
     text-align: left;
-    background-color: var(--black-050);
     * {
       margin: 0;
       padding: 0;
@@ -113,7 +112,7 @@ const Login = () => {
     padding: 24px;
   `;
   const LoginLabel = styled.label`
-    font-size: var(--fs-body2);
+    font-size: 15px;
     color: var(--fc-dark);
     font-family: inherit;
     font-weight: 600;
@@ -249,7 +248,7 @@ const Login = () => {
         <FlexDiv>
           {/*stackoverflow 아이콘 부분*/}
           <StackoverflowIconDiv>
-            <a href="/">
+            <a href="/front/stack-overflow/public">
               <StackoverflowSvg />
             </a>
           </StackoverflowIconDiv>
@@ -327,11 +326,11 @@ const Login = () => {
           <ScriptDiv>
             <ContentsDiv>
               <p>Don’t have an account? </p>
-              <a href="/">Sign up</a>
+              <a href="/signup">Sign up</a>
             </ContentsDiv>
             <ContentsDiv>
               <p>Are you an employer? </p>
-              <a href="/">Sign up on Talent</a>
+              <a href="/front/stack-overflow/public">Sign up on Talent</a>
               <TextBottomIcon />
             </ContentsDiv>
           </ScriptDiv>
@@ -340,4 +339,4 @@ const Login = () => {
     </ContainerDiv>
   );
 };
-export default Login;
+export default LoginPage;

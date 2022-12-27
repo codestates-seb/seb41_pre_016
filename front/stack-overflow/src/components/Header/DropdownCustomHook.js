@@ -9,7 +9,6 @@ const DropdownCustomHook = (initialState) => {
   };
 
   useEffect(() => {
-    console.log(ref);
     const onClick = (e) => {
       if (ref.current !== null || !ref.current.contain(e.target)) {
         setDropdown(false);

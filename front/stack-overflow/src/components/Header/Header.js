@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import HeaderNoLogin from "./HeaderNoLogin";
 import HeaderLogin from "./HeaderLogin";
-import { ReactComponent as Logo } from "./images/logo-stackoverflow.svg";
-import { ReactComponent as SearchIcon } from "./images/searchIcon.svg";
+import { ReactComponent as Logo } from "../statics/logo-stackoverflow.svg";
+import { ReactComponent as SearchIcon } from "../statics/searchIcon.svg";
 import DropdownCustomHook from "./DropdownCustomHook";
 import HeaderDropDown from "./HeaderDropDown";
 
-const Header = () => {
+const Header = ({ isLogin = false }) => {
   const [dropdown, ref, removeHandler] = DropdownCustomHook(false);
-  const isLogin = false;
   const Header = styled.div`
     z-index: 1;
     margin-top: -50px;
@@ -32,15 +31,6 @@ const Header = () => {
 
     li {
       list-style: none;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font: inherit;
-      font-size: 100%;
-      vertical-align: baseline;
     }
   `;
   const ContainerDiv = styled.div`

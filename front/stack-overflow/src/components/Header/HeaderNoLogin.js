@@ -60,7 +60,9 @@ const HeaderNoLogin = () => {
           </a>
         </LoginSignupLi>
         <LoginSignupLi>
-          <LoginButton>Sign up</LoginButton>
+          <a href="/signup">
+            <LoginButton>Sign up</LoginButton>
+          </a>
         </LoginSignupLi>
       </LoginSignupOl>
     </LoginSignupNav>
