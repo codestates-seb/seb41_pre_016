@@ -8,7 +8,7 @@ const useStore = create((set, get) => ({
     page: 1,
     size: 10,
     totalElements: 2,
-    totalPages: 1,
+    totalPages: 10,
   },
   getQuestionsWithDefault: async (page, size) => {
     return axios
