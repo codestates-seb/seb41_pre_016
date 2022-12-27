@@ -145,19 +145,19 @@ const HeaderDropDown = () => {
         <ul>
           <DropDownTitleLi>
             <DropDownTitleDiv>
-              <a className="left" href="/">
+              <a className="left" href="/front/stack-overflow/public">
                 <DropDownColorSOColorImg CL="true" />
                 <DropDownItemSpan BOLD="true">Stack Overflow</DropDownItemSpan>
               </a>
             </DropDownTitleDiv>
             <DropDownTitleDiv>
-              <a className="right" href="/">
+              <a className="right" href="/front/stack-overflow/public">
                 help
               </a>
-              <a className="right" href="/">
+              <a className="right" href="/front/stack-overflow/public">
                 chat
               </a>
-              <a className="right" href="/">
+              <a className="right" href="/front/stack-overflow/public">
                 log out
               </a>
             </DropDownTitleDiv>
@@ -168,7 +168,7 @@ const HeaderDropDown = () => {
         <ul>
           <DropDownTitleLi>
             <DropDownTitleDiv>
-              <a className="left" href="/">
+              <a className="left" href="/front/stack-overflow/public">
                 <DropDownLIconDiv>
                   <DropDownLIconSpan />
                 </DropDownLIconDiv>
@@ -184,7 +184,7 @@ const HeaderDropDown = () => {
           <DropDownTitleA>your Communities</DropDownTitleA>
         </h3>
         <DropDownTitleDiv>
-          <a className="right" href="/">
+          <a className="right" href="/front/stack-overflow/public">
             edit
           </a>
         </DropDownTitleDiv>
@@ -193,7 +193,7 @@ const HeaderDropDown = () => {
         <ul>
           <DropDownTitleLi>
             <DropDownTitleDiv>
-              <a className="left" href="/">
+              <a className="left" href="/front/stack-overflow/public">
                 <DropDownColorSOColorImg CL="true" />
                 <DropDownItemSpan BOLD="false">Stack Overflow</DropDownItemSpan>
               </a>

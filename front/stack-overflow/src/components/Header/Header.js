@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import HeaderNoLogin from "./HeaderNoLogin";
 import HeaderLogin from "./HeaderLogin";
-import { ReactComponent as Logo } from "../statics/logo-stackoverflow.svg";
-import { ReactComponent as SearchIcon } from "../statics/searchIcon.svg";
+import { ReactComponent as Logo } from "../../assets/logo-stackoverflow.svg";
+import { ReactComponent as SearchIcon } from "../../assets/searchIcon.svg";
 import DropdownCustomHook from "./DropdownCustomHook";
 import HeaderDropDown from "./HeaderDropDown";
 

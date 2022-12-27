@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { ReactComponent as AchieveIcon } from "../statics/achieveIcon.svg";
-import { ReactComponent as HelpIcon } from "../statics/helpIcon.svg";
-import { ReactComponent as InBoxIcon } from "../statics/inBoxIcon.svg";
-import { ReactComponent as SwitcherIcon } from "../statics/switcherIcon.svg";
-import { ReactComponent as WinterbashIcon } from "../statics/winterbashIcon.svg";
+import { ReactComponent as AchieveIcon } from "../../assets/achieveIcon.svg";
+import { ReactComponent as HelpIcon } from "../../assets/helpIcon.svg";
+import { ReactComponent as InBoxIcon } from "../../assets/inBoxIcon.svg";
+import { ReactComponent as SwitcherIcon } from "../../assets/switcherIcon.svg";
+import { ReactComponent as WinterbashIcon } from "../../assets/winterbashIcon.svg";
 const HeaderLogin = (props) => {
   const UserNav = styled.nav`
     padding-right: 12px;
