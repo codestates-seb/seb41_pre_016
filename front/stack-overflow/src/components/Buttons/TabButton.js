@@ -38,7 +38,7 @@ const Tabbox = styled.div`
   }}
 `;
 
-const TabButton = () => {
+const TabButton = ({ handle }) => {
   return (
     <Container>
       <Tabbox>Newest</Tabbox>
