@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -19,22 +21,24 @@ const Nickname = styled.a`
   cursor: pointer;
 `;
 
-const Asked = styled.span`
+const Reputation = styled.span`
   color: var(--black-600);
   font-weight: bold;
 `;
 
-const Time = styled.span`
+const Time = styled.a`
   color: var(--black-500);
 `;
 
-const UserInfo = () => {
+const UserInfo = ({ name, userId, modtime }) => {
   return (
     <Container>
       <ProfileImage src="http://www.gravatar.com/avatar/00?d=mm" />
-      <Nickname>PHILLIPP APETENOK</Nickname>
-      <Asked>4,493</Asked>
-      <Time>asked 24 mins ago</Time>
+      <Nickname>{name}</Nickname>
+      {/* <Reputation>4,493</Reputation> */}
+      <Time href={`http://localhost:3000/user/${userId}`}>
+        asked 24 mins ago
+      </Time>
     </Container>
   );
 };
