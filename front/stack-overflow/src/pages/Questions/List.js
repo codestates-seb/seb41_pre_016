@@ -60,7 +60,7 @@ const List = () => {
           <PacmanLoader color="var(--black-200)" />
         </SpinnerContainer>
       )}
-      <Pagination />
+      <Pagination pageInfo={pageInfo} />
     </>
   );
 };
