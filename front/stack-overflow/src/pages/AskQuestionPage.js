@@ -3,6 +3,7 @@ import AskQuestionHeader from "../components/AskQuestion/AskQuestionHeader";
 import AskQuestionTitle from "../components/AskQuestion/AskQuestionTitle";
 import AskQuestionBody from "../components/AskQuestion/AskQuestionBody";
 import AskQuestionTag from "../components/AskQuestion/AskQuestionTag";
+import PostButton from "../components/AskQuestion/UtilComponents/PostButton";
 const AskQuestionPage = () => {
   const BlueButton = styled.button`
     border: 1px solid hsl(205, 41%, 63%);
@@ -51,6 +52,23 @@ const AskQuestionPage = () => {
       width: 100% !important;
       box-sizing: border-box !important;
     }
+    button {
+      border: 1px solid hsl(205, 41%, 63%);
+      background-color: rgb(10, 149, 255);
+      color: white;
+      border-radius: 3px;
+      box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.7);
+      padding: 10.4px;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+      margin-left: 4px;
+      font-size: 13px;
+
+      :hover {
+        background-color: rgb(0, 116, 204);
+      }
+    }
   `;
   const MainDiv = styled.div`
     margin-bottom: 20px;
@@ -91,7 +109,7 @@ const AskQuestionPage = () => {
               <AskQuestionTag />
             </div>
           </MainDiv>
-          <BlueButton>Post your question</BlueButton>
+          <PostButton />
         </div>
       </ContentDiv>
     </ContainerDiv>
