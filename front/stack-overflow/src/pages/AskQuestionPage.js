@@ -3,17 +3,7 @@ import AskQuestionHeader from "../components/AskQuestion/AskQuestionHeader";
 import AskQuestionTitle from "../components/AskQuestion/AskQuestionTitle";
 import AskQuestionBody from "../components/AskQuestion/AskQuestionBody";
 import AskQuestionTag from "../components/AskQuestion/AskQuestionTag";
-import { useAskQuestionStore } from "../store/askQuestionZustand";
-import { useState } from "react";
 const AskQuestionPage = () => {
-  const { title, setTitle, content, setContent, tags, setTags } =
-    useAskQuestionStore();
-  const postRequestButton = () => {
-    setTitle(document.getElementById("title").value);
-    setContent(document.getElementById("body").value);
-    console.log("title", title);
-    console.log("content", content);
-  };
   const BlueButton = styled.button`
     border: 1px solid hsl(205, 41%, 63%);
     background-color: rgb(10, 149, 255);
@@ -101,9 +91,7 @@ const AskQuestionPage = () => {
               <AskQuestionTag />
             </div>
           </MainDiv>
-          <BlueButton onClick={postRequestButton}>
-            Post your question
-          </BlueButton>
+          <BlueButton>Post your question</BlueButton>
         </div>
       </ContentDiv>
     </ContainerDiv>
