@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-import Questions from "./Questions/Questions";
+import Questions from "./pages/Questions/Questions";
 import { Reset } from "styled-reset";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
