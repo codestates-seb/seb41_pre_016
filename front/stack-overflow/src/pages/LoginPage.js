@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { ReactComponent as StackoverflowSvg } from "../statics/stackoverflowIcon.svg";
-import { ReactComponent as GoogleSvg } from "../statics/googleIcon.svg";
-import { ReactComponent as AlertCircleIcon } from "../statics/alertCircleIcon.svg";
-import { ReactComponent as TextBottomIcon } from "../statics/textBottomIcon.svg";
+import { ReactComponent as StackoverflowSvg } from "../assets/stackoverflowIcon.svg";
+import { ReactComponent as GoogleSvg } from "../assets/googleIcon.svg";
+import { ReactComponent as AlertCircleIcon } from "../assets/alertCircleIcon.svg";
+import { ReactComponent as TextBottomIcon } from "../assets/textBottomIcon.svg";
 import { useState } from "react";
 
 const LoginPage = () => {
