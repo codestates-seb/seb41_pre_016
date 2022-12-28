@@ -36,6 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         // (1)
         CustomUserDetails(User user) {
             setUserId(user.getUserId());
+            setName(user.getName());
             setEmail(user.getEmail());
             setPassword(user.getPassword());
             setRoles(user.getRoles());
