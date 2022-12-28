@@ -28,7 +28,7 @@ const LoginPage = () => {
     }
     if(email&&password){
       setLogin(true)
-      navigate(-1)
+      navigate('/')
     }
   };
   const ContainerDiv = styled.div`
