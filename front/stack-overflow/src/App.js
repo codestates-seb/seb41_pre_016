@@ -21,7 +21,6 @@ const MainDiv = styled.div`
   width: 100%;
   background: none;
   display: flex;
-  justify-content: space-between;
   margin: 0 auto;
   position: relative;
   flex: 1 0 auto;
