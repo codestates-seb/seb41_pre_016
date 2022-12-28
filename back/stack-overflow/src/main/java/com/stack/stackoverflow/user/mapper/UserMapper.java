@@ -1,8 +1,7 @@
 package com.stack.stackoverflow.user.mapper;
 
 import com.stack.stackoverflow.user.dto.LoginDto;
-import com.stack.stackoverflow.user.dto.UserPatchDto;
-import com.stack.stackoverflow.user.dto.UserPostDto;
+import com.stack.stackoverflow.user.dto.UserRequestDto;
 import com.stack.stackoverflow.user.dto.UserResponseDto;
 import com.stack.stackoverflow.user.entity.User;
 import org.mapstruct.Mapper;
@@ -12,9 +11,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    User userPostDtoToUser(UserPostDto userPostDto);
+    User userPostDtoToUser(UserRequestDto.Post userPostDto);
 
-    User userPatchDtoToUser(UserPatchDto userPatchDto);
+    User userPatchDtoToUser(UserRequestDto.Patch userPatchDto);
 
     User loginDtoToUser(LoginDto loginDto);
 

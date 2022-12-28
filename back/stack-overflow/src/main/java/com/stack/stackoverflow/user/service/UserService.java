@@ -5,8 +5,12 @@ import com.stack.stackoverflow.UserPage.repository.UserPageRepository;
 import com.stack.stackoverflow.exception.BusinessLogicException;
 import com.stack.stackoverflow.exception.ExceptionCode;
 import com.stack.stackoverflow.question.repository.QuestionRepository;
+import com.stack.stackoverflow.user.dto.UserRequestDto;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -41,7 +45,16 @@ public class UserService {
     }
 
     public User findUser(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = optionalUser.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
         return findVerifiedUser(userId);
+    }
+
+    public Page<User> findUsers(int page, int size){
+        return userRepository.findAll(PageRequest.of(page, size
+        , Sort.by("userId").descending()));
     }
 
     public void deleteUser(Long userId) {
