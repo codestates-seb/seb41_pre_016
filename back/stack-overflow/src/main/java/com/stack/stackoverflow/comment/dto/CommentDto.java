@@ -1,25 +1,19 @@
-package com.stack.stackoverflow.answer.dto;
+package com.stack.stackoverflow.comment.dto;
 
 import com.stack.stackoverflow.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-public class AnswerDto {
+public class CommentDto {
     @Getter
-    @Setter
     @AllArgsConstructor
     public static class Post {
-        private Long questionId;
-
-        private Long userPageId;
-
+        private Long answerId;
         @NotBlank
         private String content;
     }
@@ -27,12 +21,12 @@ public class AnswerDto {
     @Getter
     @AllArgsConstructor
     public static class Patch {
-        private Long answerId;
+        private Long commentId;
         @NotSpace
         private String content;
 
-        public void setAnswerId(long answerId) {
-            this.answerId = answerId;
+        public void setCommentId(Long commentId) {
+            this.commentId = commentId;
         }
     }
 
@@ -40,24 +34,11 @@ public class AnswerDto {
     @AllArgsConstructor
     public static class response {
         private Long answerId;
-        private Long userId;
-
+        private Long commentId;
         @NotNull
         private String content;
         @Column(nullable = false)
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private int votes;
-    }
-
-    @Getter
-    @AllArgsConstructor
-    public static class Votes {
-        private Long answerId;
-        private int votes;
-
-        public void setAnswerId(Long answerId) {
-            this.answerId = answerId;
-        }
     }
 }
