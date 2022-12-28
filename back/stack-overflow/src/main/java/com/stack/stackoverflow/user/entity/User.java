@@ -1,12 +1,19 @@
 package com.stack.stackoverflow.user.entity;
 
+<<<<<<< HEAD
 import com.stack.stackoverflow.UserPage.entity.UserPage;
+=======
+>>>>>>> origin/dev-leeho
 import com.stack.stackoverflow.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+<<<<<<< HEAD
+=======
+import java.time.LocalDateTime;
+>>>>>>> origin/dev-leeho
 
 @Getter
 @Setter
@@ -20,7 +27,11 @@ public class User extends Auditable {
     @Column(length = 50, nullable = false)
     private String name;
 
+<<<<<<< HEAD
     @Column(length = 50, nullable = false,updatable = false, unique = true)
+=======
+    @Column(length = 50, nullable = false, updatable = false, unique = true)
+>>>>>>> origin/dev-leeho
     private String email;
 
     @Column(length = 50, nullable = false)
@@ -32,6 +43,7 @@ public class User extends Auditable {
     @Column
     private int answerCount;
 
+<<<<<<< HEAD
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private UserPage userPage;
 
@@ -47,9 +59,19 @@ public class User extends Auditable {
         }
     }
 
+=======
+    public User(String name){
+        this.name = name;
+    }
+
+>>>>>>> origin/dev-leeho
     public User(String name, String email, String password){
         this.name = name;
         this.email = email;
         this.password = password;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/dev-leeho

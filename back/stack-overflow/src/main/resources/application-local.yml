@@ -1,3 +1,4 @@
+
 # 로컬 환경에서 사용하는 정보들은 application-local.yml 파일에 설정합니다.
 spring:
   h2:
@@ -16,6 +17,7 @@ spring:
   sql:
     init:
       data-locations: classpath*:db/h2/data.sql
+
 logging:
   level:
     org:
