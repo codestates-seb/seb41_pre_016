@@ -10,7 +10,7 @@ const useStore = create((set, get) => ({
     totalElements: 2,
     totalPages: 10,
   },
-  getQuestionsWithDefault: async (page, size) => {
+  getQuestionsWithDefault: (page, size) => {
     return axios
       .get("/question/date/", {
         params: {
@@ -27,7 +27,7 @@ const useStore = create((set, get) => ({
       })
       .catch((err) => console.log(err));
   },
-  getQuestionsWithNoAnswer: async (page, size) => {
+  getQuestionsWithNoAnswer: (page, size) => {
     return axios
       .get("/question/date/", {
         params: {
