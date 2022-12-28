@@ -27,7 +27,7 @@ const App = () => {
   //   fetchData();
   // }, []);
 
-  return <TagsPage />;
+  return <Users />;
 };
 
 export default App;
