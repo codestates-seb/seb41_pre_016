@@ -1,38 +1,36 @@
-.App {
-  text-align: center;
+:root {
+  --yellow-200: #675c37;
+  --yellow-050: #464236;
+  --powder-050: hsl(205, 47%, 97%);
+  --powder-100: hsl(205, 46%, 92%);
+  --powder-200: hsl(205, 53%, 88%);
+  --powder-300: hsl(205, 57%, 81%);
+  --powder-400: hsl(205, 56%, 76%);
+  --powder-500: hsl(205, 41%, 63%);
+  --powder-600: hsl(205, 36%, 53%);
+  --powder-700: hsl(205, 47%, 42%);
+  --powder-800: hsl(205, 46%, 32%);
+  --powder-900: hsl(205, 46%, 22%);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Liberation Sans',
+    sans-serif !important;
+  transition: all 300ms ease-in-out;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-color: white !important;
+  padding-top: 0 !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+a {
+  text-decoration: none !important;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  margin: 3px;
 }
