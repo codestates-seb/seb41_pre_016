@@ -8,6 +8,7 @@ import com.stack.stackoverflow.auth.handler.UserAuthenticationFailureHandler;
 import com.stack.stackoverflow.auth.handler.UserAuthenticationSuccessHandler;
 import com.stack.stackoverflow.auth.jwt.JwtTokenizer;
 import com.stack.stackoverflow.auth.utils.CustomAuthorityUtils;
+import com.stack.stackoverflow.oauth2.handler.OAuth2UserSuccessHandler;
 import com.stack.stackoverflow.user.repository.UserRepository;
 import com.stack.stackoverflow.user.service.UserService;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -33,13 +35,14 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils,
-                                 UserRepository userRepository) {
+
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, UserRepository userRepository, UserService userService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Bean
@@ -70,7 +73,9 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/user-page/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/user-page/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll()
-                );
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2UserSuccessHandler(jwtTokenizer, authorityUtils, userService)));
         return http.build();
     }
 
@@ -91,20 +96,29 @@ public class SecurityConfiguration {
         return source;
     }
 
+//    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
+//        @Override
+//        public void configure(HttpSecurity builder) throws Exception {
+//            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+//
+//            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, userRepository);
+//            jwtAuthenticationFilter.setFilterProcessesUrl("/user/login");
+//            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
+//            jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
+//
+//            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+//
+//            builder.addFilter(jwtAuthenticationFilter)
+//                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+//        }
+//    }
+
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
-            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, userRepository);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/user/login");
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
-            jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
-
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 
-            builder.addFilter(jwtAuthenticationFilter)
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+            builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class); // (1)
         }
     }
 }
