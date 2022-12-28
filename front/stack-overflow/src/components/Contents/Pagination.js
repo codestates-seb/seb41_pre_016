@@ -13,10 +13,6 @@ const Container = styled.div`
 const Pagination = ({ pageInfo, pageHandle }) => {
   const { pageList } = usePagelist(pageInfo?.page, pageInfo?.totalPages);
   console.log(pageList);
-  // 1. 현재페이지가 2 이상인경우에는 Prev 버튼 노출
-  // 2. 현재페이지가 5 이상인경우에는 1번 버튼 & 중간리스트 앞에 ... 노출
-  // 3. 현재페이지가 5 이상인경우에는 현재페이지버튼이 중앙으로 가도록 설정
-  // 4. 현재페이지가 총페이지 - 4 이상인경우 끝단 ... 제거
 
   return (
     <Container>
