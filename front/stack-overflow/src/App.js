@@ -30,6 +30,7 @@ const MainDiv = styled.div`
 const App = () => {
   return (
     <BrowserRouter>
+      <Reset />
       <RootDiv>
         <Header />
       </RootDiv>
