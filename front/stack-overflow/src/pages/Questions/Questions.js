@@ -2,6 +2,8 @@ import styled from "styled-components";
 import BlueButton from "../../components/Buttons/BlueButton";
 import List from "./List";
 import Sidebar from "./Sidebar";
+import { useEffect } from "react";
+import useStore from "../../store/SummaryStates";
 
 const Container = styled.div`
   max-width: 1100px;
@@ -36,6 +38,12 @@ const Headbar = styled.div`
 `;
 
 const Questions = () => {
+  const { getQuestionsWithDefault } = useStore();
+
+  useEffect(() => {
+    getQuestionsWithDefault(1, 10);
+  }, []);
+
   return (
     <Container>
       <MainSection>
