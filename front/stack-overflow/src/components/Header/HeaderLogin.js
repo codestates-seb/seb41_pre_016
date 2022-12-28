@@ -124,7 +124,6 @@ const HeaderLogin = (props) => {
         <UserLi role="none">
           <IconA
             onClick={props.removeHandler}
-            ref={props.ref}
             className="switcher"
           >
             <UserDiv>

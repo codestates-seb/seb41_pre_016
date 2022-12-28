@@ -5,8 +5,10 @@ import { ReactComponent as Logo } from "../../assets/logo-stackoverflow.svg";
 import { ReactComponent as SearchIcon } from "../../assets/searchIcon.svg";
 import DropdownCustomHook from "./DropdownCustomHook";
 import HeaderDropDown from "./HeaderDropDown";
+import {loginStore} from "../../store/zustandLogin";
 
-const Header = ({ isLogin = false }) => {
+const Header = () => {
+  const {isLogin,setLogin}=loginStore()
   const [dropdown, ref, removeHandler] = DropdownCustomHook(false);
   const Header = styled.div`
     z-index: 1;
@@ -139,7 +141,6 @@ const Header = ({ isLogin = false }) => {
         {isLogin ? (
           <HeaderLogin
             dropdown={dropdown}
-            ref={ref}
             removeHandler={removeHandler}
           />
         ) : (
