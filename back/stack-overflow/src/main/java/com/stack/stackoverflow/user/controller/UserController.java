@@ -27,7 +27,7 @@ public class UserController {
     private final UserMapper userMapper;
 
     public UserController(UserService userService,
-                          UserMapper userMapper){
+                          UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/{user-id}")
-    public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId){
+    public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId) {
         User user = userService.findUser(userId);
 
         UserResponseDto userResponseDto = userMapper.userToUserResponseDto(user);
@@ -73,13 +73,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{user-id}")
-    public ResponseEntity deleteUser(@PathVariable("user-id") @Positive long userId){
+    public ResponseEntity deleteUser(@PathVariable("user-id") @Positive long userId) {
         userService.deleteUser(userId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/dev-leeho
