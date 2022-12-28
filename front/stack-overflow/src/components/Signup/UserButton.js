@@ -13,7 +13,7 @@ const UserButton = () => {
     };
     postUser("/user", userObj);
     setLogin(true)
-    navigate(-1);
+    navigate('/');
   };
   return <button onClick={signupButton}>Sign up</button>;
 };
