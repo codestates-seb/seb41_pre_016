@@ -10,7 +10,11 @@ import java.util.List;
 public class TagSingleResponseDto<T> {
     private List<T> tags;
 
-    public TagSingleResponseDto(List<T> tags) {
+    private PageInfo pageInfo;
+
+    public TagSingleResponseDto(List<T> tags, Page page) {
         this.tags = tags;
+        this.pageInfo = new PageInfo(page.getNumber() + 1,
+                page.getSize(), page.getTotalElements(), page.getTotalPages());
     }
 }

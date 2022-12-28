@@ -39,7 +39,7 @@ public class User extends Auditable {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
-    
+
     public User(String userName){
         this.name = name;
     }
