@@ -12,7 +12,7 @@ const TagListDiv = styled.div`
 const TagList = ({ tagData }) => {
   return (
     <TagListDiv>
-      {tagData && tagData.tags.map((el) => <Tags key={el.id} list={el} />)}
+      {tagData && tagData.tags.map((el) => <Tags key={el.tagID} list={el} />)}
     </TagListDiv>
   );
 };

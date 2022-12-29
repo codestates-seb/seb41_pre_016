@@ -48,11 +48,11 @@ const Tags = ({ list }) => {
   return (
     <TagsContainer>
       <TagNameDiv>
-        <Tag name={list.tagName}></Tag>
+        <Tag name={list.name}></Tag>
       </TagNameDiv>
       <TagInfoDiv>
-        {list.tagDescription ? (
-          <TagInfo>{list.tagDescription}</TagInfo>
+        {list.content ? (
+          <TagInfo>{list.content}</TagInfo>
         ) : (
           <NoTagInfo></NoTagInfo>
         )}

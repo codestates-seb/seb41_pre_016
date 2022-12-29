@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import UserCard from '../../components/UserCard';
 import styled from 'styled-components';
+
 const URL = process.env.REACT_APP_API_URL;
 
 const Container = styled.div`
@@ -93,8 +94,8 @@ const Users = () => {
     axios
       .get(
         btnActive === 0 || btnActive === 2
-          ? `${URL}/api/users?order=${order}`
-          : `${URL}/api/users`,
+          ? `${URL}/user?order=${order}`
+          : `${URL}/user`,
         {
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
@@ -112,8 +113,8 @@ const Users = () => {
     axios
       .get(
         btnActive === 0 || btnActive === 2
-          ? `${URL}/api/users?order=${order}`
-          : `${URL}/api/users`,
+          ? `${URL}/users?order=${order}`
+          : `${URL}/users`,
         {
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
