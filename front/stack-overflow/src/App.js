@@ -1,13 +1,17 @@
-import React from "react";
-import "./App.css";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header/Header";
-import styled from "styled-components";
-import Login from "./pages/LoginPage";
-import MainPage from "./pages/MainPage";
-import SignupPage from "./pages/SignupPage";
-import AskQuestionPage from "./pages/AskQuestionPage";
+import React from 'react';
+import './App.css';
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import axios from 'axios';
+import TagsPage from './pages/TagsPage/index';
+import Users from './pages/Users/index';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/Header/Header';
+import styled from 'styled-components';
+import Login from './pages/LoginPage';
+import MainPage from './pages/MainPage';
+import SignupPage from './pages/SignupPage';
+import AskQuestionPage from './pages/AskQuestionPage';
 const RootDiv = styled.div`
   z-index: -100;
   display: flex;
