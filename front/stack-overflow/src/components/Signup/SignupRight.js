@@ -173,7 +173,6 @@ const SignupRight = () => {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
-    appearance: none;
     margin: 0;
     width: 1em;
     height: 1em;
@@ -276,7 +275,7 @@ const SignupRight = () => {
           </div>
           <ScriptRuleDiv>
             Passwords must contain at least eight characters,
-            <br /> including at least 1 letter and 1 number.
+            <br /> including at least 1 letter, 1 number and <br/>1 exclamation mark.
           </ScriptRuleDiv>
           {/*recapcha*/}
           <RecapchaDiv />
@@ -289,8 +288,6 @@ const SignupRight = () => {
                   name="EmailOptIn"
                   id="opt-in"
                   className="s-checkbox"
-                  data-ga-action="Email Opt-In"
-                  data-ga-is-pii="false"
                 />
               </div>
               <div>

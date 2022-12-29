@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { userStore } from "../../store/zustandUser";
+import {signupStore} from "../../store/zustandSignup";
 
 const InputComponent = ({ CLASS }) => {
-  const { setName, setEmail, setPassword } = userStore();
+  const { setName, setEmail, setPassword } = signupStore();
   const [data, setData] = useState("");
   const onchange = (e) => {
     setData(e.target.value);
