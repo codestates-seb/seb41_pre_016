@@ -6,15 +6,18 @@ import { ReactComponent as TextBottomIcon } from "../assets/textBottomIcon.svg";
 import { useState } from "react";
 import {loginStore} from "../store/zustandLogin";
 import { useNavigate } from 'react-router-dom';
+import {useCookies} from "react-cookie";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const {isLogin,setLogin}=loginStore()
+  const {setLogin,loginPost,loginError,jwtStore}=loginStore()
   let email = "";
   let password = "";
+  const date = new Date();
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
   const [userErr, setUserErr] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['access_jwt']);
   const checkUser = () => {
     if (!email) {
       setEmailErr(true);
@@ -27,8 +30,17 @@ const LoginPage = () => {
       setPasswordErr(false);
     }
     if(email&&password){
-      setLogin(true)
-      navigate('/')
+      const LoginObj={
+        email,
+        password,
+      }
+      loginPost('/user/login',LoginObj)
+      if(loginError===false){
+        date.setTime(date.getTime() + 30*60*1000);
+        setCookie('access_jwt', jwtStore, {path:'/', expires:date});
+        setLogin(true)
+        navigate('/')
+      }
     }
   };
   const ContainerDiv = styled.div`
