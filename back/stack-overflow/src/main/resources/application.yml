@@ -23,11 +23,11 @@ spring:
       client:
         registration:
           google:
-            clientId: ${G_CLIENT_ID}
-            clientSecret: ${G_CLIENT_SECRET}
+            clientId: ${GOOGLE_OAUTH_ID}
+            clientSecret: ${GOOGLE_OAUTH_PW}
             scope:
-              - email                              // (1)
-              - profile                            // (2)
+              - email
+              - profile
 logging:
   level:
     org:
