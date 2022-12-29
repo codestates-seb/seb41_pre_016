@@ -44,12 +44,18 @@ public class UserService {
         user.setUserPage(new UserPage());
 
         // password 암호화
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
+        if(user.getPassword() != null) {
+            String encryptedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encryptedPassword);
+        } else user.setPassword("");
 
-        // (4) 추가: DB에 User Role 저장
+        // DB에 User Role 저장
         List<String> roles = authorityUtils.createRoles(user.getEmail());
         user.setRoles(roles);
+
+        // name 설정
+        if(user.getName() == null)
+            user.setName(user.getEmail().split("@")[0]);
 
         User savedUser = userRepository.save(user);
 
@@ -72,6 +78,10 @@ public class UserService {
 
     public User findUser(Long userId) {
         return findVerifiedUser(userId);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).get();
     }
 
     public void deleteUser(Long userId) {
