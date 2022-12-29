@@ -92,19 +92,26 @@ const Users = () => {
 
   useEffect(() => {
     axios
-      .get(
-        btnActive === 0 || btnActive === 2
-          ? `${URL}/user?order=${order}`
-          : `${URL}/user`,
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-          },
-        }
-      )
-      .then((res) => setUsers(res.data.users))
+      .get('/user')
+      .then((res) => setUsers(res.data))
       .catch((error) => console.log(error));
   }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       btnActive === 0 || btnActive === 2
+  //         ? `${URL}/user?order=${order}`
+  //         : `${URL}/user`,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json;charset=UTF-8',
+  //         },
+  //       }
+  //     )
+  //     .then((res) => setUsers(res.data.users))
+  //     .catch((error) => console.log(error));
+  // }, []);
 
   const handleClick = (e) => {
     setBtnActive(e.target.value);
@@ -157,7 +164,7 @@ const Users = () => {
         {users.map((ele) => (
           <div key={ele.userId}>
             <UserCard
-              displayName={ele.displayName}
+              displayName={ele.name}
               answerCount={ele.answerCount}
               userId={ele.userId}
               tags={ele.tags}

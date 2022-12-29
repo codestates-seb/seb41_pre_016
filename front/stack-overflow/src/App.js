@@ -29,21 +29,29 @@ const MainDiv = styled.div`
   text-align: left;
 `;
 const App = () => {
-  return (
-    <BrowserRouter>
-      <RootDiv>
-        <Header />
-      </RootDiv>
-      <MainDiv>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/questions/ask" element={<AskQuestionPage />} />
-        </Routes>
-      </MainDiv>
-    </BrowserRouter>
-  );
+  // const URL = process.env.REACT_APP_API_URL;
+
+  // const [data, setData] = useState();
+  // const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+
+  //     try {
+  //       const response = await axios.get(URL);
+  //       console.log(response);
+  //       setData(response);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //     setLoading(false);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  return <Users />;
 };
 
 export default App;
