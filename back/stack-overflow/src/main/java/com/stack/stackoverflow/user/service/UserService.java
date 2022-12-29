@@ -44,8 +44,9 @@ public class UserService {
         user.setUserPage(new UserPage());
 
         // password 암호화
+        if(user.getPassword() != null) {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
+        user.setPassword(encryptedPassword); }
 
         // (4) 추가: DB에 User Role 저장
         List<String> roles = authorityUtils.createRoles(user.getEmail());
@@ -97,6 +98,9 @@ public class UserService {
 
         if (user.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+    }
+    public User findByEmail(String email) {
+     return userRepository.findByEmail(email).get();
     }
 
     // 로그인

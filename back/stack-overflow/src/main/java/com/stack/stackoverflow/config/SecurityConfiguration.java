@@ -2,22 +2,19 @@ package com.stack.stackoverflow.config;
 
 import com.stack.stackoverflow.auth.filter.JwtAuthenticationFilter;
 import com.stack.stackoverflow.auth.filter.JwtVerificationFilter;
-import com.stack.stackoverflow.auth.handler.UserAccessDeniedHandler;
-import com.stack.stackoverflow.auth.handler.UserAuthenticationEntryPoint;
-import com.stack.stackoverflow.auth.handler.UserAuthenticationFailureHandler;
-import com.stack.stackoverflow.auth.handler.UserAuthenticationSuccessHandler;
+import com.stack.stackoverflow.auth.handler.*;
 import com.stack.stackoverflow.auth.jwt.JwtTokenizer;
 import com.stack.stackoverflow.auth.utils.CustomAuthorityUtils;
-import com.stack.stackoverflow.user.repository.UserRepository;
+import com.stack.stackoverflow.user.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -28,17 +25,16 @@ import java.util.Arrays;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-    private final UserRepository userRepository;
+    private final UserService userservice;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils,
-                                 UserRepository userRepository) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, UserService userservice) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-        this.userRepository = userRepository;
+        this.userservice = userservice;
     }
 
     @Bean
@@ -70,23 +66,13 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.PATCH, "/user-page/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll()
                 );
-//                .oauth2Login(withDefaults());
+//                .oauth2Login(oauth2 ->oauth2
+//                        .successHandler(new OAuth2UserSuccessHandler(jwtTokenizer, authorityUtils, userservice))
+
+
         return http.build();
-//        http
-//                .csrf().disable()
-//                .formLogin().disable()
-//                .httpBasic().disable()
-//                .authorizeHttpRequests(authorize -> authorize    // (1)
-//                        .anyRequest().authenticated()
-//                )
-//                .oauth2Login(withDefaults());    // (2)
-//        return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -109,10 +95,11 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
 
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils, userRepository);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils, userservice);
 
             builder.addFilter(jwtAuthenticationFilter)
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class)
+                    .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
 }
