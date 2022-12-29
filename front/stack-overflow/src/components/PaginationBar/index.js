@@ -19,7 +19,7 @@ function PaginationBar({ page, totalElements, handlePageChange, totalPages }) {
   );
 }
 
-const Container = styled.div`
+export const Container = styled.div`
   .pagination {
     display: flex;
     justify-content: baseline;

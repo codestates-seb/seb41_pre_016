@@ -13,11 +13,15 @@ const TagsPage = () => {
 
   useEffect(() => {
     axios
-      .get('/tag')
+      .get(`/tag?page=${page}&size=20`, {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+      })
       .then((res) => {
         setTagData(res.data);
-        // setTotalElements(res.data.pageInfo.totalElements);
-        // setTotalPage(res.data.pageInfo.totalPages);
+        setTotalElements(res.data.pageInfo.totalElements);
+        setTotalPage(res.data.pageInfo.totalPages);
       })
       .catch((error) => console.log('error : ', error));
   }, [page]);
@@ -47,12 +51,12 @@ const TagsPage = () => {
         <div>
           <TagList tagData={tagData}></TagList>
         </div>
-        {/* <PaginationBar
+        <PaginationBar
           page={page}
           totalElements={totalElements}
           handlePageChange={handlePageChange}
           totalPages={totalPages}
-        /> */}
+        />
       </TagMain>
     </TagContainer>
   );

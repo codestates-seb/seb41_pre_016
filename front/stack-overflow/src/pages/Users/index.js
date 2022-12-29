@@ -86,8 +86,8 @@ const UserListBlock = styled.div`
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-  const name = ['Reputation', 'New users', 'Voters', 'Editors', 'Moderators'];
-  const [btnActive, setBtnActive] = useState(4);
+  const name = ['New users', 'Voters', 'Editors', 'Moderators'];
+  const [btnActive, setBtnActive] = useState(3);
   const [order, setOrder] = useState('');
 
   useEffect(() => {
@@ -151,7 +151,7 @@ const Users = () => {
               className={'btn' + (index === Number(btnActive) ? ' active' : '')}
               id={
                 (index === 0 ? 'left-radius' : '') ||
-                (index === 4 ? 'right-radius' : '')
+                (index === 3 ? 'right-radius' : '')
               }
             >
               {ele}
