@@ -1,5 +1,7 @@
 package com.stack.stackoverflow.tag.mapper;
 
+import com.stack.stackoverflow.question.dto.QuestionResponseDto;
+import com.stack.stackoverflow.question.entity.Question;
 import com.stack.stackoverflow.tag.dto.TagResponseDto;
 import com.stack.stackoverflow.tag.entity.Tag;
 import org.mapstruct.Mapper;
@@ -10,11 +12,5 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TagMapper {
-    List<TagResponseDto> tagToTagResponseDto(List<Tag> tagList);
-
-//    default List<TagResponseDto> tagToTagResponseDto(List<Tag> tagList) {
-//        List<TagResponseDto> tagResponseDtos = new TagResponseDto.OnlyTags(tagList);
-//
-//        return tagResponseDtos;
-//    }
+    List<TagResponseDto> tagToTagsResponseDto(List<Tag> tagList);
 }
