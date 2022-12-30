@@ -23,6 +23,12 @@ public class UserPage extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userPageId;
 
+    @Column(length = 255)
+    private String access;
+
+    @Column(length = 255)
+    private String refresh;
+
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User user;

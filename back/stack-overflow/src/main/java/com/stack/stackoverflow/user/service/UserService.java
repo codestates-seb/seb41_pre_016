@@ -26,6 +26,7 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final UserPageRepository userPageRepository;
 
     // sercurity 추가
     private final ApplicationEventPublisher publisher;
@@ -37,12 +38,14 @@ public class UserService {
                        ApplicationEventPublisher publisher,
                        PasswordEncoder passwordEncoder,
                        CustomAuthorityUtils authorityUtils,
-                       JwtTokenizer jwtTokenizer) {
+                       JwtTokenizer jwtTokenizer,
+                       UserPageRepository userPageRepository) {
         this.userRepository = userRepository;
         this.publisher = publisher;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
         this.jwtTokenizer = jwtTokenizer;
+        this.userPageRepository = userPageRepository;
     }
 
     public User createUser(User user) {
@@ -156,5 +159,22 @@ public class UserService {
         }
 
         return claims;
+    }
+
+    public void saveTokenInUserPage(Long userPageId, String access, String refresh) {
+        UserPage userPage = userPageRepository.findById(userPageId).get();
+        userPage.setAccess(access);
+        userPage.setRefresh(refresh);
+        userPageRepository.save(userPage);
+    }
+
+    public boolean matchTokens(String access, String refresh) {
+        List<UserPage> userPages = userPageRepository.findAll();
+        for(UserPage userPage : userPages) {
+            if(userPage.getAccess().equals(access) && userPage.getRefresh().equals(refresh))
+                return true;
+        }
+
+        return false;
     }
 }

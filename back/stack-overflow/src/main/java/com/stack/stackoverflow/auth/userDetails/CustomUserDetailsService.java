@@ -40,6 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             setEmail(user.getEmail());
             setPassword(user.getPassword());
             setRoles(user.getRoles());
+            setUserPage(user.getUserPage());
         }
 
         @Override
