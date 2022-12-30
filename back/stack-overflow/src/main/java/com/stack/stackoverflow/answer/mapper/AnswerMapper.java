@@ -9,17 +9,20 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
     Answer answerPostDtoToAnswer(AnswerDto.Post requestBody);
+
     Answer answerPatchDtoToAnswer(AnswerDto.Patch requestBody);
+
     List<AnswerDto.response> answersToAnswerResponseDtos(List<Answer> answer);
 
     default AnswerDto.response answerToAnswerResponseDto(Answer answer) {
         AnswerDto.response response = new AnswerDto.response(
                 answer.getAnswerId(),
-                answer.getUserPage().getUser().getUserId(),
                 answer.getContent(),
                 answer.getCreatedAt(),
                 answer.getModifiedAt(),
-                answer.getVote()
+                answer.getVote(),
+                answer.getUserPage().getUser().getUserId(),
+                answer.getUserPage().getUser().getName()
         );
 
         return response;
