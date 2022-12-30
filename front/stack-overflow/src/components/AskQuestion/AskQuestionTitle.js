@@ -14,6 +14,7 @@ const AskQuestionTitle = () => {
     margin: -2px 0;
   `;
   const ContentTitleTextFlexDiv = styled.div`
+    width: 760px;
     margin: 4px;
     flex-direction: column !important;
     input {

@@ -25,6 +25,7 @@ const AskQuestionTag = () => {
     padding: 0 2px;
   `;
   const ContentBodyMessageDiv = styled.div`
+    width: 760px;
     margin: 0;
     padding: 0 2px;
     flex-basis: 75%;

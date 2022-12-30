@@ -4,7 +4,8 @@ import AskQuestionTitle from "../components/AskQuestion/AskQuestionTitle";
 import AskQuestionBody from "../components/AskQuestion/AskQuestionBody";
 import AskQuestionTag from "../components/AskQuestion/AskQuestionTag";
 import PostButton from "../components/AskQuestion/UtilComponents/PostButton";
-const AskQuestionPage = () => {
+import { Editor } from '@toast-ui/react-editor';
+import {useRef} from "react";
   const BlueButton = styled.button`
     border: 1px solid hsl(205, 41%, 63%);
     background-color: rgb(10, 149, 255);
@@ -48,11 +49,11 @@ const AskQuestionPage = () => {
     border-left: 0;
     border-right: 0;
     padding: 0 24px 24px 24px;
-    div:first-child {
+    :first-child {
       width: 100% !important;
       box-sizing: border-box !important;
     }
-    button {
+    .blueButton {
       border: 1px solid hsl(205, 41%, 63%);
       background-color: rgb(10, 149, 255);
       color: white;
@@ -94,6 +95,8 @@ const AskQuestionPage = () => {
       margin: 0 0 1em;
     }
   `;
+const AskQuestionPage = () => {
+  const editorRef = useRef();
   return (
     <ContainerDiv>
       <ContentDiv>
@@ -105,11 +108,11 @@ const AskQuestionPage = () => {
               </ContentHeadDiv>
               <AskQuestionHeader />
               <AskQuestionTitle />
-              <AskQuestionBody />
+              <AskQuestionBody Editor={Editor} editorRef={editorRef}/>
               <AskQuestionTag />
             </div>
           </MainDiv>
-          <PostButton />
+          <PostButton Editor={Editor} editorRef={editorRef}/>
         </div>
       </ContentDiv>
     </ContainerDiv>

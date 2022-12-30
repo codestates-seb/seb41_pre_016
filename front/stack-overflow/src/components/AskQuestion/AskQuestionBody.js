@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import ContentMessageTextarea from "./UtilComponents/ContentMessageTextarea";
-
-const AskQuestionBody = () => {
   const ContentBodyDiv = styled.div`
     margin-top: 15px;
     width: 70% !important;
@@ -47,6 +45,7 @@ const AskQuestionBody = () => {
     color: var(--fc-medium);
     font-size: 12px;
   `;
+const AskQuestionBody = ({Editor,editorRef}) => {
 
   return (
     <ContentBodyDiv>
@@ -61,7 +60,7 @@ const AskQuestionBody = () => {
           </ContentBodyMessageDiv>
         </ContentBodyTextFlexDiv>
         <ContentBodyTextFlexDiv style={{ position: "relative" }}>
-          <ContentMessageTextarea />
+          <ContentMessageTextarea Editor={Editor} editorRef={editorRef}/>
         </ContentBodyTextFlexDiv>
       </ContentBodyTextDiv>
     </ContentBodyDiv>

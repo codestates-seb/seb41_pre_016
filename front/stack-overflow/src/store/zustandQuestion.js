@@ -3,17 +3,17 @@ import axios from "axios";
 
 export const QuestionStore = create((set) => ({
   title: "",
-  content: "",
   tags: [],
   setTitle: (data) => set({ title: data }),
-  setContent: (data) => set({ content: data }),
   setTags: (data) => set({ tags: data }),
-  postQuestion: async (url, id, dataObj) => {
+  postQuestion: async (url, id, dataObj,cookieObj) => {
     await axios
       .post(`${url}/${id}`, {
         title: dataObj.title,
         content: dataObj.content,
         tags: dataObj.tags,
+      },{
+          headers:cookieObj
       })
       .then((response) => {
         console.log(response);
