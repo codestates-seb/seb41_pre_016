@@ -4,25 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 const UserButton = () => {
   const navigate = useNavigate();
-  const { setLogin, jwtStore } = loginStore();
+  const { setLogin, loginPost } = loginStore();
   const { name, email, password, signupError, postUser } = signupStore();
   const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
   const date = new Date();
-  const signupButton = () => {
+  const signupButton = async () => {
     const userObj = {
       name,
       email,
       password,
     };
-    postUser("/user", userObj);
-    if (signupError === false) {
-      date.setTime(date.getTime() + 30 * 60 * 1000);
-      setCookie("access_jwt", jwtStore, { path: "/", expires: date });
-      setLogin(true);
-      navigate("/");
-    } else {
-      alert("조건에 맞지 많습니다");
-    }
+    await postUser("/user", userObj);
+    await navigate("/login");
   };
   return <button onClick={signupButton}>Sign up</button>;
 };

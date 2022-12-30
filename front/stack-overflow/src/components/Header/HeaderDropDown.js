@@ -4,8 +4,9 @@ import { useCookies } from "react-cookie";
 import { userInfoStore } from "../../store/zustandUserInfo";
 
 const HeaderDropDown = () => {
-  const { isLogin, setLogin } = userInfoStore();
-  const removeCookie = useCookies(["access_jwt"]);
+  const userInfo = userInfoStore((state) => state.userInfo);
+  const { isLogin, setLogin } = loginStore();
+  const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
   const logout = () => {
     setLogin(false);
     removeCookie("access_jwt");
