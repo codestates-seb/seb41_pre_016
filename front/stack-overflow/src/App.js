@@ -11,6 +11,8 @@ import Login from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import SignupPage from "./pages/SignupPage";
 import AskQuestionPage from "./pages/AskQuestionPage";
+import Question from "./pages/Question";
+
 const RootDiv = styled.div`
   z-index: -100;
   display: flex;
@@ -36,6 +38,7 @@ const App = () => {
       <MainDiv>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/questions/:questionId" element={<Question />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/questions/ask" element={<AskQuestionPage />} />

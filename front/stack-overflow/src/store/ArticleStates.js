@@ -26,6 +26,9 @@ const useStore = create((set, get) => ({
         isLoading: false,
       }));
     } catch (err) {
+      set((state) => ({
+        isLoading: false,
+      }));
       console.log(err);
     }
   },
