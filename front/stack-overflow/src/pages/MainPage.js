@@ -2,10 +2,13 @@ import LeftSideBar from "../components/LeftSideBar/LeftSideBar";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { userInfoStore } from "../store/zustandUserInfo";
+import { loginStore } from "../store/zustandLogin";
 
 const MainPage = () => {
   const cookies = useCookies(["access_jwt"]);
-  const { userInfo, isLoading, error, getToken } = userInfoStore();
+  const { userInfo, isLoading, error, setIsLoading, setError, getToken } =
+    userInfoStore();
+  const setLogin = loginStore((state) => state.setLogin);
   useEffect(() => {
     if (cookies.access_jwt !== undefined) {
       const cookieObj = {
@@ -13,6 +16,11 @@ const MainPage = () => {
         Refresh: cookies.access_jwt.Refresh,
       };
       getToken("/user", cookieObj);
+      setLogin(true);
+    } else {
+      setLogin(false);
+      setIsLoading(false);
+      setError(true);
     }
   }, []);
 
