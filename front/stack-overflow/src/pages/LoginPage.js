@@ -10,14 +10,13 @@ import { useCookies } from "react-cookie";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { setLogin, loginPost, loginError, jwtStore } = loginStore();
+  const { setLogin, loginPost, loginError } = loginStore();
   let email = "";
   let password = "";
-  const date = new Date();
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
-  const checkUser = () => {
+  const checkUser = async () => {
     if (!email) {
       setEmailErr(true);
     } else {
@@ -33,13 +32,8 @@ const LoginPage = () => {
         email,
         password,
       };
-      loginPost("/user/login", LoginObj);
-      if (loginError === false) {
-        date.setTime(date.getTime() + 30 * 60 * 1000);
-        setCookie("access_jwt", jwtStore, { path: "/", expires: date });
-        setLogin(true);
-        navigate("/");
-      }
+      await loginPost("/user/login", LoginObj);
+      await navigate("/");
     }
   };
   const ContainerDiv = styled.div`

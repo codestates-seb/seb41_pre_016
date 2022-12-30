@@ -11,8 +11,7 @@ export const userInfoStore = create((set) => ({
     set({ isLoading: true });
     try {
       const response = await axios.get(url, { headers: cookieObj });
-      set({ data: await response });
-      console.log(response);
+      set({ userInfo: await response.data });
     } catch (e) {
       console.log(e);
       set({ error: e.message });
