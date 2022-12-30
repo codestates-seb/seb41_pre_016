@@ -63,6 +63,14 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
+    // header의 토큰값을 가지고 있는 user logout
+    @GetMapping("/logout")
+    public ResponseEntity logoutUser(HttpServletRequest request) {
+        userService.logout(request);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping("/{user-id}")
     public ResponseEntity deleteUser(@PathVariable("user-id") @Positive long userId) {
         userService.deleteUser(userId);
