@@ -2,6 +2,7 @@ package com.stack.stackoverflow.user.service;
 
 import com.stack.stackoverflow.UserPage.entity.UserPage;
 import com.stack.stackoverflow.UserPage.repository.UserPageRepository;
+import com.stack.stackoverflow.auth.jwt.JwtTokenizer;
 import com.stack.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.stack.stackoverflow.exception.BusinessLogicException;
 import com.stack.stackoverflow.exception.ExceptionCode;
@@ -9,12 +10,17 @@ import com.stack.stackoverflow.helper.event.UserRegistrationApplicationEvent;
 import com.stack.stackoverflow.question.repository.QuestionRepository;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.repository.UserRepository;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,15 +31,18 @@ public class UserService {
     private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final JwtTokenizer jwtTokenizer;
 
     public UserService(UserRepository userRepository,
                        ApplicationEventPublisher publisher,
                        PasswordEncoder passwordEncoder,
-                       CustomAuthorityUtils authorityUtils) {
+                       CustomAuthorityUtils authorityUtils,
+                       JwtTokenizer jwtTokenizer) {
         this.userRepository = userRepository;
         this.publisher = publisher;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
+        this.jwtTokenizer = jwtTokenizer;
     }
 
     public User createUser(User user) {
@@ -92,6 +101,10 @@ public class UserService {
         return findUser;
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).get();
+    }
+
     private void verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
 
@@ -99,19 +112,49 @@ public class UserService {
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
     }
 
-    // 로그인
-    public User login(User user) {
-        // 이메일 검증
-        Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
-        User findUser =
-                optionalUser.orElseThrow(() -> {
-                    return new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
-                });
+    // 토큰을 이용해서 claims 추출
+    public Map<String, Object> findclaims(HttpServletRequest request) {
+        Map<String, Object> claims = new HashMap<>();
+        try {
+            // request의 Authorization 검증
+            String jws = request.getHeader("Authorization").replace("Bearer ", "");
+            String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+            claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
+        } catch (SignatureException se) {
+            request.setAttribute("exception", se);
+            System.out.println("!! accessToken의 signiture와 payload가 불일치하면 동작");
+            claims.put("access-token error", "access-token의 signiture와 payload가 불일치");
+        } catch (ExpiredJwtException ee) {
+            request.setAttribute("exception", ee);
+            System.out.println("!! accesstoken Expired ");
+            claims.put("access-token error", "access-token의 유효기간 만료");
+            System.out.println("!! claims : " + claims);
 
-        // 비밀번호 검증
-        if (!user.getPassword().equals(findUser.getPassword()))
-            throw new BusinessLogicException(ExceptionCode.LOGIN_FAIL);
+            // access-token 유효기간 만료 시 refresh-token을 들고와서 진행
+            try {
+                String jws = request.getHeader("Refresh");
+                String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+                claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
+            } catch (SignatureException se) {
+                request.setAttribute("exception", se);
+                System.out.println("!! accessToken의 signiture와 payload가 불일치하면 동작");
+                claims.put("refresh-token error", "refresh-token의 signiture와 payload가 불일치");
+            } catch (ExpiredJwtException eee) {
+                request.setAttribute("exception", eee);
+                System.out.println("!! accesstoken Expired ");
+                claims.put("refresh-token error", "refresh-token의 유효기간 만료");
+            } catch (Exception e) {
+                request.setAttribute("exception", e);
+                System.out.println("!! accessToken의 header 불일치하면 동작");
+                claims.put("refresh-token error", "refresh-token의 header 불일치");
+            }
 
-        return findUser;
+        } catch (Exception e) {
+            request.setAttribute("exception", e);
+            System.out.println("!! accessToken의 header 불일치하면 동작");
+            claims.put("access-token error", "access-token의 header 불일치");
+        }
+
+        return claims;
     }
 }

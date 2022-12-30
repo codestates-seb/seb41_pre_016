@@ -4,6 +4,7 @@ import com.stack.stackoverflow.auth.jwt.JwtTokenizer;
 import com.stack.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.repository.UserRepository;
+import com.stack.stackoverflow.user.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.http.converter.json.GsonBuilderUtils;
@@ -26,14 +27,14 @@ import java.util.Map;
 public class JwtVerificationFilter extends OncePerRequestFilter {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     public JwtVerificationFilter(JwtTokenizer jwtTokenizer,
                                  CustomAuthorityUtils authorityUtils,
-                                 UserRepository userRepository) {
+                                 UserService userService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         Map<String, Object> refreshClaims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
 
         // 새로운 Access 토큰 발행
-        User user = userRepository.findByEmail((String) refreshClaims.get("sub")).get();
+        User user = userService.findByEmail((String) refreshClaims.get("sub"));
         String subject = user.getEmail();
         Map<String, Object> claims = new HashMap<>();
         claims.put("name", user.getName());
