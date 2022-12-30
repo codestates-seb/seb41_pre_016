@@ -2,11 +2,13 @@ package com.stack.stackoverflow.tag.dto;
 
 import com.stack.stackoverflow.question.dto.page.PageInfo;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @Getter
+@Setter
 public class TagSingleResponseDto<T> {
     private List<T> tags;
 

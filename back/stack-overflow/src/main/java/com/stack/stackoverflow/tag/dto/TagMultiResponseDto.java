@@ -1,12 +1,12 @@
 package com.stack.stackoverflow.tag.dto;
 
-import com.stack.stackoverflow.question.dto.page.PageInfo;
 import lombok.Getter;
-import org.springframework.data.domain.Page;
+import lombok.Setter;
 
 import java.util.List;
 
 @Getter
+@Setter
 public class TagMultiResponseDto<T, R> {
     private List<T> tags;
     private List<R> questions;
