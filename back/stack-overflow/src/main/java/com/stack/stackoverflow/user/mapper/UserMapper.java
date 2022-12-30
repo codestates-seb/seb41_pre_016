@@ -8,6 +8,7 @@ import com.stack.stackoverflow.user.entity.User;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -18,7 +19,7 @@ public interface UserMapper {
 
     User loginDtoToUser(LoginDto loginDto);
 
-    UserResponseDto userToUserResponseDto(User user);
+    UserResponseDto userToUserResponseDto(User user, Set<String> tags);
 
     List<UserResponseDto> usersToUserResponseDto(List<User> users);
 }

@@ -13,15 +13,15 @@ import com.stack.stackoverflow.user.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -84,6 +84,11 @@ public class UserService {
 
     public User findUser(Long userId) {
         return findVerifiedUser(userId);
+    }
+
+    public Page<User> findPageUsers(int page, int size) {
+        return userRepository.findAll(PageRequest.of(page, size,
+                Sort.by("userId").descending()));
     }
 
     public void deleteUser(Long userId) {
@@ -151,5 +156,27 @@ public class UserService {
         }
 
         return false;
+    }
+
+    // user가 사용한 Set<tag> 할당
+    public Set<String> findTags(User user) {
+        Set<String> tagList = new HashSet<>();
+        user.getUserPage().getQuestions().forEach(question -> {
+            question.getQuestionTags().forEach(questionTag -> {
+                tagList.add(questionTag.getTag().getName());
+            });
+        });
+
+        return tagList;
+    }
+
+    // List<User>가 사용한 List<Set<tag>> 할당
+    public List<Set<String>> findTags(List<User> users) {
+        List<Set<String>> tagList = new ArrayList<>();
+        users.forEach(user -> {
+            tagList.add(findTags(user));
+        });
+
+        return tagList;
     }
 }
