@@ -4,6 +4,7 @@ import com.stack.stackoverflow.question.entity.Question;
 import com.stack.stackoverflow.question.entity.QuestionTag;
 import com.stack.stackoverflow.question.mapper.QuestionMapper;
 import com.stack.stackoverflow.tag.dto.TagMultiResponseDto;
+import com.stack.stackoverflow.tag.dto.TagResponseDto;
 import com.stack.stackoverflow.tag.dto.TagSingleResponseDto;
 import com.stack.stackoverflow.tag.entity.Tag;
 import com.stack.stackoverflow.tag.mapper.TagMapper;
@@ -17,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -42,9 +44,15 @@ public class TagController {
 
         Page<Tag> pageTags = tagService.findPageTags(page - 1, size);
         List<Tag> tagList = pageTags.getContent();
+        List<TagResponseDto> tagToTagResponseDto = tagMapper.tagToTagResponseDto(tagList);
+
+        for(int i=0; i<tagToTagResponseDto.size(); i++) {
+            int questionCount = tagService.findQuestionByTagId(tagList.get(i).getTagId()).size();
+            tagToTagResponseDto.get(i).setQuestionCount(questionCount);
+        }
 
         return new ResponseEntity<>(
-                new TagSingleResponseDto<>(tagMapper.tagToTagResponseDto(tagList),
+                new TagSingleResponseDto<>(tagToTagResponseDto,
                         pageTags),
                 HttpStatus.OK);
     }
@@ -53,9 +61,12 @@ public class TagController {
     public ResponseEntity getTagsQuestions(@PathVariable("tag-id") @Positive long tagId) {
         List<Tag> tagList = tagService.findTag(tagId);
         List<Question> questionList = tagService.findQuestionByTagId(tagId);
+        List<TagResponseDto> tagToTagResponseDto = tagMapper.tagToTagResponseDto(tagList);
+
+        tagToTagResponseDto.get(0).setQuestionCount(questionList.size());
 
         return new ResponseEntity<>(
-                new TagMultiResponseDto<>(tagMapper.tagToTagResponseDto(tagList),
+                new TagMultiResponseDto<>(tagToTagResponseDto,
                         questionMapper.questionsToQuestionsDto(questionList)),
                 HttpStatus.OK);
     }

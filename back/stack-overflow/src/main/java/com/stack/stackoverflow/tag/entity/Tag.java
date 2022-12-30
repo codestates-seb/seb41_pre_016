@@ -26,6 +26,9 @@ public class Tag extends Auditable {
     @Column(length = 800)
     private String content;
 
+    @Column
+    private int questionCount;
+
     @OneToMany(mappedBy = "tag", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<QuestionTag> questionTags = new ArrayList<>();
 
