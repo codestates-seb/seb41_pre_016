@@ -4,18 +4,16 @@ import produce from "immer";
 
 const useStore = create((set, get) => ({
   questions: null,
-  pageInfo: {
-    page: 1,
-    size: 10,
-    totalElements: 2,
-    totalPages: 10,
-  },
-  getQuestionsWithDefault: (page, size) => {
+  pageInfo: null,
+  sortType: "date",
+  isLoading: false,
+  getQuestions: (sortType, page) => {
+    set((state) => ({ isLoading: true }));
     return axios
-      .get("/question/date/", {
+      .get(`/question/${sortType}/`, {
         params: {
           page: page,
-          size: size,
+          size: 10,
         },
       })
       .then((res) => {
@@ -23,25 +21,14 @@ const useStore = create((set, get) => ({
         set((state) => ({
           questions: res.data.questions,
           pageInfo: res.data.pageInfo,
+          sortType: `${sortType}`,
+          isLoading: false,
         }));
       })
-      .catch((err) => console.log(err));
-  },
-  getQuestionsWithNoAnswer: (page, size) => {
-    return axios
-      .get("/question/date/", {
-        params: {
-          page: page,
-          size: size,
-        },
-      })
-      .then((res) => {
-        set((state) => ({
-          questions: res.data.questions,
-          pageInfo: res.data.pageInfo,
-        }));
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        set((state) => ({ isLoading: false }));
+        console.log(err);
+      });
   },
 }));
 

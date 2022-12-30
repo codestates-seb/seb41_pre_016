@@ -7,7 +7,7 @@ import useStore from "../../store/SummaryStates";
 
 const Container = styled.div`
   max-width: 1100px;
-  width: calc(100% - 164);
+  width: 100%;
   height: 100vh;
   background-color: white;
   padding: 24px;
@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const MainSection = styled.section`
   float: left;
-  width: 728px;
+  width: calc(100% - 300px - 24px);
   margin: 0;
   padding: 0;
 `;
@@ -38,10 +38,10 @@ const Headbar = styled.div`
 `;
 
 const Questions = () => {
-  const { getQuestionsWithDefault } = useStore();
+  const { getQuestions } = useStore();
 
   useEffect(() => {
-    getQuestionsWithDefault(1, 10);
+    getQuestions("date", 1, 10);
   }, []);
 
   return (
