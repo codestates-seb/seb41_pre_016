@@ -5,6 +5,8 @@ export const userInfoStore = create((set) => ({
   userInfo: null,
   isLoading: true,
   error: null,
+  setIsLoading: (data) => set({ isLoading: data }),
+  setError: (data) => set({ error: data }),
   getToken: async (url, cookieObj) => {
     set({ isLoading: true });
     try {
