@@ -116,51 +116,19 @@ public class UserService {
     }
 
     // 토큰을 이용해서 claims 추출
-    public Map<String, Object> findclaims(HttpServletRequest request) {
-        Map<String, Object> claims = new HashMap<>();
-        try {
-            // request의 Authorization 검증
-            String jws = request.getHeader("Authorization").replace("Bearer ", "");
-            String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-            claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
-        } catch (SignatureException se) {
-            request.setAttribute("exception", se);
-            System.out.println("!! accessToken의 signiture와 payload가 불일치하면 동작");
-            claims.put("access-token error", "access-token의 signiture와 payload가 불일치");
-        } catch (ExpiredJwtException ee) {
-            request.setAttribute("exception", ee);
-            System.out.println("!! accesstoken Expired ");
-            claims.put("access-token error", "access-token의 유효기간 만료");
-            System.out.println("!! claims : " + claims);
+    public User findclaims(HttpServletRequest request) {
+        String refresh = request.getHeader("Refresh");
+        Optional<UserPage> OptionalUserPage = userPageRepository.findByRefresh(refresh);
 
-            // access-token 유효기간 만료 시 refresh-token을 들고와서 진행
-            try {
-                String jws = request.getHeader("Refresh");
-                String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-                claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
-            } catch (SignatureException se) {
-                request.setAttribute("exception", se);
-                System.out.println("!! accessToken의 signiture와 payload가 불일치하면 동작");
-                claims.put("refresh-token error", "refresh-token의 signiture와 payload가 불일치");
-            } catch (ExpiredJwtException eee) {
-                request.setAttribute("exception", eee);
-                System.out.println("!! accesstoken Expired ");
-                claims.put("refresh-token error", "refresh-token의 유효기간 만료");
-            } catch (Exception e) {
-                request.setAttribute("exception", e);
-                System.out.println("!! accessToken의 header 불일치하면 동작");
-                claims.put("refresh-token error", "refresh-token의 header 불일치");
-            }
+        UserPage findUserPage =
+                OptionalUserPage.orElseThrow(() -> {
+                    return new BusinessLogicException(ExceptionCode.TOKEN_NOT_FOUND);
+                });
 
-        } catch (Exception e) {
-            request.setAttribute("exception", e);
-            System.out.println("!! accessToken의 header 불일치하면 동작");
-            claims.put("access-token error", "access-token의 header 불일치");
-        }
-
-        return claims;
+        return findUserPage.getUser();
     }
 
+    // access와 refresh 토큰 저장
     public void saveTokenInUserPage(Long userPageId, String access, String refresh) {
         UserPage userPage = userPageRepository.findById(userPageId).get();
         userPage.setAccess(access);
@@ -168,6 +136,7 @@ public class UserService {
         userPageRepository.save(userPage);
     }
 
+    // access와 refresh가 한쌍으로 저장된 경우만 verify 통과
     public boolean matchTokens(String access, String refresh) {
         List<UserPage> userPages = userPageRepository.findAll();
         for(UserPage userPage : userPages) {
