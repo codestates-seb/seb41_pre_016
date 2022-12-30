@@ -16,7 +16,7 @@ const LoginPage = () => {
   const date = new Date();
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
-  const setCookie = useCookies(["access_jwt"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
   const checkUser = () => {
     if (!email) {
       setEmailErr(true);
