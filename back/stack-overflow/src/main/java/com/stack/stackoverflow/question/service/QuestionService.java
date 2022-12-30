@@ -38,7 +38,7 @@ public class QuestionService {
 
     // Question 생성
     public Question createQuestion(Question question, List<String> tags, Long userId) {
-        // QuestinTag 추가
+        // QuestionTag 추가
         List<QuestionTag> questionTags = tagService.makeQuestionTags(tagService.findTags(tags));
         for(QuestionTag questionTag : questionTags) {
             questionTag.setQuestion(question);

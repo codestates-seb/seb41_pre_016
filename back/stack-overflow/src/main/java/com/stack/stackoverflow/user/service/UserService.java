@@ -1,11 +1,9 @@
 package com.stack.stackoverflow.user.service;
 
 import com.stack.stackoverflow.UserPage.entity.UserPage;
-import com.stack.stackoverflow.UserPage.repository.UserPageRepository;
 import com.stack.stackoverflow.exception.BusinessLogicException;
 import com.stack.stackoverflow.exception.ExceptionCode;
-import com.stack.stackoverflow.question.repository.QuestionRepository;
-import com.stack.stackoverflow.user.dto.UserRequestDto;
+import com.stack.stackoverflow.tag.service.TagService;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -13,15 +11,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+
 import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final TagService tagService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       TagService tagService) {
         this.userRepository = userRepository;
+        this.tagService = tagService;
     }
 
     public User createUser(User user) {

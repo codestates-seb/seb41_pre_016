@@ -3,11 +3,15 @@ package com.stack.stackoverflow.user.entity;
 import com.stack.stackoverflow.UserPage.entity.UserPage;
 
 import com.stack.stackoverflow.audit.Auditable;
+import com.stack.stackoverflow.question.entity.QuestionTag;
+import com.stack.stackoverflow.tag.entity.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,13 +22,13 @@ public class User extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String name;
 
-    @Column(length = 50, nullable = false, updatable = false, unique = true)
+    @Column(length = 100, nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
 
     @Column
@@ -35,6 +39,9 @@ public class User extends Auditable {
 
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private UserPage userPage;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<QuestionTag> questionTags = new ArrayList<>();
 
     public void setUserPage(UserPage userPage) {
         this.userPage = userPage;

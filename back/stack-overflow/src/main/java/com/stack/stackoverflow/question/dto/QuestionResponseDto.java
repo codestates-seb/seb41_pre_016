@@ -57,4 +57,12 @@ public class QuestionResponseDto{
         private Long questionId;
         private int votes;
     }
+
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    public static class Count{
+        private int question_count;
+        private LocalDateTime createdAt;
+    }
 }

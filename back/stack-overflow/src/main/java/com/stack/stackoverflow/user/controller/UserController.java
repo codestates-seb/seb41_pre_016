@@ -1,7 +1,13 @@
 package com.stack.stackoverflow.user.controller;
 
+import com.stack.stackoverflow.UserPage.mapper.UserPageMapper;
+import com.stack.stackoverflow.UserPage.service.UserPageService;
+import com.stack.stackoverflow.answer.mapper.AnswerMapper;
+import com.stack.stackoverflow.question.entity.QuestionTag;
+import com.stack.stackoverflow.question.mapper.QuestionMapper;
+import com.stack.stackoverflow.tag.service.TagService;
 import com.stack.stackoverflow.user.dto.*;
-import com.stack.stackoverflow.user.dto.page.UserPageResponseDto;
+import com.stack.stackoverflow.user.dto.page.*;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.mapper.UserMapper;
 import com.stack.stackoverflow.user.service.UserService;
@@ -25,11 +31,27 @@ public class UserController {
     private final UserService userService;
 
     private final UserMapper userMapper;
+    private final UserPageMapper userPageMapper;
+    private final UserPageService userPageService;
+    private final AnswerMapper answerMapper;
+    private final QuestionMapper questionMapper;
+
+    private final TagService tagService;
 
     public UserController(UserService userService,
-                          UserMapper userMapper) {
+                          UserMapper userMapper,
+                          UserPageMapper userPageMapper,
+                          UserPageService userPageService,
+                          AnswerMapper answerMapper,
+                          QuestionMapper questionMapper,
+                          TagService tagService) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.userPageMapper = userPageMapper;
+        this.userPageService = userPageService;
+        this.answerMapper = answerMapper;
+        this.questionMapper = questionMapper;
+        this.tagService = tagService;
     }
 
     @PostMapping
@@ -42,7 +64,7 @@ public class UserController {
     }
 
     @GetMapping("/{user-id}")
-    public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId) {
+    public ResponseEntity getUserPage(@Positive @PathVariable("user-id") long userId) {
         User user = userService.findUser(userId);
 
         UserResponseDto userResponseDto = userMapper.userToUserResponseDto(user);

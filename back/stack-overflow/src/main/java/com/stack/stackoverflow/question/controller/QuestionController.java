@@ -35,8 +35,7 @@ public class QuestionController {
                                        @PathVariable("user-id") @Positive long userId) {
         Question question = questionService.createQuestion(
                 questionMapper.qusetionPostDtoToQuestion(postDto),
-                postDto.getTags(),
-                userId);
+                postDto.getTags(), userId);
 
         return new ResponseEntity<>(
                 questionMapper.questionToQuestionNoAnswerDto(question),

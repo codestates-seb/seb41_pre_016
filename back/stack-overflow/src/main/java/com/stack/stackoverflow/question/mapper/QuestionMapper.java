@@ -1,8 +1,7 @@
 package com.stack.stackoverflow.question.mapper;
 
 import com.stack.stackoverflow.answer.entity.Answer;
-import com.stack.stackoverflow.answer.mapper.AnswerMapper;
-import com.stack.stackoverflow.answer.mapper.AnswerMapperImpl;
+import com.stack.stackoverflow.answer.mapper.*;
 import com.stack.stackoverflow.question.dto.QuestionRequestDto;
 import com.stack.stackoverflow.question.dto.QuestionResponseDto;
 import com.stack.stackoverflow.question.entity.Question;

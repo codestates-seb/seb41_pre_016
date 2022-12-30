@@ -4,6 +4,7 @@ import com.stack.stackoverflow.answer.entity.Answer;
 import com.stack.stackoverflow.audit.Auditable;
 import com.stack.stackoverflow.question.entity.Question;
 import com.stack.stackoverflow.question.entity.QuestionTag;
+import com.stack.stackoverflow.tag.entity.Tag;
 import com.stack.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class UserPage extends Auditable {
     @OneToMany(mappedBy = "userPage", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Answer> answers = new ArrayList<>();
 
+
     public void setQuestions(Question question) {
         if(!this.questions.contains(question)) this.questions.add(question);
         if (question.getUserPage() != this) {
@@ -41,7 +43,7 @@ public class UserPage extends Auditable {
     }
 
     public void setAnswers(Answer answer) {
-        if(!this.answers.contains(answer)) this.answers.add(answer);
+        if (!this.answers.contains(answer)) this.answers.add(answer);
         if (answer.getUserPage() != this) {
             answer.setUserPage(this);
         }

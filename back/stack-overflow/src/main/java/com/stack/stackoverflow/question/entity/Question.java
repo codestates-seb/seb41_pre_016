@@ -3,6 +3,7 @@ package com.stack.stackoverflow.question.entity;
 import com.stack.stackoverflow.UserPage.entity.UserPage;
 import com.stack.stackoverflow.answer.entity.Answer;
 import com.stack.stackoverflow.audit.Auditable;
+import com.stack.stackoverflow.tag.entity.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +33,9 @@ public class Question extends Auditable {
     private int answerCount = 0;
 
     @Column(nullable = false)
+    private int questionCount = 0;
+
+    @Column(nullable = false)
     private int vote = 0;
 
     @Column(nullable = false)
@@ -46,6 +50,8 @@ public class Question extends Auditable {
 
     @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Answer> answers = new ArrayList<>();
+    
+
 
     public void setUserPage(UserPage userPage) {
         this.userPage = userPage;
@@ -53,6 +59,7 @@ public class Question extends Auditable {
             this.userPage.setQuestions(this);
         }
     }
+
 
 //    public void setQuestionTags(QuestionTag questionTag) {
 //        if(!this.questionTags.contains(questionTag)) this.questionTags.add(questionTag);
@@ -67,6 +74,8 @@ public class Question extends Auditable {
             answer.setQuestion(this);
         }
     }
+
+
 
     public void deleteQuestionTags() {
         this.questionTags.clear();
