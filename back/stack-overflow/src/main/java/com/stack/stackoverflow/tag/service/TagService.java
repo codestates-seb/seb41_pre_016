@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +42,8 @@ public class TagService {
             return tagRepository.save(tag);
         }
 
-        return findTag.get();
+        findTag.get().setModifiedAt(LocalDateTime.now());
+        return tagRepository.save(findTag.get());
     }
 
     // Tag의 name이 Tag 테이블에 있는지 확인
@@ -89,23 +91,14 @@ public class TagService {
         List<Question> questions = questionRepository.findAll();
         List<Question> findQuestions = new ArrayList<>();
 
-        questions.forEach(question -> System.out.println("question ID : " + question.getQuestionId()));
-
         for(Question question : questions) {
             int ok = 0;
             for (QuestionTag questionTag : question.getQuestionTags()) {
                 if (questionTag.getTag().getTagId() == tagId) ok++;
             }
-//            if(ok == 0) questions.remove(question);
             if(ok != 0) findQuestions.add(question);
-            System.out.println("ok : " + ok);
-            System.out.println(questions.size());
         }
 
-        System.out.println("after >> ");
-//        questions.forEach(question -> System.out.println("question ID : " + question.getQuestionId()));
-
-//        return questions;
         return findQuestions;
     }
 
