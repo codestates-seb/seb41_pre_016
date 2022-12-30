@@ -9,6 +9,7 @@ import com.stack.stackoverflow.auth.handler.UserAuthenticationSuccessHandler;
 import com.stack.stackoverflow.auth.jwt.JwtTokenizer;
 import com.stack.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.stack.stackoverflow.user.repository.UserRepository;
+import com.stack.stackoverflow.user.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -31,14 +32,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
                                  CustomAuthorityUtils authorityUtils,
-                                 UserRepository userRepository) {
+                                 UserService userService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Bean
@@ -65,27 +66,13 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.POST, "/answer/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/answer/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/answer/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.GET, "/user").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/user/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.GET, "/user-page/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/user-page/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll()
                 );
-//                .oauth2Login(withDefaults());
         return http.build();
-//        http
-//                .csrf().disable()
-//                .formLogin().disable()
-//                .httpBasic().disable()
-//                .authorizeHttpRequests(authorize -> authorize    // (1)
-//                        .anyRequest().authenticated()
-//                )
-//                .oauth2Login(withDefaults());    // (2)
-//        return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
@@ -109,7 +96,7 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
 
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils, userRepository);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils, userService);
 
             builder.addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
