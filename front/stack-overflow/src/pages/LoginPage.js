@@ -4,20 +4,19 @@ import { ReactComponent as GoogleSvg } from "../assets/googleIcon.svg";
 import { ReactComponent as AlertCircleIcon } from "../assets/alertCircleIcon.svg";
 import { ReactComponent as TextBottomIcon } from "../assets/textBottomIcon.svg";
 import { useState } from "react";
-import {loginStore} from "../store/zustandLogin";
-import { useNavigate } from 'react-router-dom';
-import {useCookies} from "react-cookie";
+import { loginStore } from "../store/zustandLogin";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const {setLogin,loginPost,loginError,jwtStore}=loginStore()
+  const { setLogin, loginPost, loginError, jwtStore } = loginStore();
   let email = "";
   let password = "";
   const date = new Date();
   const [emailErr, setEmailErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
-  const [userErr, setUserErr] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['access_jwt']);
+  const setCookie = useCookies(["access_jwt"]);
   const checkUser = () => {
     if (!email) {
       setEmailErr(true);
@@ -29,17 +28,17 @@ const LoginPage = () => {
     } else {
       setPasswordErr(false);
     }
-    if(email&&password){
-      const LoginObj={
+    if (email && password) {
+      const LoginObj = {
         email,
         password,
-      }
-      loginPost('/user/login',LoginObj)
-      if(loginError===false){
-        date.setTime(date.getTime() + 30*60*1000);
-        setCookie('access_jwt', jwtStore, {path:'/', expires:date});
-        setLogin(true)
-        navigate('/')
+      };
+      loginPost("/user/login", LoginObj);
+      if (loginError === false) {
+        date.setTime(date.getTime() + 30 * 60 * 1000);
+        setCookie("access_jwt", jwtStore, { path: "/", expires: date });
+        setLogin(true);
+        navigate("/");
       }
     }
   };
@@ -149,7 +148,7 @@ const LoginPage = () => {
     right: 0.7em;
     margin-top: -12px;
     pointer-events: none;
-    ${emailErr | userErr ? "visibility: visible;" : "visibility: hidden;"}
+    ${emailErr ? "visibility: visible;" : "visibility: hidden;"}
   }
   `;
   const AlertCirclePasswordDiv = styled.div`
@@ -158,7 +157,7 @@ const LoginPage = () => {
     right: 0.7em;
     margin-top: -22px;
     pointer-events: none;
-    ${passwordErr | userErr ? "visibility: visible;" : "visibility: hidden;"}
+    ${passwordErr ? "visibility: visible;" : "visibility: hidden;"}
   }
   `;
   const EmailInput = styled.input`
@@ -166,7 +165,7 @@ const LoginPage = () => {
     padding: 0.6em 0.7em;
     border: 1px solid var(--bc-darker);
     border-radius: 3px;
-    ${emailErr | userErr
+    ${emailErr
       ? "border: 1px solid var(--red-400);"
       : "border: 1px solid var(--bc-darker);"}
     background-color: var(--white);
@@ -174,7 +173,7 @@ const LoginPage = () => {
     font-size: var(--fs-body1);
     font-family: inherit;
     :focus {
-      ${emailErr | userErr
+      ${emailErr
         ? "outline: 1px solid var(--red-400); box-shadow: 0 0 5px var(--red-400);"
         : "outline: 1px solid var(--blue-400); box-shadow: 0 0 5px var(--blue-400)"}
     }
@@ -303,10 +302,7 @@ const LoginPage = () => {
                     <AlertCircleIcon />
                   </AlertCircleEmailDiv>
                 </LoginRelativeDiv>
-                <AlertP>
-                  {emailErr ? "Email cannot be empty." : " "}
-                  {userErr ? "The email is not a valid email address." : " "}
-                </AlertP>
+                <AlertP>{emailErr ? "Email cannot be empty." : " "}</AlertP>
               </MarginDiv>
               {/*Pass*/}
               <div className="d-flex-password">

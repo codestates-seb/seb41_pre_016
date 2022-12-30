@@ -1,26 +1,27 @@
 import LeftSideBar from "../components/LeftSideBar/LeftSideBar";
-import {fetchStore} from "../store/zustandFetch";
-import {useEffect, useState} from "react";
-import {useCookies} from "react-cookie";
-import axios from "axios";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { userInfoStore } from "../store/zustandUserInfo";
+
 const MainPage = () => {
-    const{data,isLoading,error,fetch}=fetchStore()
-    useEffect(()=>{fetch("/user/1")},[])
-
-    const [cookies, setCookie, removeCookie] = useCookies(['access_jwt']);
-
-    useEffect(() => {
-        if(cookies.access_jwt !== undefined){
-            console.log(cookies.access_jwt)
-        }
-    },[]);
+  const cookies = useCookies(["access_jwt"]);
+  const { userInfo, isLoading, error, getToken } = userInfoStore();
+  useEffect(() => {
+    if (cookies.access_jwt !== undefined) {
+      const cookieObj = {
+        Authorization: cookies.access_jwt.Authorization,
+        Refresh: cookies.access_jwt.Refresh,
+      };
+      getToken("/user", cookieObj);
+    }
+  }, []);
 
   return (
     <>
       <LeftSideBar />
       {error && <div>error</div>}
       {isLoading && <div>Loading</div>}
-      {data && console.log(data)}
+      {userInfo && console.log(userInfo)}
       <a href="/questions/ask">
         <button>Ask question</button>
       </a>
