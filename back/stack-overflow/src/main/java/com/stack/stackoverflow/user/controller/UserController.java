@@ -54,15 +54,10 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
+    // header의 토큰값을 이용해서 User 정보 response
     @GetMapping
     public ResponseEntity getUser(HttpServletRequest request) {
-        Map<String, Object> claims = userService.findclaims(request);
-
-        // assecc-token 또는 refresh-token을 통해서 claims를 추출할 수 없는 경우
-        if(claims.get("sub") == null) return new ResponseEntity<>(claims, HttpStatus.BAD_REQUEST);
-
-        // assecc-token 또는 refresh-token을 통해서 claims를 추출할 수 있는 경우
-        User user = userService.findByEmail((String) claims.get("sub"));
+        User user = userService.findclaims(request);
         UserResponseDto userResponseDto = mapper.userToUserResponseDto(user);
 
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
