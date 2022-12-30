@@ -136,6 +136,12 @@ public class UserService {
         userPageRepository.save(userPage);
     }
 
+    // 로그아웃
+    public void logout(HttpServletRequest request) {
+        User user = findclaims(request);
+        saveTokenInUserPage(user.getUserPage().getUserPageId(), null, null);
+    }
+
     // access와 refresh가 한쌍으로 저장된 경우만 verify 통과
     public boolean matchTokens(String access, String refresh) {
         List<UserPage> userPages = userPageRepository.findAll();
