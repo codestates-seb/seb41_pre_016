@@ -40,7 +40,6 @@ public class AnswerDto {
     @AllArgsConstructor
     public static class response {
         private Long answerId;
-        private Long userId;
 
         @NotNull
         private String content;
@@ -48,6 +47,8 @@ public class AnswerDto {
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private int votes;
+        private Long userId;
+        private String name;
     }
 
     @Getter
