@@ -1,5 +1,6 @@
 package com.stack.stackoverflow.config;
 
+import com.stack.stackoverflow.UserPage.repository.UserPageRepository;
 import com.stack.stackoverflow.auth.filter.JwtAuthenticationFilter;
 import com.stack.stackoverflow.auth.filter.JwtVerificationFilter;
 import com.stack.stackoverflow.auth.handler.UserAccessDeniedHandler;
@@ -91,7 +92,7 @@ public class SecurityConfiguration {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, userService);
             jwtAuthenticationFilter.setFilterProcessesUrl("/user/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());

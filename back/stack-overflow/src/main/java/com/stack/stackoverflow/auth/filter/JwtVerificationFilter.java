@@ -2,6 +2,8 @@ package com.stack.stackoverflow.auth.filter;
 
 import com.stack.stackoverflow.auth.jwt.JwtTokenizer;
 import com.stack.stackoverflow.auth.utils.CustomAuthorityUtils;
+import com.stack.stackoverflow.exception.BusinessLogicException;
+import com.stack.stackoverflow.exception.ExceptionCode;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.repository.UserRepository;
 import com.stack.stackoverflow.user.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -38,10 +41,18 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    @Transactional
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+        // 저장되어 있는 access-token, refresh-token과 request로 들어온 token들의 값 비교
+        String access = request.getHeader("Authorization");
+        String refresh = request.getHeader("Refresh");
+        if(!userService.matchTokens(access, refresh))
+            throw new BusinessLogicException(ExceptionCode.TOKEN_NOT_FOUND);
+
         try {
+            // access-token 검증
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);
 
@@ -49,6 +60,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             request.setAttribute("exception", se);
             System.out.println("!! accessToken의 signiture와 payload가 불일치하면 동작");
         } catch (ExpiredJwtException ee) {
+            // access-token의 유효기간 지남
             request.setAttribute("exception", ee);
             System.out.println("!! accesstoken Expired ");
             response.setHeader("error_message", "!! accesstoken Expired ");
@@ -57,6 +69,15 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
                 // 새로운 AccessToken 발생 및 전달
                 String accessToken = delegateAccessTokenByRefreshToken(request);
                 response.setHeader("Authorization", "Bearer " + accessToken);
+
+                // 새로 생성한 access 토큰의 claims 추출 후 context에 저장
+                String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+                Map<String, Object> newAccessTokenclaims = jwtTokenizer.getClaims(accessToken, base64EncodedSecretKey).getBody();
+                setAuthenticationToContext(newAccessTokenclaims);
+
+                // 새로운 AccessToken 저장
+                userService.saveTokenInUserPage(userService.findByEmail((String) newAccessTokenclaims.get("sub")).getUserPage().getUserPageId(),
+                        "Bearer " + accessToken, refresh);
             } catch (SignatureException se) {
                 request.setAttribute("exception", se);
                 System.out.println("!! RefreshToken의 signiture와 payload가 불일치하면 동작");
@@ -93,12 +114,10 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
         String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
 
-        // 새로 생성한 access 토큰의 claims 추출 후 context에 저장
-        Map<String, Object> newAccessTokenclaims = jwtTokenizer.getClaims(accessToken, base64EncodedSecretKey).getBody();
-        setAuthenticationToContext(newAccessTokenclaims);
-
         return accessToken;
     }
+
+
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {

@@ -1,6 +1,8 @@
 package com.stack.stackoverflow.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stack.stackoverflow.UserPage.entity.UserPage;
+import com.stack.stackoverflow.UserPage.repository.UserPageRepository;
 import com.stack.stackoverflow.auth.handler.UserAuthenticationSuccessHandler;
 import com.stack.stackoverflow.auth.jwt.JwtTokenizer;
 import com.stack.stackoverflow.auth.utils.CustomAuthorityUtils;
@@ -8,6 +10,7 @@ import com.stack.stackoverflow.user.dto.LoginDto;
 import com.stack.stackoverflow.user.dto.UserResponseDto;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.repository.UserRepository;
+import com.stack.stackoverflow.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,11 +36,14 @@ import java.util.*;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {  // (1)
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
+    private final UserService userService;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager,
-                                   JwtTokenizer jwtTokenizer) {
+                                   JwtTokenizer jwtTokenizer,
+                                   UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
+        this.userService = userService;
     }
 
     @SneakyThrows
@@ -69,6 +75,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // ------------------------------------------------------------
         // response.body에 내용 생성
         saveResponseBody(response, user);
+
+        // userPage에 Authorization과 Refresh 설정하기
+        userService.saveTokenInUserPage(user.getUserPage().getUserPageId(), "Bearer " + accessToken, refreshToken);
         // ------------------------------------------------------------
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);

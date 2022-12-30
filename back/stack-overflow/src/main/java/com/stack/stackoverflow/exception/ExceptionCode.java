@@ -16,7 +16,8 @@ public enum ExceptionCode {
     USER_EXISTS(409, "User exists"),
     LOGIN_FAIL(404, "Password is not match"),
     TAG_NOT_FOUND(404, "Tag not found"),
-    ANSWER_NOT_FOUND(404, "Answer not found");
+    ANSWER_NOT_FOUND(404, "Answer not found"),
+    TOKEN_NOT_FOUND(404, "Token not found");
 
     @Getter
     private int status;
