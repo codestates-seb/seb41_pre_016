@@ -6,7 +6,7 @@ const UserButton = () => {
   const navigate = useNavigate();
   const { setLogin, jwtStore } = loginStore();
   const { name, email, password, signupError, postUser } = signupStore();
-  const setCookie = useCookies(["access_jwt"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
   const date = new Date();
   const signupButton = () => {
     const userObj = {
