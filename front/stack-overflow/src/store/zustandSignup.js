@@ -2,12 +2,7 @@ import create from "zustand";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 
-<<<<<<< HEAD:front/stack-overflow/src/store/zustandUser.js
-
-export const userStore = create((set) => ({
-=======
 export const signupStore = create((set) => ({
->>>>>>> 1875eef (fit: Fix Navigator bug):front/stack-overflow/src/store/zustandSignup.js
   name: "",
   email: "",
   password: "",
