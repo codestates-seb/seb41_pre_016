@@ -48,6 +48,7 @@ const AskQuestionBody = () => {
     font-size: 12px;
   `;
 
+
   return (
     <ContentBodyDiv>
       <ContentBodyTextDiv>
