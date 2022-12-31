@@ -4,8 +4,12 @@ import { ReactComponent as GoogleSvg } from "../assets/googleIcon.svg";
 import { ReactComponent as AlertCircleIcon } from "../assets/alertCircleIcon.svg";
 import { ReactComponent as TextBottomIcon } from "../assets/textBottomIcon.svg";
 import { useState } from "react";
+import {loginStore} from "../store/zustandLogin";
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const {isLogin,setLogin}=loginStore()
   let email = "";
   let password = "";
   const [emailErr, setEmailErr] = useState(false);
@@ -21,6 +25,10 @@ const LoginPage = () => {
       setPasswordErr(true);
     } else {
       setPasswordErr(false);
+    }
+    if(email&&password){
+      setLogin(true)
+      navigate(-1)
     }
   };
   const ContainerDiv = styled.div`
