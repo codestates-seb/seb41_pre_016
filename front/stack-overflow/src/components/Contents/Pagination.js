@@ -12,7 +12,6 @@ const Container = styled.div`
 
 const Pagination = ({ pageInfo, pageHandle }) => {
   const { pageList } = usePagelist(pageInfo?.page, pageInfo?.totalPages);
-  console.log(pageList);
 
   return (
     <Container>
