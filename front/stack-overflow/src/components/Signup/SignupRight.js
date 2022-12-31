@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { ReactComponent as GoogleSvg } from "../../assets/googleIcon.svg";
 import { ReactComponent as AlertCircleIcon } from "../../assets/alertCircleIcon.svg";
 import { ReactComponent as TextBottomIcon } from "../../assets/textBottomIcon.svg";
-import InputComponent from "./InputComponent";
-import UserButton from "./UserButton";
+import { useState } from "react";
 
 const SignupRight = () => {
   const ContainDiv = styled.div`
