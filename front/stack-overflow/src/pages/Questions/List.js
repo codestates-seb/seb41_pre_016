@@ -4,7 +4,7 @@ import TabButton from "../../components/Buttons/TabButton";
 import { useState, useEffect, CSSProperties } from "react";
 import styled from "styled-components";
 import Pagination from "../../components/Contents/Pagination";
-import { PacmanLoader } from "react-spinners";
+import Loading from "../../components/Widget/Loading";
 
 const Container = styled.div`
   display: flex;
@@ -20,16 +20,8 @@ const QuestionNumber = styled.div`
   font-size: 17px;
 `;
 
-const SpinnerContainer = styled.div`
-  width: 100%;
-  height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const List = () => {
-  const { questions, pageInfo } = useStore();
+  const { questions, isLoading, pageInfo } = useStore();
 
   return (
     <>
@@ -39,28 +31,28 @@ const List = () => {
           <TabButton />
         </Container>
       ) : null}
-      {questions ? (
-        questions.map((el, idx) => {
+      {!isLoading ? (
+        questions?.map((el, idx) => {
           return (
             <Summary
               key={idx}
+              id={el.questionId}
               title={el.title}
               content={el.content}
               tags={el.tags}
               vote={el.votes}
-              answer={el.answerCount}
+              answer={el.answer_count}
               views={el.views}
               name={el.name}
               userId={el.userId}
+              modTime={el.createdAt}
             />
           );
         })
       ) : (
-        <SpinnerContainer>
-          <PacmanLoader color="var(--black-200)" />
-        </SpinnerContainer>
+        <Loading />
       )}
-      <Pagination pageInfo={pageInfo} />
+      {pageInfo ? <Pagination pageInfo={pageInfo} /> : null}
     </>
   );
 };

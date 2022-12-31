@@ -63,7 +63,7 @@ const Article = () => {
                   <Aside votes={el.votes} />
                   <Content
                     content={el.content}
-                    name={question.userId}
+                    name={question.name}
                     id={question.useId}
                   />
                 </>

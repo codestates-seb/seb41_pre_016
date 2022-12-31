@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import useStore from "../../store/ArticleStates";
+import useElapsedTime from "../../hooks/useElapsedTime";
+import { useEffect } from "react";
 
 const Container = styled.div``;
 
@@ -40,16 +42,18 @@ const InfoContents = styled.span`
 
 const Header = () => {
   const { title, createdAt, modifiedAt, views } = useStore();
+  const createdTime = useElapsedTime(createdAt);
+  const modifiedTime = useElapsedTime(modifiedAt);
 
   return (
     <Container>
       <Title> {title} </Title>
       <InfoContainer>
         <InfoContents>
-          Asked <span>today</span>
+          Asked <span>{createdTime.elapsedTimeString} ago</span>
         </InfoContents>
         <InfoContents>
-          Modified <span>today</span>
+          Modified <span>{modifiedTime.elapsedTimeString} ago</span>
         </InfoContents>
         <InfoContents>
           Viewed <span>{views} times</span>

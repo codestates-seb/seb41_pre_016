@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import useElapsedTime from "../../hooks/useElapsedTime";
 
 const Container = styled.div`
   display: flex;
@@ -28,16 +27,19 @@ const Reputation = styled.span`
 
 const Time = styled.a`
   color: var(--black-500);
+  text-decoration: none;
 `;
 
-const UserInfo = ({ name, userId, modtime }) => {
+const UserInfo = ({ name, userId, modTime }) => {
+  const { elapsedTimeString } = useElapsedTime(modTime);
+
   return (
     <Container>
       <ProfileImage src="http://www.gravatar.com/avatar/00?d=mm" />
       <Nickname>{name}</Nickname>
       {/* <Reputation>4,493</Reputation> */}
       <Time href={`http://localhost:3000/user/${userId}`}>
-        asked 24 mins ago
+        asked {elapsedTimeString} ago
       </Time>
     </Container>
   );
