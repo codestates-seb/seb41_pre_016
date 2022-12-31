@@ -1,11 +1,12 @@
 import styled, { css } from "styled-components";
+import useStore from "../../store/SummaryStates";
 
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
 
-  div {
+  button {
     &:nth-child(1) {
       border-top-left-radius: 3px;
       border-bottom-left-radius: 3px;
@@ -17,11 +18,12 @@ const Container = styled.div`
   }
 `;
 
-const Tabbox = styled.div`
+const Tabbox = styled.button`
   font-size: 13px;
   padding: 9.6px;
   color: var(--black-500);
   border: 1px solid var(--black-300);
+  background-color: white;
   cursor: pointer;
 
   &:hover {
@@ -38,11 +40,14 @@ const Tabbox = styled.div`
   }}
 `;
 
-const TabButton = ({ handle }) => {
+const TabButton = () => {
+  const { getQuestions } = useStore();
   return (
     <Container>
-      <Tabbox>Newest</Tabbox>
-      <Tabbox>Unanswered</Tabbox>
+      <Tabbox onClick={() => getQuestions("date", 1, 10)}>Newest</Tabbox>
+      <Tabbox onClick={() => getQuestions("no-answer", 1, 10)}>
+        Unanswered
+      </Tabbox>
     </Container>
   );
 };
