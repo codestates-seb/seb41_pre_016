@@ -2,12 +2,12 @@ import React from "react";
 import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LeftSideBar from "./LeftSideBar/LeftSideBar";
-import Header from "./Header/Header";
+import Header from "./components/Header/Header";
 import styled from "styled-components";
-import HeaderDropDown from "./Header/HeaderDropDown";
-import Login from "./Login/Login";
-import MainPage from "./Page/MainPage";
+import Login from "./pages/LoginPage";
+import MainPage from "./pages/MainPage";
+import SignupPage from "./pages/SignupPage";
+import AskQuestionPage from "./pages/AskQuestionPage";
 const RootDiv = styled.div`
   z-index: -100;
   display: flex;
@@ -25,20 +25,21 @@ const MainDiv = styled.div`
   text-align: left;
 `;
 const App = () => {
-  return (
-    <BrowserRouter>
-
-      <RootDiv>
-        <Header />
-      </RootDiv>
-      <MainDiv>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </MainDiv>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <RootDiv>
+                <Header />
+            </RootDiv>
+            <MainDiv>
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<SignupPage />} />
+                    <Route path="/questions/ask" element={<AskQuestionPage />} />
+                </Routes>
+            </MainDiv>
+        </BrowserRouter>
+    );
 };
 
 export default App;

@@ -15,6 +15,7 @@ const SignupRight = () => {
     margin: -4px 0 16px 0;
     flex-direction: column !important;
   `;
+
   const GoogleButton = styled.div`
     margin: 4px 0;
     background-color: white;
