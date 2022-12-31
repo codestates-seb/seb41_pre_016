@@ -6,8 +6,7 @@ import Header from "./components/Header/Header";
 import styled from "styled-components";
 import Login from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
-import SignupPage from "./pages/SignupPage";
-import AskQuestionPage from "./pages/AskQuestionPage";
+
 const RootDiv = styled.div`
   z-index: -100;
   display: flex;
