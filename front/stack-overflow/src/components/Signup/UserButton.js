@@ -1,13 +1,15 @@
 import { userStore } from "../../store/zustandUser";
+import { postStore } from "../../store/zustandFetch";
 const UserButton = () => {
-  const { name, email, password, postUser } = userStore();
+  const { name, email, password } = userStore();
+  const { post } = postStore();
   const signupButton = () => {
     const userObj = {
       name,
       email,
       password,
     };
-    postUser("/user", userObj);
+    post("/user", userObj);
   };
   return <button onClick={signupButton}>Sign up</button>;
 };

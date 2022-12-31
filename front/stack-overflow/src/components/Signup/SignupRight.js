@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { ReactComponent as GoogleSvg } from "../../assets/googleIcon.svg";
 import { ReactComponent as AlertCircleIcon } from "../../assets/alertCircleIcon.svg";
 import { ReactComponent as TextBottomIcon } from "../../assets/textBottomIcon.svg";
-import { useState } from "react";
+import InputComponent from "./InputComponent";
+import UserButton from "./UserButton";
 
 const SignupRight = () => {
   const ContainDiv = styled.div`
@@ -14,7 +15,6 @@ const SignupRight = () => {
     margin: -4px 0 16px 0;
     flex-direction: column !important;
   `;
-
   const GoogleButton = styled.div`
     margin: 4px 0;
     background-color: white;
