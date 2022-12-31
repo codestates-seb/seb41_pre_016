@@ -1,25 +1,25 @@
 import create from "zustand";
 import axios from "axios";
+import { Cookies } from "react-cookie";
 
-export const userStore = create((set) => ({
+export const signupStore = create((set) => ({
   name: "",
   email: "",
   password: "",
+  signupError: null,
   setName: (data) => set({ name: data }),
   setEmail: (data) => set({ email: data }),
   setPassword: (data) => set({ password: data }),
   postUser: async (url, dataObj) => {
     await axios
-      .post(url, {
-        name: dataObj.name,
-        email: dataObj.email,
-        password: dataObj.password,
-      })
+      .post(url, dataObj)
       .then((response) => {
-        console.log(response);
+        set({ signupError: false });
+        alert("성공!");
       })
       .catch((err) => {
-        console.log(err.message);
+        set({ signupError: true });
+        alert("실패!");
       });
   },
 }));

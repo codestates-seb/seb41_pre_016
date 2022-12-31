@@ -1,6 +1,16 @@
 import styled from "styled-components";
+import { loginStore } from "../../store/zustandLogin";
+import { useCookies } from "react-cookie";
+import { userInfoStore } from "../../store/zustandUserInfo";
 
 const HeaderDropDown = () => {
+  const userInfo = userInfoStore((state) => state.userInfo);
+  const { isLogin, setLogin } = loginStore();
+  const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
+  const logout = () => {
+    setLogin(false);
+    removeCookie("access_jwt");
+  };
   let reputation = "1";
   const DropDownDiv = styled.div`
     display: block;
@@ -145,19 +155,19 @@ const HeaderDropDown = () => {
         <ul>
           <DropDownTitleLi>
             <DropDownTitleDiv>
-              <a className="left" href="/front/stack-overflow/public">
+              <a className="left" href="/">
                 <DropDownColorSOColorImg CL="true" />
                 <DropDownItemSpan BOLD="true">Stack Overflow</DropDownItemSpan>
               </a>
             </DropDownTitleDiv>
             <DropDownTitleDiv>
-              <a className="right" href="/front/stack-overflow/public">
+              <a className="right" href="/">
                 help
               </a>
-              <a className="right" href="/front/stack-overflow/public">
+              <a className="right" href="/">
                 chat
               </a>
-              <a className="right" href="/front/stack-overflow/public">
+              <a className="right" onClick={logout} href="/">
                 log out
               </a>
             </DropDownTitleDiv>

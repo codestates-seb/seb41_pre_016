@@ -1,13 +1,18 @@
-import { userStore } from "../../store/zustandUser";
+import { signupStore } from "../../store/zustandSignup";
+import { loginStore } from "../../store/zustandLogin";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 const UserButton = () => {
-  const { name, email, password, postUser } = userStore();
-  const signupButton = () => {
+  const navigate = useNavigate();
+  const { name, email, password, signupError, postUser } = signupStore();
+  const signupButton = async () => {
     const userObj = {
       name,
       email,
       password,
     };
-    postUser("/user", userObj);
+    await postUser(`/user/&{}`, userObj);
+    await navigate("/login");
   };
   return <button onClick={signupButton}>Sign up</button>;
 };
