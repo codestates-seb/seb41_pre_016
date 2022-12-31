@@ -32,6 +32,16 @@ const useStore = create((set, get) => ({
       console.log(err);
     }
   },
+  voteQuestion: async (voteType, questionId) => {
+    try {
+      const res = await axios({
+        method: "patch",
+        url: `/question/${questionId}/${voteType}`,
+      });
+    } catch (err) {
+      console.log(`voteQuestionsError: ${err}`);
+    }
+  },
 }));
 
 export default useStore;
