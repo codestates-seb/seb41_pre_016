@@ -12,6 +12,10 @@ import MainPage from "./pages/MainPage";
 import SignupPage from "./pages/SignupPage";
 import AskQuestionPage from "./pages/AskQuestionPage";
 import Question from "./pages/Question";
+import "./App.css";
+import TagsPage from "./pages/TagsPage/index";
+import Users from "./pages/Users/index";
+import GlobalStyle from "./assets/GlobalStyle";
 
 const RootDiv = styled.div`
   z-index: -100;
@@ -28,9 +32,11 @@ const MainDiv = styled.div`
   flex: 1 0 auto;
   text-align: left;
 `;
+
 const App = () => {
   return (
     <BrowserRouter>
+      <GlobalStyle />
       <Reset />
       <RootDiv>
         <Header />
