@@ -6,7 +6,12 @@ import Header from "./components/Header/Header";
 import styled from "styled-components";
 import Login from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
+<<<<<<< HEAD
 
+=======
+import SignupPage from "./pages/SignupPage";
+import AskQuestionPage from "./pages/AskQuestionPage";
+>>>>>>> 0312078 (fix:Fix App.js path)
 const RootDiv = styled.div`
   z-index: -100;
   display: flex;
@@ -24,21 +29,21 @@ const MainDiv = styled.div`
   text-align: left;
 `;
 const App = () => {
-    return (
-        <BrowserRouter>
-            <RootDiv>
-                <Header />
-            </RootDiv>
-            <MainDiv>
-                <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<SignupPage />} />
-                    <Route path="/questions/ask" element={<AskQuestionPage />} />
-                </Routes>
-            </MainDiv>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <RootDiv>
+        <Header />
+      </RootDiv>
+      <MainDiv>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/questions/ask" element={<AskQuestionPage />} />
+        </Routes>
+      </MainDiv>
+    </BrowserRouter>
+  );
 };
 
 export default App;
