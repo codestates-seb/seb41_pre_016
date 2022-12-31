@@ -2,6 +2,8 @@ import { useState } from "react";
 import Tagbox from "../Buttons/Tagbox";
 import styled, { css } from "styled-components";
 import UserInfo from "./UserInfo";
+import { Link } from "react-router-dom";
+import useStore from "../../store/SummaryStates";
 
 const Container = styled.div`
   padding: 16px;
@@ -100,6 +102,7 @@ const Meta = styled.div`
 `;
 
 const Summary = ({
+  id,
   title,
   content,
   tags,
@@ -108,6 +111,7 @@ const Summary = ({
   views,
   name,
   userId,
+  modTime,
 }) => {
   return (
     <Container>
@@ -122,12 +126,12 @@ const Summary = ({
       </DetailInfo>
       <PostInfo>
         <Title>
-          <a href="https://github.com/codestates-seb/seb41_pre_016">{title}</a>
+          <Link to={`/questions/${id}`}>{title}</Link>
         </Title>
         <Excerpt>{content}</Excerpt>
         <Meta>
           <Tagbox taglist={tags} />
-          <UserInfo name={name} userId={userId} />
+          <UserInfo name={name} userId={userId} modTime={modTime} />
         </Meta>
       </PostInfo>
     </Container>
