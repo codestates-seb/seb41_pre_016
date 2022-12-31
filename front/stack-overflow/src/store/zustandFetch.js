@@ -8,3 +8,19 @@ export const fetchStore = create((set) => ({
     set({ item: await response });
   },
 }));
+export const postStore = create(() => ({
+  post: async (url, dataObj) => {
+    await axios
+      .post(url, {
+        name: dataObj.name,
+        email: dataObj.email,
+        password: dataObj.password,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  },
+}));
