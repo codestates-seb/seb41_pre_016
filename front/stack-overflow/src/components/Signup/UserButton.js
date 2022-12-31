@@ -1,10 +1,13 @@
 import {signupStore} from "../../store/zustandSignup";
 import {loginStore} from "../../store/zustandLogin";
 import { useNavigate } from 'react-router-dom';
+import {useCookies} from "react-cookie";
 const UserButton = () => {
   const navigate = useNavigate();
-  const {isLogin,setLogin,error}=loginStore()
+  const {setLogin,loginPost,loginError,jwtStore}=loginStore()
   const { name, email, password,signupError,postUser } = signupStore();
+  const [cookies, setCookie, removeCookie] = useCookies(['access_jwt']);
+  const date = new Date();
   const signupButton = () => {
     const userObj = {
       name,
@@ -13,6 +16,8 @@ const UserButton = () => {
     };
     postUser("/user", userObj);
     if(signupError===false){
+      date.setTime(date.getTime() + 30*60*1000);
+      setCookie('access_jwt', jwtStore, {path:'/', expires:date});
       setLogin(true)
       navigate('/');
     }else{

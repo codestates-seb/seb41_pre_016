@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import {loginStore} from "../../store/zustandLogin";
+import {useCookies} from "react-cookie";
 
 const HeaderDropDown = () => {
   const {isLogin,setLogin}=loginStore()
+  const [cookies, setCookie, removeCookie] = useCookies(['access_jwt']);
   const logout =() =>{
     setLogin(false)
+    removeCookie('access_jwt');
   }
   let reputation = "1";
   const DropDownDiv = styled.div`
