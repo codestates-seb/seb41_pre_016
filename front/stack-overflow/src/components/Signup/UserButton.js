@@ -1,10 +1,10 @@
-import { userStore } from "../../store/zustandUser";
+import {signupStore} from "../../store/zustandSignup";
 import {loginStore} from "../../store/zustandLogin";
 import { useNavigate } from 'react-router-dom';
 const UserButton = () => {
   const navigate = useNavigate();
-  const {isLogin,setLogin}=loginStore()
-  const { name, email, password, postUser } = userStore();
+  const {isLogin,setLogin,error}=loginStore()
+  const { name, email, password,signupError,postUser } = signupStore();
   const signupButton = () => {
     const userObj = {
       name,
@@ -12,8 +12,13 @@ const UserButton = () => {
       password,
     };
     postUser("/user", userObj);
-    setLogin(true)
-    navigate('/');
+    if(signupError===false){
+      setLogin(true)
+      navigate('/');
+    }else{
+      alert('조건에 맞지 많습니다')
+    }
+
   };
   return <button onClick={signupButton}>Sign up</button>;
 };
