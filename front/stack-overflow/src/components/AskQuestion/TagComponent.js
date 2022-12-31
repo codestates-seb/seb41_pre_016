@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { QuestionStore } from "../../store/zustandQuestion";
 
 const TagComponent = () => {
   const [tagItem, setTagItem] = useState("");
