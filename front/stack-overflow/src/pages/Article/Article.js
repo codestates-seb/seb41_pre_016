@@ -6,7 +6,6 @@ import Aside from "./Aside";
 import Content from "./Content";
 import Sidebar from "../Questions/Sidebar";
 import AnswerCount from "./AnswerCount";
-import Editor from "./Editor";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`

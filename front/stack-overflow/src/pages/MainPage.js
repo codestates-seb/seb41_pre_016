@@ -29,9 +29,8 @@ const MainPage = () => {
   return (
     <>
       <LeftSideBar />
-      {error && <div>error</div>}
-      {isLoading && <div>Loading</div>}
       {userInfo && <Question />}
+      {isLoading && <div>Loading</div>}
     </>
   );
 };
