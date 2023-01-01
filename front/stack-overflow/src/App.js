@@ -8,6 +8,8 @@ import Login from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import SignupPage from "./pages/SignupPage";
 import AskQuestionPage from "./pages/AskQuestionPage";
+import { Reset } from "styled-reset";
+
 const RootDiv = styled.div`
   z-index: -100;
   display: flex;
@@ -27,6 +29,7 @@ const MainDiv = styled.div`
 const App = () => {
   return (
     <BrowserRouter>
+      <Reset />
       <RootDiv>
         <Header />
       </RootDiv>
