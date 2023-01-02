@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// @CrossOrigin(origins = "", allowedHeaders = "*")
+@CrossOrigin(origins = "", allowedHeaders = "*")
 @RestController
 @RequestMapping("/user")
 @Validated
