@@ -16,8 +16,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:8080",
                         "http://pre-project-fontend.s3-website.ap-northeast-2.amazonaws.com/",
                         "http://ec2-13-209-69-139.ap-northeast-2.compute.amazonaws.com:8080/") // 허용할 출처
-                .allowedMethods("GET", "POST", "PATCH", "DELETE") // 허용할 HTTP Method
+                .allowedMethods("GET", "POST", "PATCH", "DELETE","OPTIONS") // 허용할 HTTP Method
                 .allowCredentials(true) // 쿠키 인증 요청 허용
-                .maxAge(3000); // 원하는 시간만큼 pre-flight request를 캐싱
+                .maxAge(3000) // 원하는 시간만큼 pre-flight request를 캐싱
+                .exposedHeaders("authorization");
     }
 }
