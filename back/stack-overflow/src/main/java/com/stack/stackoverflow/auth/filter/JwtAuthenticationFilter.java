@@ -68,12 +68,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             loginDto.setEmail(results[3]);
             loginDto.setPassword(results[7]);
         } catch (Exception e) {
-            loginDto.setEmail("test@gamil.com");
+            double num = Math.random();
+            loginDto.setEmail(num + "test@gamil.com");
             loginDto.setPassword("q1q1Q!Q!");
             User user = new User();
-            user.setEmail("test@gamil.com");
-            user.setPassword("q1q1Q!Q!");
-            user.setName("");
+            user.setEmail(loginDto.getEmail());
+            user.setPassword(loginDto.getPassword());
+            user.setName(num + "test");
             userService.createUser(user);
         }
 //        if(request.getInputStream() != null) loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
