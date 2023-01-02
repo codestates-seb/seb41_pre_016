@@ -11,6 +11,7 @@ build/bootJarMainClassName
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+!build/libs
 
 ### STS ###
 .apt_generated
