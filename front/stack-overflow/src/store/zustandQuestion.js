@@ -11,9 +11,7 @@ export const QuestionStore = create((set) => ({
       .post(
         `${url}/${id}`,
         {
-          title: dataObj.title,
-          content: dataObj.content,
-          tags: dataObj.tags,
+          ...dataObj,
         },
         {
           headers: cookieObj,
@@ -24,6 +22,8 @@ export const QuestionStore = create((set) => ({
         alert("글이 등록 되었습니다");
       })
       .catch((err) => {
+        console.log(dataObj);
+        console.log(cookieObj);
         console.log(err.message);
         alert("에러 발생");
       });
