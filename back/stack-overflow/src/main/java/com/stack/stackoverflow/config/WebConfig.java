@@ -41,6 +41,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://ec2-13-209-69-139.ap-northeast-2.compute.amazonaws.com:8080/") // 허용할 출처
                 .allowedMethods("GET", "POST", "HEAD", "DELETE", "PUT") // 허용할 HTTP method
                 .allowCredentials(true) // 쿠키 인증 요청 허용
-                .maxAge(10); // 원하는 시간만큼 pre-flight 리퀘스트를 캐싱
+                .maxAge(10) // 원하는 시간만큼 pre-flight 리퀘스트를 캐싱
+                .exposedHeaders("authorization");
+
     }
 }
