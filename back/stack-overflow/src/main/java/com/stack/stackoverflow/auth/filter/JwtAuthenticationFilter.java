@@ -55,31 +55,32 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("!! attemptAuthentication");
 
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println("!! make objectMapper");
+        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+
+//        System.out.println("!! make objectMapper");
 //        System.out.println("!! inputStream : " + request.getInputStream().readAllBytes());
 //        System.out.println("!! " + getBody(request));
-        String result = getBody(request);
-        String[] results = result.split("\"");
-        for(int i=0; i<results.length; i++)
-            System.out.println(i+") " + results[i]);
-
-        LoginDto loginDto = new LoginDto();
-        try {
-            loginDto.setEmail(results[3]);
-            loginDto.setPassword(results[7]);
-        } catch (Exception e) {
-//            double num = Math.random();
-            loginDto.setEmail("test@gamil.com");
-            loginDto.setPassword("q1q1Q!Q!");
-            User user = new User();
-            user.setEmail(loginDto.getEmail());
-            user.setPassword(loginDto.getPassword());
-            user.setName("test");
-            userService.createUser(user);
-        }
-//        if(request.getInputStream() != null) loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
-        System.out.println("!! email : " + loginDto.getEmail());
-        System.out.println("!! pw : " + loginDto.getPassword());
+//        String result = getBody(request);
+//        String[] results = result.split("\"");
+//        for(int i=0; i<results.length; i++)
+//            System.out.println(i+") " + results[i]);
+//
+//        LoginDto loginDto = new LoginDto();
+//        try {
+//            loginDto.setEmail(results[3]);
+//            loginDto.setPassword(results[7]);
+//        } catch (Exception e) {
+////            double num = Math.random();
+//            loginDto.setEmail("test@gamil.com");
+//            loginDto.setPassword("q1q1Q!Q!");
+//            User user = new User();
+//            user.setEmail(loginDto.getEmail());
+//            user.setPassword(loginDto.getPassword());
+//            user.setName("test");
+//            userService.createUser(user);
+//        }
+//        System.out.println("!! email : " + loginDto.getEmail());
+//        System.out.println("!! pw : " + loginDto.getPassword());
 
 
         UsernamePasswordAuthenticationToken authenticationToken =
