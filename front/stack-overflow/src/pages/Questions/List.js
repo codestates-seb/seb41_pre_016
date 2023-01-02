@@ -23,6 +23,7 @@ const QuestionNumber = styled.div`
 const List = () => {
   const { questions, isLoading, pageInfo } = useStore();
 
+  // TODO: 서버에서 pageInfo.totalElements 정렬된 페이지 기준으로 가져오도록 요청하기
   return (
     <>
       {pageInfo ? (

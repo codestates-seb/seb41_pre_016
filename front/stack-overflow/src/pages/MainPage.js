@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { userInfoStore } from "../store/zustandUserInfo";
 import { loginStore } from "../store/zustandLogin";
 import { useNavigate } from "react-router-dom";
+import Question from "./Questions/Questions";
 
 const MainPage = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
@@ -28,12 +29,8 @@ const MainPage = () => {
   return (
     <>
       <LeftSideBar />
-      {error && <div>error</div>}
+      {userInfo && <Question />}
       {isLoading && <div>Loading</div>}
-      {userInfo && <div>{userInfo.name}님 안녕하세요</div>}
-      <a href="/questions/ask">
-        <button>Ask question</button>
-      </a>
     </>
   );
 };

@@ -81,6 +81,7 @@ const ContentHeadDiv = styled.div`
 `;
 const AskQuestionPage = () => {
   const editorRef = useRef();
+
   return (
     <ContainerDiv>
       <ContentDiv>
@@ -96,7 +97,11 @@ const AskQuestionPage = () => {
               <AskQuestionTag />
             </div>
           </MainDiv>
-          <PostButton Editor={Editor} editorRef={editorRef} />
+          <PostButton
+            Editor={Editor}
+            editorRef={editorRef}
+            innerText="Post your question"
+          />
         </div>
       </ContentDiv>
     </ContainerDiv>
