@@ -11,7 +11,7 @@ const UserButton = () => {
       email,
       password,
     };
-    await postUser(`/user/&{}`, userObj);
+    await postUser(`/user/`, userObj);
     await navigate("/signup");
   };
   return <button onClick={signupButton}>Sign up</button>;

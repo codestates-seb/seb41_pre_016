@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import useElapsedTime from "../../hooks/useElapsedTime";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -38,9 +39,9 @@ const UserInfo = ({ name, userId, modTime }) => {
       <ProfileImage src="http://www.gravatar.com/avatar/00?d=mm" />
       <Nickname>{name}</Nickname>
       {/* <Reputation>4,493</Reputation> */}
-      <Time href={`http://localhost:3000/user/${userId}`}>
+      <Link to={`http://localhost:3000/user/${userId}`}>
         asked {elapsedTimeString} ago
-      </Time>
+      </Link>
     </Container>
   );
 };

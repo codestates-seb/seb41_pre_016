@@ -4,6 +4,7 @@ import { ReactComponent as AlertCircleIcon } from "../../assets/alertCircleIcon.
 import { ReactComponent as TextBottomIcon } from "../../assets/textBottomIcon.svg";
 import InputComponent from "./InputComponent";
 import UserButton from "./UserButton";
+import { Link } from 'react-router-dom';
 
 const SignupRight = () => {
   const ContainDiv = styled.div`
@@ -312,11 +313,11 @@ const SignupRight = () => {
       <ScriptDiv>
         <ContentsDiv>
           <p>Already have an account? </p>
-          <a href="/login">Log in</a>
+          <Link to="/login">Log in</Link>
         </ContentsDiv>
         <ContentsDiv>
           <p>Are you an employer?</p>
-          <a href="/front/stack-overflow/public">Sign up on Talent</a>
+          <Link to="/front/stack-overflow/public">Sign up on Talent</Link>
           <TextBottomIcon />
         </ContentsDiv>
       </ScriptDiv>
