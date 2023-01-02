@@ -4,11 +4,16 @@ import { ReactComponent as HelpIcon } from "../../assets/helpIcon.svg";
 import { ReactComponent as InBoxIcon } from "../../assets/inBoxIcon.svg";
 import { ReactComponent as SwitcherIcon } from "../../assets/switcherIcon.svg";
 import { ReactComponent as WinterbashIcon } from "../../assets/winterbashIcon.svg";
+import { Link } from "react-router-dom";
+
 const HeaderLogin = (props) => {
   const UserNav = styled.nav`
     padding-right: 12px;
     margin-left: auto;
     display: block;
+    a {
+      text-decoration: none;
+    }
   `;
   const UserOl = styled.ol`
     display: flex;
@@ -33,7 +38,7 @@ const HeaderLogin = (props) => {
       background-color: ${props.dropdown === true ? "rgb(227, 230, 232)" : ""};
     }
   `;
-  const UserA = styled.a`
+  const UserA = styled.div`
     display: inline-flex;
     align-items: center;
     padding: 0 12px;
@@ -41,7 +46,7 @@ const HeaderLogin = (props) => {
     white-space: nowrap;
     position: relative;
   `;
-  const IconA = styled.a`
+  const IconA = styled.div`
     display: inline-flex;
     align-items: center;
     padding: 0 10px;
@@ -77,55 +82,62 @@ const HeaderLogin = (props) => {
   return (
     <UserNav>
       <UserOl>
+        <Link to="/">
+          <UserLi role="none">
+            <UserA>
+              <UserDiv>
+                {/*<UserImg src={process.env.PUBLIC_URL + "/userIcon.png"}/>*/}
+              </UserDiv>
+              <UserCardAwardDiv>1</UserCardAwardDiv>
+            </UserA>
+          </UserLi>
+        </Link>
+        <Link to="/">
+          <UserLi role="none">
+            <IconA>
+              <UserDiv>
+                <UserIconDiv>
+                  <InBoxIcon />
+                </UserIconDiv>
+              </UserDiv>
+            </IconA>
+          </UserLi>
+        </Link>
+        <Link to="/">
+          <UserLi role="none">
+            <IconA>
+              <UserDiv>
+                <UserIconDiv>
+                  <AchieveIcon />
+                </UserIconDiv>
+              </UserDiv>
+            </IconA>
+          </UserLi>
+        </Link>
+        <Link to="/">
+          <UserLi role="none">
+            <IconA>
+              <UserDiv>
+                <UserIconDiv>
+                  <HelpIcon />
+                </UserIconDiv>
+              </UserDiv>
+            </IconA>
+          </UserLi>
+        </Link>
+        <Link to="/">
+          <UserLi role="none">
+            <IconA>
+              <UserDiv>
+                <UserIconDiv>
+                  <WinterbashIcon />
+                </UserIconDiv>
+              </UserDiv>
+            </IconA>
+          </UserLi>
+        </Link>
         <UserLi role="none">
-          <UserA href="/">
-            <UserDiv>
-              {/*<UserImg src={process.env.PUBLIC_URL + "/userIcon.png"}/>*/}
-            </UserDiv>
-            <UserCardAwardDiv>1</UserCardAwardDiv>
-          </UserA>
-        </UserLi>
-        <UserLi role="none">
-          <IconA href="/">
-            <UserDiv>
-              <UserIconDiv>
-                <InBoxIcon />
-              </UserIconDiv>
-            </UserDiv>
-          </IconA>
-        </UserLi>
-        <UserLi role="none">
-          <IconA href="/">
-            <UserDiv>
-              <UserIconDiv>
-                <AchieveIcon />
-              </UserIconDiv>
-            </UserDiv>
-          </IconA>
-        </UserLi>
-        <UserLi role="none">
-          <IconA href="/">
-            <UserDiv>
-              <UserIconDiv>
-                <HelpIcon />
-              </UserIconDiv>
-            </UserDiv>
-          </IconA>
-        </UserLi>
-        <UserLi role="none">
-          <IconA href="/">
-            <UserDiv>
-              <UserIconDiv>
-                <WinterbashIcon />
-              </UserIconDiv>
-            </UserDiv>
-          </IconA>
-        </UserLi>
-        <UserLi role="none">
-          <IconA
-            onClick={props.removeHandler}
-            className="switcher"
-          >
+          <IconA onClick={props.removeHandler} className="switcher">
             <UserDiv>
               <UserIconDiv>
                 <SwitcherIcon />

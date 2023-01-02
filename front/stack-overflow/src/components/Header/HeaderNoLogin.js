@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const HeaderNoLogin = () => {
   const LoginSignupNav = styled.nav`
@@ -55,14 +56,14 @@ const HeaderNoLogin = () => {
     <LoginSignupNav>
       <LoginSignupOl>
         <LoginSignupLi>
-          <a href="/login">
+          <Link to="/login">
             <SignupButton>Log in</SignupButton>
-          </a>
+          </Link>
         </LoginSignupLi>
         <LoginSignupLi>
-          <a href="/signup">
+          <Link to="/signup">
             <LoginButton>Sign up</LoginButton>
-          </a>
+          </Link>
         </LoginSignupLi>
       </LoginSignupOl>
     </LoginSignupNav>

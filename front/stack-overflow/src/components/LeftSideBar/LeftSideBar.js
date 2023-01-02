@@ -3,7 +3,7 @@ import { ReactComponent as GlobalIconG } from "../../../../../../seb41_pre_016/f
 import { ReactComponent as GlobalIconB } from "../../../../../../seb41_pre_016/front/stack-overflow/src/assets/globalIconB.svg";
 import { ReactComponent as ExploreIcon } from "../../../../../../seb41_pre_016/front/stack-overflow/src/assets/exploreIcon.svg";
 import { ReactComponent as OfficeBagIcon } from "../../../../../../seb41_pre_016/front/stack-overflow/src/assets/officeBagIcon.svg";
-
+import { Link } from "react-router-dom";
 const LeftSideBar = ({ page = "Home" }) => {
   const LeftSideBarDiv = styled.div`
     width: 164px;
@@ -15,7 +15,9 @@ const LeftSideBar = ({ page = "Home" }) => {
     display: block;
     text-align: left;
     max-height: calc(100vh - 50px);
-
+    a {
+      text-decoration: none;
+    }
     * {
       margin: 0;
       padding: 0;
@@ -40,8 +42,8 @@ const LeftSideBar = ({ page = "Home" }) => {
   `;
   const LeftSideBarOl = styled.ol`
     padding: 0;
-    list-style: none;
     margin: 0 0 12px;
+    list-style: none;
     li {
       position: relative;
     }
@@ -58,7 +60,7 @@ const LeftSideBar = ({ page = "Home" }) => {
     }
   `;
 
-  const LeftSideQuestionA = styled.a`
+  const LeftSideQuestionA = styled.div`
     font-weight: ${(props) => (page === props.page ? "bold" : "normal")};
     background: ${(props) =>
       page === props.page ? `var(--black-050)` : "none"};
@@ -104,59 +106,71 @@ const LeftSideBar = ({ page = "Home" }) => {
       <LeftSideBarStickyDiv>
         <nav>
           <LeftSideBarOl>
-            <li>
-              <LeftSideQuestionA page="Home" href="/">
-                Home
-              </LeftSideQuestionA>
-            </li>
+            <Link to="/">
+              <li>
+                <LeftSideQuestionA page="Home">Home</LeftSideQuestionA>
+              </li>
+            </Link>
             <li>
               <LeftSidePublicOl>
                 <li className="title">PUBLIC</li>
-                <li>
-                  <LeftSideQuestionA page="Question" href="/">
-                    <LeftSideQuestionSpan>
-                      {page === "Question" ? <GlobalIconB /> : <GlobalIconG />}
-                    </LeftSideQuestionSpan>
-                    <LeftSideQuestionSpan>questions</LeftSideQuestionSpan>
-                  </LeftSideQuestionA>
-                </li>
-                <li>
-                  <LeftSideQuestionA page="Tags" href="/">
-                    tags
-                  </LeftSideQuestionA>
-                </li>
-                <li>
-                  <LeftSideQuestionA page="Users" href="/">
-                    users
-                  </LeftSideQuestionA>
-                </li>
-                <li>
-                  <LeftSideQuestionA page="Companies" href="/">
-                    companies
-                  </LeftSideQuestionA>
-                </li>
+                <Link to="/">
+                  <li>
+                    <LeftSideQuestionA page="Question">
+                      <LeftSideQuestionSpan>
+                        {page === "Question" ? (
+                          <GlobalIconB />
+                        ) : (
+                          <GlobalIconG />
+                        )}
+                      </LeftSideQuestionSpan>
+                      <LeftSideQuestionSpan>questions</LeftSideQuestionSpan>
+                    </LeftSideQuestionA>
+                  </li>
+                </Link>
+                <Link to="/">
+                  <li>
+                    <LeftSideQuestionA page="Tags">tags</LeftSideQuestionA>
+                  </li>
+                </Link>
+                <Link to="/">
+                  <li>
+                    <LeftSideQuestionA page="Users">users</LeftSideQuestionA>
+                  </li>
+                </Link>
+                <Link to="/">
+                  <li>
+                    <LeftSideQuestionA page="Companies">
+                      companies
+                    </LeftSideQuestionA>
+                  </li>
+                </Link>
                 <li className="title">COLLECTIVES</li>
-                <li>
-                  <LeftSideQuestionA page="Collectives" href="/">
-                    <LeftSideQuestionSpan>
-                      <ExploreIcon />
-                    </LeftSideQuestionSpan>
-                    <LeftSideQuestionSpan>
-                      Explore Collectives
-                    </LeftSideQuestionSpan>
-                  </LeftSideQuestionA>
-                </li>
+                <Link to="/">
+                  <li>
+                    <LeftSideQuestionA page="Collectives">
+                      <LeftSideQuestionSpan>
+                        <ExploreIcon />
+                      </LeftSideQuestionSpan>
+                      <LeftSideQuestionSpan>
+                        Explore Collectives
+                      </LeftSideQuestionSpan>
+                    </LeftSideQuestionA>
+                  </li>
+                </Link>
                 <li className="title">COLLECTIVES</li>
-                <li>
-                  <LeftSideQuestionA page="Team" href="/">
-                    <LeftSideQuestionSpan className="officeBag">
-                      <OfficeBagIcon />
-                    </LeftSideQuestionSpan>
-                    <LeftSideQuestionSpan>
-                      Create free Team
-                    </LeftSideQuestionSpan>
-                  </LeftSideQuestionA>
-                </li>
+                <Link to="/">
+                  <li>
+                    <LeftSideQuestionA page="Team">
+                      <LeftSideQuestionSpan className="officeBag">
+                        <OfficeBagIcon />
+                      </LeftSideQuestionSpan>
+                      <LeftSideQuestionSpan>
+                        Create free Team
+                      </LeftSideQuestionSpan>
+                    </LeftSideQuestionA>
+                  </li>
+                </Link>
               </LeftSidePublicOl>
             </li>
           </LeftSideBarOl>

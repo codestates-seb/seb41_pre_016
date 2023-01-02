@@ -12,7 +12,7 @@ const UserButton = () => {
       password,
     };
     await postUser(`/user/&{}`, userObj);
-    await navigate("/login");
+    await navigate("/signup");
   };
   return <button onClick={signupButton}>Sign up</button>;
 };

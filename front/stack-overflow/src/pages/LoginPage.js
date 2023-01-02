@@ -5,7 +5,7 @@ import { ReactComponent as AlertCircleIcon } from "../assets/alertCircleIcon.svg
 import { ReactComponent as TextBottomIcon } from "../assets/textBottomIcon.svg";
 import { useState } from "react";
 import { loginStore } from "../store/zustandLogin";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 const LoginPage = () => {
@@ -59,6 +59,9 @@ const LoginPage = () => {
     }
     svg {
       vertical-align: bottom;
+    }
+    a {
+      text-decoration: none;
     }
   `;
   const ContentDiv = styled.div`
@@ -247,7 +250,7 @@ const LoginPage = () => {
     display: flex !important;
     flex-direction: row !important;
     justify-content: center;
-    a {
+    .signup {
       margin: 0 3px;
       color: var(--theme-link-color);
       text-decoration: none;
@@ -261,9 +264,9 @@ const LoginPage = () => {
         <FlexDiv>
           {/*stackoverflow 아이콘 부분*/}
           <StackoverflowIconDiv>
-            <a href="/front/stack-overflow/public">
+            <Link to="/login">
               <StackoverflowSvg />
-            </a>
+            </Link>
           </StackoverflowIconDiv>
           {/*stackoverflow oAuth로그인*/}
           <OauthLoginButtonDiv>
@@ -336,11 +339,15 @@ const LoginPage = () => {
           <ScriptDiv>
             <ContentsDiv>
               <p>Don’t have an account? </p>
-              <a href="/signup">Sign up</a>
+              <Link to="/signup">
+                <p className="signup">Sign up</p>
+              </Link>
             </ContentsDiv>
             <ContentsDiv>
               <p>Are you an employer? </p>
-              <a href="/front/stack-overflow/public">Sign up on Talent</a>
+              <Link to="/front/stack-overflow/public">
+                <p className="signup">Sign up on Talent</p>
+              </Link>
               <TextBottomIcon />
             </ContentsDiv>
           </ScriptDiv>

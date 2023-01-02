@@ -6,6 +6,7 @@ import { ReactComponent as SearchIcon } from "../../assets/searchIcon.svg";
 import DropdownCustomHook from "./DropdownCustomHook";
 import HeaderDropDown from "./HeaderDropDown";
 import { loginStore } from "../../store/zustandLogin";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { isLogin, setLogin } = loginStore();
@@ -43,7 +44,7 @@ const Header = () => {
     display: flex;
     align-items: center;
   `;
-  const LogoA = styled.a`
+  const LogoA = styled.div`
     padding: 0 8px;
     height: 100%;
     display: flex;
@@ -115,9 +116,11 @@ const Header = () => {
     <Header>
       {dropdown ? <HeaderDropDown /> : <></>}
       <ContainerDiv>
-        <LogoA href="/">
-          <Logo />
-        </LogoA>
+        <Link to="/">
+          <LogoA>
+            <Logo />
+          </LogoA>
+        </Link>
         <NavOl>
           <li>{isLogin ? <></> : <TopBarButton>About</TopBarButton>}</li>
           <li>
