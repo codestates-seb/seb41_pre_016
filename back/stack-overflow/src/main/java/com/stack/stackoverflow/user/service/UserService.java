@@ -6,10 +6,14 @@ import com.stack.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.stack.stackoverflow.exception.BusinessLogicException;
 import com.stack.stackoverflow.exception.ExceptionCode;
 import com.stack.stackoverflow.helper.event.UserRegistrationApplicationEvent;
+import com.stack.stackoverflow.question.entity.Question;
 import com.stack.stackoverflow.question.repository.QuestionRepository;
 import com.stack.stackoverflow.user.entity.User;
 import com.stack.stackoverflow.user.repository.UserRepository;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +77,11 @@ public class UserService {
 
     public User findUser(Long userId) {
         return findVerifiedUser(userId);
+    }
+
+    public Page<User> findUsers(int page, int size) {
+        return userRepository.findAll(PageRequest.of(page, size,
+                Sort.by("userId").descending()));
     }
 
     public void deleteUser(Long userId) {
