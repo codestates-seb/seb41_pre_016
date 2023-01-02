@@ -2,7 +2,6 @@ import create from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
 import { Cookies } from "react-cookie";
-
 export const loginStore = create((set) => ({
   email: "",
   password: "",
@@ -13,7 +12,11 @@ export const loginStore = create((set) => ({
   setLogin: (data) => set({ isLogin: data }),
   loginPost: async (url, data) => {
     await axios
-      .post(url, data)
+      .post(url, data, {
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+      })
       .then((response) => {
         const cookies = new Cookies();
         const date = new Date();

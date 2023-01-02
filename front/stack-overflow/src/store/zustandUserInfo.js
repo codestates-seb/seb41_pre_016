@@ -1,7 +1,6 @@
 import create from "zustand";
 import axios from "axios";
 import { persist } from "zustand/middleware";
-
 export const userInfoStore = create((set) => ({
   userInfo: null,
   isLoading: true,

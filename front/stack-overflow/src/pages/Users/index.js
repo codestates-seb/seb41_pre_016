@@ -136,7 +136,7 @@ const Users = () => {
           : `${URL}/users`,
         {
           headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
+            "Content-Type": "application/json;charset=UTF-8",
           },
         }
       )
@@ -160,10 +160,10 @@ const Users = () => {
               onClick={handleClick}
               key={ele}
               value={index}
-              className={'btn' + (index === Number(btnActive) ? ' active' : '')}
+              className={"btn" + (index === Number(btnActive) ? " active" : "")}
               id={
-                (index === 0 ? 'left-radius' : '') ||
-                (index === 3 ? 'right-radius' : '')
+                (index === 0 ? "left-radius" : "") ||
+                (index === 3 ? "right-radius" : "")
               }
             >
               {ele}
