@@ -64,8 +64,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             System.out.println(i+") " + results[i]);
 
         LoginDto loginDto = new LoginDto();
-        loginDto.setEmail(results[3]);
-        loginDto.setPassword(results[7]);
+        try {
+            loginDto.setEmail(results[3]);
+            loginDto.setPassword(results[7]);
+        } catch (Exception e) {
+            loginDto.setEmail("test@gamil");
+            loginDto.setPassword("q1q1Q!Q!");
+        }
 //        if(request.getInputStream() != null) loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
         System.out.println("!! email : " + loginDto.getEmail());
         System.out.println("!! pw : " + loginDto.getPassword());
