@@ -34,7 +34,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*",
+                .allowedOrigins("*")
+                .allowedOrigins(
                         "http://localhost:8080", "http://localhost:8081",
                         "http://pre-project-fontend.s3-website.ap-northeast-2.amazonaws.com/",
                         "http://ec2-13-209-69-139.ap-northeast-2.compute.amazonaws.com:8080/") // 허용할 출처
