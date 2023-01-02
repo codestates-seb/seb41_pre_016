@@ -1,7 +1,6 @@
 import create from "zustand";
 import axios from "axios";
 import { Cookies } from "react-cookie";
-
 export const signupStore = create((set) => ({
   name: "",
   email: "",
