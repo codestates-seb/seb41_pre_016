@@ -30,7 +30,10 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {  // (1)
@@ -52,13 +55,60 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("!! attemptAuthentication");
 
         ObjectMapper objectMapper = new ObjectMapper();
-        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+        System.out.println("!! make objectMapper");
+//        System.out.println("!! inputStream : " + request.getInputStream().readAllBytes());
+//        System.out.println("!! " + getBody(request));
+        String result = getBody(request);
+        String[] results = result.split("\"");
+        for(int i=0; i<results.length; i++)
+            System.out.println(i+") " + results[i]);
+
+        LoginDto loginDto = new LoginDto();
+        loginDto.setEmail(results[3]);
+        loginDto.setPassword(results[7]);
+//        if(request.getInputStream() != null) loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
         System.out.println("!! email : " + loginDto.getEmail());
+        System.out.println("!! pw : " + loginDto.getPassword());
+
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 
         return authenticationManager.authenticate(authenticationToken);
+    }
+
+    public String getBody(HttpServletRequest request) throws IOException {
+
+        String body = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = null;
+
+        try {
+            InputStream inputStream = request.getInputStream();
+            if (inputStream != null) {
+                System.out.println("!! inputStream");
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                char[] charBuffer = new char[128];
+                int bytesRead = -1;
+                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+                    System.out.println("!1 char Buffer : " + charBuffer);
+                    stringBuilder.append(charBuffer, 0, bytesRead);
+                }
+            }
+        } catch (IOException ex) {
+            throw ex;
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException ex) {
+                    throw ex;
+                }
+            }
+        }
+
+        body = stringBuilder.toString();
+        return body;
     }
 
     @Override
