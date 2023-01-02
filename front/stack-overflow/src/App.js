@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TagsPage from './pages/TagsPage/index';
 import Users from './pages/Users/index';
@@ -12,7 +11,7 @@ const App = () => {
   return (
     <Root color={bgColor}>
       <GlobalStyle />
-      <TagsPage />
+      <Users />
     </Root>
   );
 };

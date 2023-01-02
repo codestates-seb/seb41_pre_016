@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const UserCard = ({ displayName, answerCount, tags, userId }) => {
+const UserCard = ({ displayName, tags, userId }) => {
   return (
     <CardContainer>
       <IMG src="" alt="로고" />
       <TextBlock>
         <div id="displayname">{displayName}</div>
-        <div id="answercount">{answerCount}</div>
+        <div id="answercount">0</div>
         <div>
           {tags.map((ele) => (
             <span key={userId}>{ele}</span>
