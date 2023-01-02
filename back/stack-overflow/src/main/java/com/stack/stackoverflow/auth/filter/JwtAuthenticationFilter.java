@@ -49,6 +49,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("!! attemptAuthentication");
 
         ObjectMapper objectMapper = new ObjectMapper();
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
@@ -85,6 +86,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private void saveResponseBody(HttpServletResponse response,
                                                  User user)  throws IOException {
+        System.out.println("!! saveResponseBody");
+
         // response.body 설정
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
