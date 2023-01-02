@@ -128,12 +128,12 @@ const LeftSideBar = ({ page = "Home" }) => {
                     </LeftSideQuestionA>
                   </li>
                 </Link>
-                <Link to="/">
+                <Link to="/tags">
                   <li>
                     <LeftSideQuestionA page="Tags">tags</LeftSideQuestionA>
                   </li>
                 </Link>
-                <Link to="/">
+                <Link to="/users">
                   <li>
                     <LeftSideQuestionA page="Users">users</LeftSideQuestionA>
                   </li>
