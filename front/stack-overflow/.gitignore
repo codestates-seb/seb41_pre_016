@@ -725,3 +725,4 @@ FodyWeavers.xsd
 package-lock.json
 package.json
 src/App.js
+build/
