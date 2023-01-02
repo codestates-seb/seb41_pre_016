@@ -1,9 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
-import UserCard from "../../components/UserCard";
-import styled from "styled-components";
-import PaginationBar from "../../components/PaginationBar";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
+import UserCard from '../../components/UserCard';
+import styled from 'styled-components';
+import PaginationBar from '../../components/PaginationBar';
+
+const URL = process.env.REACT_APP_API_URL;
 
 const Container = styled.div`
   padding: 24px;
@@ -85,9 +87,9 @@ const UserListBlock = styled.div`
 
 const Users = () => {
   const [user, setUsers] = useState([]);
-  const name = ["New users", "Voters", "Editors", "Moderators"];
+  const name = ['New users', 'Voters', 'Editors', 'Moderators'];
   const [btnActive, setBtnActive] = useState(3);
-  const [order, setOrder] = useState("");
+  const [order, setOrder] = useState('');
   const [page, setPage] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [totalPages, setTotalPage] = useState(null);
