@@ -84,7 +84,7 @@ public class SecurityConfiguration {
 //        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
 
         // CORS 에러
-        configuration.addAllowedOrigin("*");
+        configuration.addAllowedOriginPattern("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
