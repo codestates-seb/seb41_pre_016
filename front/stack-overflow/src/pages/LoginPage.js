@@ -33,7 +33,6 @@ const LoginPage = () => {
         password,
       };
       await loginPost("/user/login", LoginObj);
-      await navigate("/");
     }
   };
   const ContainerDiv = styled.div`

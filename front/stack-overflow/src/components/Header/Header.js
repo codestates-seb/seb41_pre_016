@@ -3,21 +3,35 @@ import HeaderNoLogin from "./HeaderNoLogin";
 import HeaderLogin from "./HeaderLogin";
 import { ReactComponent as Logo } from "../../assets/logo-stackoverflow.svg";
 import { ReactComponent as SearchIcon } from "../../assets/searchIcon.svg";
-import DropdownCustomHook from "./DropdownCustomHook";
 import HeaderDropDown from "./HeaderDropDown";
 import { loginStore } from "../../store/zustandLogin";
 import { Link, useNavigate } from "react-router-dom";
 import { userInfoStore } from "../../store/zustandUserInfo";
 import { useCookies } from "react-cookie";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const Header = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
   const { userInfo, isLoading, error, setIsLoading, setError, getToken } =
     userInfoStore();
   const { isLogin, setLogin } = loginStore();
-
   const navigate = useNavigate();
+
+  const [dropdown, setDropdown] = useState(false);
+  const dropdownRef = useRef();
+
+  // dropdown 이 열려있고,
+  // 이벤트타겟과 ref 대상이 일치하지 않으면 dropdown 을 false 로 변경함
+  const handleCloseDropdown = (event) => {
+    if (dropdown && !dropdownRef.current.contains(event.target)) {
+      setDropdown(false);
+    }
+  };
+
+  const handleToggleDropdown = () => {
+    setDropdown(!dropdown);
+  };
+
   useEffect(() => {
     if (cookies.access_jwt !== undefined) {
       const cookieObj = {
@@ -30,8 +44,16 @@ const Header = () => {
     } else {
       navigate("/login");
     }
+
+    // 컴포넌트가 로드될때, 이벤트 추가
+    window.addEventListener("mousedown", handleCloseDropdown);
+
+    // 컴포넌트가 unmount 될때 이벤트 삭제
+    return () => {
+      window.removeEventListener("mousedown", handleCloseDropdown);
+    };
   }, []);
-  const [dropdown, ref, removeHandler] = DropdownCustomHook(false);
+
   const Header = styled.div`
     z-index: 1;
     margin-top: -50px;
@@ -133,22 +155,25 @@ const Header = () => {
     margin-top: -9px;
     pointer-events: none;
   `;
+
+  const HeaderContainer = styled.div`
+    z-index: 9999;
+  `;
   return (
     <Header>
-      {dropdown ? <HeaderDropDown /> : <></>}
+      {dropdown ? (
+        <HeaderContainer ref={dropdownRef}>
+          <HeaderDropDown handleToggleDropdown={handleToggleDropdown} />
+        </HeaderContainer>
+      ) : (
+        <></>
+      )}
       <ContainerDiv>
         <Link to="/">
           <LogoA>
             <Logo />
           </LogoA>
         </Link>
-        <button
-          onClick={() => {
-            console.log(userInfo);
-          }}
-        >
-          Hrrrrrrr
-        </button>
         <NavOl>
           <li>{isLogin ? <></> : <TopBarButton>About</TopBarButton>}</li>
           <li>
@@ -172,7 +197,10 @@ const Header = () => {
           </SearchDiv>
         </SearchForm>
         {isLogin ? (
-          <HeaderLogin dropdown={dropdown} removeHandler={removeHandler} />
+          <HeaderLogin
+            dropdown={dropdown}
+            removeHandler={handleToggleDropdown}
+          />
         ) : (
           <HeaderNoLogin />
         )}

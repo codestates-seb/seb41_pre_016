@@ -24,6 +24,7 @@ export const loginStore = create((set) => ({
         });
         set({ loginError: false });
         alert("성공!");
+        window.location.href = "/";
       })
       .catch((err) => {
         set({ loginError: true });

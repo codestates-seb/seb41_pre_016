@@ -16,6 +16,7 @@ export const signupStore = create((set) => ({
       .then((response) => {
         set({ signupError: false });
         alert("성공!");
+        window.location.href = "/login";
       })
       .catch((err) => {
         set({ signupError: true });
