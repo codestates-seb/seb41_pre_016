@@ -1,9 +1,10 @@
-import axios from 'axios';
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { GoSearch } from 'react-icons/go';
-import PaginationBar from '../../components/PaginationBar';
-import TagList from './TagList/index';
+import axios from "axios";
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { GoSearch } from "react-icons/go";
+import PaginationBar from "../../components/PaginationBar";
+import TagList from "./TagList/index";
+import LeftSideBar from "../../components/LeftSideBar/LeftSideBar";
 
 const TagsPage = () => {
   const [tagData, setTagData] = useState(null);
@@ -15,7 +16,7 @@ const TagsPage = () => {
     axios
       .get(`/tag?page=${page}&size=20`, {
         headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
+          "Content-Type": "application/json;charset=UTF-8",
         },
       })
       .then((res) => {
@@ -23,7 +24,7 @@ const TagsPage = () => {
         setTotalElements(res.data.pageInfo.totalElements);
         setTotalPage(res.data.pageInfo.totalPages);
       })
-      .catch((error) => console.log('error : ', error));
+      .catch((error) => console.log("error : ", error));
   }, [page]);
 
   const handlePageChange = (e) => {
@@ -31,34 +32,37 @@ const TagsPage = () => {
   };
 
   return (
-    <TagContainer>
-      <TagMain>
-        <TagsTabHead>
-          <h1>Tags</h1>
-          <p>
-            A tag is a keyword or label that categorizes your question with
-            other, similar questions. <br /> Using the right tags makes it
-            easier for others to find and answer your question.
-          </p>
+    <>
+      <LeftSideBar page={"Tags"} />
+      <TagContainer>
+        <TagMain>
+          <TagsTabHead>
+            <h1>Tags</h1>
+            <p>
+              A tag is a keyword or label that categorizes your question with
+              other, similar questions. <br /> Using the right tags makes it
+              easier for others to find and answer your question.
+            </p>
+            <div>
+              <div>Show all tag synonyms</div>
+            </div>
+            <SearchContainer>
+              <GoSearch color="#838C95" />
+              <Input type="text" placeholder="Filter by tag name" />
+            </SearchContainer>
+          </TagsTabHead>
           <div>
-            <div>Show all tag synonyms</div>
+            <TagList tagData={tagData}></TagList>
           </div>
-          <SearchContainer>
-            <GoSearch color="#838C95" />
-            <Input type="text" placeholder="Filter by tag name" />
-          </SearchContainer>
-        </TagsTabHead>
-        <div>
-          <TagList tagData={tagData}></TagList>
-        </div>
-        <PaginationBar
-          page={page}
-          totalElements={totalElements}
-          handlePageChange={handlePageChange}
-          totalPages={totalPages}
-        />
-      </TagMain>
-    </TagContainer>
+          <PaginationBar
+            page={page}
+            totalElements={totalElements}
+            handlePageChange={handlePageChange}
+            totalPages={totalPages}
+          />
+        </TagMain>
+      </TagContainer>
+    </>
   );
 };
 

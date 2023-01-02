@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import UserCard from '../../components/UserCard';
 import styled from 'styled-components';
+import PaginationBar from '../../components/PaginationBar';
 
 const URL = process.env.REACT_APP_API_URL;
 
@@ -85,17 +86,28 @@ const UserListBlock = styled.div`
 `;
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const [user, setUsers] = useState([]);
   const name = ['New users', 'Voters', 'Editors', 'Moderators'];
   const [btnActive, setBtnActive] = useState(3);
   const [order, setOrder] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPage] = useState(null);
 
   useEffect(() => {
     axios
-      .get('/user')
-      .then((res) => setUsers(res.data))
+      .get(`/user/list?page=${page}&size=10`)
+      .then((res) => {
+        setUsers(res.data.users);
+        console.log(res.data.users);
+        setTotalElements(res.data.pageInfo.totalElements);
+        setTotalPage(res.data.pageInfo.totalPages);
+      })
       .catch((error) => console.log(error));
-  }, []);
+  }, [page]);
+  const handlePageChange = (e) => {
+    setPage(e);
+  };
 
   // useEffect(() => {
   //   axios
@@ -161,17 +173,23 @@ const Users = () => {
       </FilterBlock>
 
       <UserListBlock>
-        {users.map((ele) => (
+        {user.map((ele) => (
           <div key={ele.userId}>
             <UserCard
               displayName={ele.name}
-              answerCount={ele.answerCount}
+              // answerCount={ele.users.answerCount}
               userId={ele.userId}
               tags={ele.tags}
             />
           </div>
         ))}
       </UserListBlock>
+      <PaginationBar
+        page={page}
+        totalElements={totalElements}
+        handlePageChange={handlePageChange}
+        totalPages={totalPages}
+      />
     </Container>
   );
 };

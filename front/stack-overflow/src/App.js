@@ -11,6 +11,8 @@ import AskQuestionPage from "./pages/AskQuestionPage";
 import { Reset } from "styled-reset";
 import Question from "./pages/Question";
 import TagsPage from "./pages/TagsPage/index";
+import Users from "./pages/Users";
+import UserPage from "./pages/UserPage";
 
 const RootDiv = styled.div`
   z-index: -100;
@@ -43,6 +45,7 @@ const App = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/questions/ask" element={<AskQuestionPage />} />
           <Route path="/tags" element={<TagsPage />} />
+          <Route path="/users" element={<UserPage />} />
         </Routes>
       </MainDiv>
     </BrowserRouter>
