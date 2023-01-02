@@ -6,10 +6,31 @@ import { ReactComponent as SearchIcon } from "../../assets/searchIcon.svg";
 import DropdownCustomHook from "./DropdownCustomHook";
 import HeaderDropDown from "./HeaderDropDown";
 import { loginStore } from "../../store/zustandLogin";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { userInfoStore } from "../../store/zustandUserInfo";
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
 
 const Header = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["access_jwt"]);
+  const { userInfo, isLoading, error, setIsLoading, setError, getToken } =
+    userInfoStore();
   const { isLogin, setLogin } = loginStore();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (cookies.access_jwt !== undefined) {
+      const cookieObj = {
+        Authorization: cookies.access_jwt.Authorization,
+        Refresh: cookies.access_jwt.Refresh,
+      };
+      getToken("/user", cookieObj);
+      setLogin(true);
+      console.log(userInfo);
+    } else {
+      navigate("/login");
+    }
+  }, []);
   const [dropdown, ref, removeHandler] = DropdownCustomHook(false);
   const Header = styled.div`
     z-index: 1;
@@ -121,6 +142,13 @@ const Header = () => {
             <Logo />
           </LogoA>
         </Link>
+        <button
+          onClick={() => {
+            console.log(userInfo);
+          }}
+        >
+          Hrrrrrrr
+        </button>
         <NavOl>
           <li>{isLogin ? <></> : <TopBarButton>About</TopBarButton>}</li>
           <li>

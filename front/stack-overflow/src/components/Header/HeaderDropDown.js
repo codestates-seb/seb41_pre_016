@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { loginStore } from "../../store/zustandLogin";
 import { useCookies } from "react-cookie";
 import { userInfoStore } from "../../store/zustandUserInfo";
+import { Link } from "react-router-dom";
 
 const HeaderDropDown = () => {
   const userInfo = userInfoStore((state) => state.userInfo);
@@ -57,8 +58,11 @@ const HeaderDropDown = () => {
       margin-left: 0;
       line-height: 1.3;
     }
+    a {
+      text-decoration: none;
+    }
   `;
-  const DropDownTitleA = styled.a`
+  const DropDownTitleA = styled.div`
     font-family: var(--ff-sans);
     font-weight: bold;
     text-transform: uppercase;
@@ -148,28 +152,30 @@ const HeaderDropDown = () => {
     <DropDownDiv>
       <div className="header fw-wrap">
         <h3>
-          <DropDownTitleA>current community</DropDownTitleA>
+          <Link to="/">
+            <DropDownTitleA>current community</DropDownTitleA>
+          </Link>
         </h3>
       </div>
       <DropDownTitleModalContentDiv BG="true">
         <ul>
           <DropDownTitleLi>
             <DropDownTitleDiv>
-              <a className="left" href="/">
+              <Link to="/" className="left">
                 <DropDownColorSOColorImg CL="true" />
                 <DropDownItemSpan BOLD="true">Stack Overflow</DropDownItemSpan>
-              </a>
+              </Link>
             </DropDownTitleDiv>
             <DropDownTitleDiv>
-              <a className="right" href="/">
+              <Link to="/" className="right">
                 help
-              </a>
-              <a className="right" href="/">
+              </Link>
+              <Link to="/" className="right">
                 chat
-              </a>
-              <a className="right" onClick={logout} href="/">
+              </Link>
+              <Link to="/" onClick={logout} className="right">
                 log out
-              </a>
+              </Link>
             </DropDownTitleDiv>
           </DropDownTitleLi>
         </ul>
@@ -178,13 +184,13 @@ const HeaderDropDown = () => {
         <ul>
           <DropDownTitleLi>
             <DropDownTitleDiv>
-              <a className="left" href="/front/stack-overflow/public">
+              <Link to="/front/stack-overflow/public" className="left">
                 <DropDownLIconDiv>
                   <DropDownLIconSpan />
                 </DropDownLIconDiv>
                 <DropDownColorSOColorImg CL="false" />
                 <DropDownItemSpan>Meta Stack Overflow</DropDownItemSpan>
-              </a>
+              </Link>
             </DropDownTitleDiv>
           </DropDownTitleLi>
         </ul>
@@ -194,19 +200,19 @@ const HeaderDropDown = () => {
           <DropDownTitleA>your Communities</DropDownTitleA>
         </h3>
         <DropDownTitleDiv>
-          <a className="right" href="/front/stack-overflow/public">
+          <Link to="/front/stack-overflow/public" className="right">
             edit
-          </a>
+          </Link>
         </DropDownTitleDiv>
       </div>
       <DropDownTitleModalContentDiv BG="false">
         <ul>
           <DropDownTitleLi>
             <DropDownTitleDiv>
-              <a className="left" href="/front/stack-overflow/public">
+              <Link to="/front/stack-overflow/public" className="left">
                 <DropDownColorSOColorImg CL="true" />
                 <DropDownItemSpan BOLD="false">Stack Overflow</DropDownItemSpan>
-              </a>
+              </Link>
             </DropDownTitleDiv>
             <DropDownTitleDiv>
               <p>{reputation}</p>

@@ -81,7 +81,6 @@ const Article = () => {
       Refresh: cookies.access_jwt.Refresh,
     };
     await postQuestion("/answer", userInfo.userId, reqObject, cookieObject);
-    window.location.reload();
   };
 
   return (
@@ -107,8 +106,8 @@ const Article = () => {
                       <Aside votes={el.votes} />
                       <Content
                         content={el.content}
-                        name={question.name}
-                        id={question.useId}
+                        name={el.name}
+                        id={el.userId}
                       />
                     </>
                   );
