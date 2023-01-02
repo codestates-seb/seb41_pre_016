@@ -4,6 +4,7 @@ import List from "./List";
 import Sidebar from "./Sidebar";
 import { useEffect } from "react";
 import useStore from "../../store/SummaryStates";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 1100px;
@@ -49,7 +50,9 @@ const Questions = () => {
       <MainSection>
         <Headbar>
           <h1> All Questions </h1>
-          <BlueButton text="Ask Question" />
+          <Link to="/questions/ask">
+            <BlueButton text="Ask Question" />
+          </Link>
         </Headbar>
         <List />
       </MainSection>
