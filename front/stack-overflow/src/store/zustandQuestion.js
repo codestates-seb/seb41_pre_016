@@ -18,7 +18,7 @@ export const QuestionStore = create((set) => ({
         }
       )
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         alert("글이 등록 되었습니다");
       })
       .catch((err) => {
