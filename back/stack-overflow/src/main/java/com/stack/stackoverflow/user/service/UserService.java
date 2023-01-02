@@ -151,7 +151,8 @@ public class UserService {
     public boolean matchTokens(String access, String refresh) {
         List<UserPage> userPages = userPageRepository.findAll();
         for(UserPage userPage : userPages) {
-            if(userPage.getAccess().equals(access) && userPage.getRefresh().equals(refresh))
+            if(userPage.getAccess() == null || userPage.getRefresh() == null) continue;
+            else if(userPage.getAccess().equals(access) && userPage.getRefresh().equals(refresh))
                 return true;
         }
 
